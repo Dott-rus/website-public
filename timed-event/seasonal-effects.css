@@ -1,0 +1,450 @@
+/* Seasonal effects. */
+
+.leaf {
+    position: fixed;
+    pointer-events: none;
+    z-index: 2000;
+    animation: leafFall linear forwards;
+}
+
+/* Spring petals */
+.petal {
+    position: fixed;
+    pointer-events: none;
+    z-index: 2000;
+    animation: petalFall linear forwards;
+    filter: drop-shadow(0 0 10px rgba(255, 170, 220, 0.45));
+}
+
+@keyframes petalFall {
+    0% {
+        opacity: 0.9;
+        transform: translateY(0) rotate(0deg) translateX(0) scale(1);
+    }
+    25% {
+        transform: translateY(25vh) rotate(90deg) translateX(25px) scale(1.05);
+    }
+    50% {
+        transform: translateY(55vh) rotate(180deg) translateX(-20px) scale(0.95);
+    }
+    75% {
+        transform: translateY(80vh) rotate(260deg) translateX(18px) scale(0.9);
+    }
+    100% {
+        opacity: 0.5;
+        transform: translateY(110vh) rotate(360deg) translateX(-12px) scale(0.85);
+    }
+}
+
+/* Summer sparks */
+.sun-spark {
+    position: fixed;
+    pointer-events: none;
+    z-index: 2000;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff6b8 0%, #ffd75a 45%, #ffb300 100%);
+    box-shadow:
+        0 0 12px rgba(255, 220, 120, 0.9),
+        0 0 26px rgba(255, 170, 60, 0.6);
+    animation: sunFloat linear forwards;
+}
+
+@keyframes sunFloat {
+    0% {
+        opacity: 0;
+        transform: translateY(0) translateX(0) scale(0.6);
+    }
+    10% { opacity: 0.9; }
+    100% {
+        opacity: 0;
+        transform: translateY(-120vh) translateX(var(--drift)) scale(1.2);
+    }
+}
+
+@keyframes leafFall {
+    0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg) translateX(0);
+    }
+    25% {
+        transform: translateY(25vh) rotate(90deg) translateX(20px);
+    }
+    50% {
+        transform: translateY(50vh) rotate(180deg) translateX(-15px);
+    }
+    75% {
+        transform: translateY(75vh) rotate(270deg) translateX(18px);
+    }
+    100% {
+        opacity: 0.5;
+        transform: translateY(105vh) rotate(360deg) translateX(-10px);
+    }
+}
+
+.snowflake {
+    position: fixed;
+    pointer-events: none;
+    z-index: 2000;
+    background: radial-gradient(circle at 30% 30%, #ffffff 0%, #e8e8e8 50%, #d0d0d0 100%);
+    border-radius: 50%;
+    box-shadow:
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.4),
+        inset 0 0 5px rgba(255, 255, 255, 0.9);
+    animation: snowFall linear forwards;
+}
+
+@keyframes snowFall {
+    0% {
+        opacity: 1;
+        transform: translateY(0) translateX(0);
+    }
+    25% {
+        transform: translateY(25vh) translateX(10px);
+    }
+    50% {
+        transform: translateY(50vh) translateX(-8px);
+    }
+    75% {
+        transform: translateY(75vh) translateX(12px);
+    }
+    100% {
+        opacity: 0.3;
+        transform: translateY(105vh) translateX(-5px);
+    }
+}
+
+.fullscreen-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9998;
+    pointer-events: none;
+    animation: overlayFade 5s ease-out forwards;
+}
+
+.fullscreen-overlay.autumn {
+    background: radial-gradient(ellipse at center, rgba(255,150,50,0.25) 0%, rgba(0,0,0,0.4) 100%);
+}
+
+.fullscreen-overlay.winter {
+    background: radial-gradient(ellipse at center, rgba(100,180,255,0.25) 0%, rgba(0,0,0,0.4) 100%);
+}
+
+.fullscreen-overlay.summer {
+    background: radial-gradient(ellipse at center, rgba(255,220,120,0.28) 0%, rgba(0,0,0,0.35) 100%);
+}
+
+.fullscreen-overlay.birthday {
+    background: radial-gradient(ellipse at center, rgba(255,120,180,0.25) 0%, rgba(0,0,0,0.35) 100%);
+}
+
+@keyframes overlayFade {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.hero-element {
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    animation: heroFly 4s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+.hero-element.autumn {
+    font-size: 20px;
+    filter: drop-shadow(0 0 30px rgba(255, 150, 50, 0.9));
+}
+
+.hero-element.winter {
+    filter: drop-shadow(0 0 40px rgba(150, 200, 255, 1));
+}
+
+.hero-element.summer {
+    filter: drop-shadow(0 0 50px rgba(255, 210, 110, 1));
+}
+
+.hero-snowflake {
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle at 30% 30%, #ffffff 0%, #e0f0ff 50%, #a0d0ff 100%);
+    border-radius: 50%;
+    box-shadow:
+        0 0 30px rgba(255, 255, 255, 1),
+        0 0 60px rgba(150, 200, 255, 0.8),
+        0 0 100px rgba(100, 150, 255, 0.5),
+        inset 0 0 20px rgba(255, 255, 255, 1);
+    position: relative;
+}
+
+.hero-snowflake::before,
+.hero-snowflake::after {
+    content: '';
+    position: absolute;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 50%, transparent 100%);
+}
+
+.hero-snowflake::before {
+    width: 100%;
+    height: 20%;
+    top: 40%;
+    left: 0;
+}
+
+.hero-snowflake::after {
+    width: 20%;
+    height: 100%;
+    top: 0;
+    left: 40%;
+}
+
+.hero-sun {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff7c2 0%, #ffd75a 45%, #ffae00 100%);
+    box-shadow:
+        0 0 40px rgba(255, 224, 150, 0.9),
+        0 0 80px rgba(255, 180, 80, 0.6),
+        inset 0 0 10px rgba(255, 255, 255, 0.6);
+    position: relative;
+}
+
+.hero-sun::before,
+.hero-sun::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 160%;
+    height: 160%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(255, 220, 120, 0.5);
+}
+
+.hero-sun::after {
+    width: 220%;
+    height: 220%;
+    border-color: rgba(255, 180, 60, 0.35);
+}
+
+@keyframes heroFly {
+    0% {
+        left: -100px;
+        bottom: -100px;
+        transform: rotate(-45deg) scale(1);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    40% {
+        left: 35%;
+        bottom: 50%;
+        transform: rotate(15deg) scale(9);
+    }
+    60% {
+        left: 65%;
+        bottom: 55%;
+        transform: rotate(-10deg) scale(10);
+    }
+    75% {
+        left: 85%;
+        bottom: 40%;
+        transform: rotate(20deg) scale(7);
+        opacity: 1;
+    }
+    100% {
+        left: 100%;
+        bottom: -50%;
+        transform: rotate(180deg) scale(4);
+        opacity: 0;
+    }
+}
+
+.trail-element {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    animation: trailMove 3s ease-out forwards;
+}
+
+.trail-snowflake {
+    background: radial-gradient(circle at 30% 30%, #ffffff 0%, #e0f0ff 50%, #a0d0ff 100%);
+    border-radius: 50%;
+    box-shadow:
+        0 0 15px rgba(255, 255, 255, 0.9),
+        0 0 30px rgba(150, 200, 255, 0.6);
+}
+
+.trail-spark {
+    background: radial-gradient(circle at 30% 30%, #fff8c8 0%, #ffd864 55%, #ffb300 100%);
+    border-radius: 50%;
+    box-shadow:
+        0 0 18px rgba(255, 220, 120, 0.9),
+        0 0 30px rgba(255, 170, 60, 0.6);
+}
+
+@keyframes trailMove {
+    0% {
+        opacity: 0;
+        transform: scale(0.3) rotate(0deg);
+    }
+    20% {
+        opacity: 0.8;
+        transform: scale(1) rotate(45deg);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.5) rotate(360deg) translateY(300px);
+    }
+}
+
+.event-text {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3.5rem;
+    font-weight: bold;
+    z-index: 10001;
+    opacity: 0;
+    animation: textAppear 4s ease-out forwards;
+    animation-delay: 1s;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.event-text-subtitle {
+    font-size: 1.8rem;
+}
+
+.event-text.autumn {
+    color: #ff9933;
+    text-shadow: 0 0 20px rgba(255, 153, 51, 0.8), 0 0 40px rgba(255, 100, 0, 0.5), 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.event-text.winter {
+    color: #a0d8ff;
+    text-shadow: 0 0 20px rgba(100, 180, 255, 0.8), 0 0 40px rgba(50, 150, 255, 0.5), 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.event-text.summer {
+    color: #ffe08a;
+    text-shadow: 0 0 20px rgba(255, 210, 120, 0.9), 0 0 40px rgba(255, 170, 60, 0.6), 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.event-text.birthday {
+    color: #ff8ccf;
+    text-shadow: 0 0 22px rgba(255, 140, 207, 0.9), 0 0 44px rgba(255, 100, 190, 0.6), 0 4px 15px rgba(0,0,0,0.5);
+}
+
+@keyframes textAppear {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+    30% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+    50% { transform: translate(-50%, -50%) scale(1); }
+    70% { opacity: 1; }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+}
+
+.rain-element {
+    position: fixed;
+    top: -60px;
+    pointer-events: none;
+    z-index: 9999;
+    animation: rainFall 3s ease-in forwards;
+}
+
+.rain-snowflake {
+    background: radial-gradient(circle at 30% 30%, #ffffff 0%, #e0f0ff 50%, #a0d0ff 100%);
+    border-radius: 50%;
+    box-shadow:
+        0 0 10px rgba(255, 255, 255, 0.9),
+        0 0 20px rgba(150, 200, 255, 0.5);
+}
+
+.spark-element {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff6c0 0%, #ffd15a 55%, #ffad00 100%);
+    box-shadow:
+        0 0 12px rgba(255, 210, 120, 0.9),
+        0 0 28px rgba(255, 160, 60, 0.6);
+    animation: sparkRise linear forwards;
+}
+
+/* Birthday confetti */
+.confetti {
+    position: fixed;
+    top: -12px;
+    pointer-events: none;
+    z-index: 10002;
+    border-radius: 2px;
+    animation: confettiFall linear forwards;
+    will-change: transform, opacity;
+}
+
+@keyframes confettiFall {
+    0% {
+        opacity: 0.95;
+        transform: translateY(0) translateX(0) rotate(0deg);
+    }
+    100% {
+        opacity: 0.2;
+        transform: translateY(115vh) translateX(var(--drift)) rotate(var(--spin));
+    }
+}
+
+@keyframes sparkRise {
+    0% {
+        opacity: 0;
+        transform: translateY(0) translateX(0) scale(0.5);
+    }
+    15% { opacity: 1; }
+    100% {
+        opacity: 0;
+        transform: translateY(-120vh) translateX(var(--drift)) scale(1.1);
+    }
+}
+
+@keyframes rainFall {
+    0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+    }
+    100% {
+        opacity: 0.3;
+        transform: translateY(110vh) rotate(720deg);
+    }
+}
+
+@media (max-width: 720px) {
+    .event-text {
+        font-size: 2.2rem;
+        white-space: normal;
+        max-width: 90vw;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .leaf,
+    .petal,
+    .sun-spark,
+    .snowflake,
+    .fullscreen-overlay,
+    .hero-element,
+    .trail-element,
+    .event-text,
+    .rain-element,
+    .spark-element,
+    .confetti {
+        display: none !important;
+        animation: none !important;
+    }
+}

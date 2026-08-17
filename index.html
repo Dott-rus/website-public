@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- <meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+
+  script-src 'self' https://status.cafe 'unsafe-inline';
+  style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
+  font-src https://fonts.gstatic.com;
+
+  img-src 'self' https://gravatar.com https://status.cafe https://lastfm.freetls.fastly.net https://coverartarchive.org https://archive.org data:;
+  connect-src 'self' https://ws.audioscrobbler.com https://api.listenbrainz.org https://status.cafe https://mood.somedott.space;
+
+  frame-src https://dimden.neocities.org https://dimden.dev;
+
+  object-src 'none';
+  base-uri 'self';
+"> -->
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dott's personal web corner: music, mood, projects, photos and whatever is happening now.">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <title>Dott's website</title>
+
+
+  <link rel="stylesheet" href="/timed-event/snow.css">
+  <link rel="stylesheet" href="/timed-event/seasonal-effects.css">
+</head>
+<body>
+  <script>
+    window.__birthdayConfig = { month: 2, day: 19 };
+  </script>
+  <script src="/timed-event/seasonal-effects.js" defer></script>
+  <div class="container">
+    <div id="sidebar-container" class="left-col ibm-plex-mono-light" data-layout="sidebar">
+      <!-- Sidebar will be loaded here -->
+    </div>
+  
+    <div class="cent-col">
+      <a class="greeting ibm-plex-mono-bold">Hey! Welcome to my [IDKWhatToWriteHere]</a>
+  
+      <fieldset class="about-field ibm-plex-mono-medium">
+        <legend>About me</legend>
+      
+        <div class="info-me">
+          <img
+            src="https://gravatar.com/avatar/cc9205eeaa3c7d7b4d3b59b4383eea3f3816d6c0f8108c3d51d17b8e39f7487e.jpeg?size=256"
+            alt="Avatar">
+          <div>
+  Hi! Welcome to my little web place.<br><br>
+  I do web dev, Python, sometimes make music and draw,
+  and apparently a lot of homelab stuff now
+  (still love my Raspberry Pi).<br><br>
+  <span>This site is always being built, so check back later :)</span>
+</div>
+        </div>
+      </fieldset>
+      
+
+      <fieldset class="music-field ibm-plex-mono-medium">
+        <legend>
+          Current track / last track
+          <span class="music-source-switcher">
+            [<button type="button" id="music-source-toggle" class="link source-toggle">Last.fm</button>]
+          </span>
+        </legend>
+        <a class="info-me" style="display: flex;">
+          <script src="/js/last.fm.js" defer></script>
+          <img class="cover" id="album-cover" style="width: 150px; height: 150px; display: flex; margin-right: 10px;" alt="loading">
+          <div class="musicplayer-container">
+            <div class="text-cont">
+              <h1 class="track" id="track-title">Track Title is loading</h1>
+              <p class="artist" id="artist-name">Artist Name is loading</p>
+              <p class="album" id="album-title">Album title is loading</p>
+              <p class="album" id="music-source-meta">Loading source...</p>
+            </div>
+          </div>
+        </a>
+      </fieldset>
+
+      <fieldset class="ibm-plex-mono-medium mood-field">
+        <legend>Mood (inspired by <a href="https://dimden.dev" class="link">dimden</a>)</legend>
+        <div id="mood-div" class="mood-row">
+          <img id="mood-emoji" src="/img/mood/neutral.png" alt="Mood emoji">
+          <div>
+            <div id="mood">loading...</div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="ibm-plex-mono-medium thoughts-field">
+        <legend>My thoughts from <a href="https://status.cafe"><img style="vertical-align: middle; width: 88px; height: 31px;" src="https://status.cafe/assets/button.png" alt="Status Cafe"/></a></legend>
+        <div id="statuscafe"><div id="statuscafe-username"></div><div id="statuscafe-content"></div></div><script src="https://status.cafe/current-status.js?name=somedott" defer></script>
+      </fieldset>
+    </div>
+  
+    <div class="right-col ibm-plex-mono-light" data-layout="right-home">
+      <!-- Right sidebar will be loaded here -->
+    </div>
+  </div>
+  
+  <div id="footer-container" data-layout="footer">
+    <!-- Footer will be loaded here -->
+  </div>
+
+  <aside
+    id="metaphor-shame"
+    class="metaphor-shame ibm-plex-mono-regular"
+    data-purchased="2025-03-16"
+    aria-live="polite">
+    <span>
+      I paid for Metaphor: ReFantazio and still haven't opened it. I'm a dumbass.<span data-metaphor-days></span>
+    </span>
+    <button class="metaphor-shame-close" type="button" aria-label="Hide this reminder">×</button>
+  </aside>
+  
+  <script src="/js/mood.js" defer></script>
+  <script src="/js/components.js"></script>
+  <script>
+    (() => {
+      const reminder = document.getElementById('metaphor-shame');
+      const storageKey = 'metaphor_shame_widget_hidden';
+      try {
+        if (localStorage.getItem(storageKey)) {
+          reminder.remove();
+          return;
+        }
+      } catch {}
+
+      const purchased = Date.parse(reminder.dataset.purchased);
+      if (!Number.isNaN(purchased)) {
+        const days = Math.max(0, Math.floor((Date.now() - purchased) / 86400000));
+        reminder.querySelector('[data-metaphor-days]').textContent = ` (Day ${days})`;
+      }
+
+      reminder.querySelector('.metaphor-shame-close').addEventListener('click', () => {
+        try { localStorage.setItem(storageKey, '1'); } catch {}
+        reminder.remove();
+      });
+    })();
+  </script>
+</body>
+</html>

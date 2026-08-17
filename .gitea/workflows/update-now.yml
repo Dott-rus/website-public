@@ -1,0 +1,141 @@
+name: Update site status
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: What to update
+        required: true
+        default: now
+        type: choice
+        options:
+          - now
+          - feed
+      doing:
+        description: New Doing value; leave empty to keep it unchanged
+        required: false
+        type: string
+      consuming:
+        description: New Consuming value; leave empty to keep it unchanged
+        required: false
+        type: string
+      note:
+        description: New Note value; leave empty to keep it unchanged
+        required: false
+        type: string
+      clear_doing:
+        description: Clear Doing
+        required: false
+        default: false
+        type: boolean
+      clear_consuming:
+        description: Clear Consuming
+        required: false
+        default: false
+        type: boolean
+      clear_note:
+        description: Clear Note
+        required: false
+        default: false
+        type: boolean
+      feed_type:
+        description: "Feed type: project, photo, note, life, site or collection"
+        required: false
+        type: string
+      feed_title:
+        description: Feed entry title
+        required: false
+        type: string
+      feed_body:
+        description: Feed entry text
+        required: false
+        type: string
+      feed_href:
+        description: Optional root-relative or HTTPS link
+        required: false
+        type: string
+      feed_link_label:
+        description: Optional link text; defaults to Open
+        required: false
+        type: string
+      feed_date:
+        description: Optional date or ISO timestamp; defaults to now
+        required: false
+        type: string
+      feed_id:
+        description: Optional URL-safe ID; generated automatically when empty
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: shybit-forge
+    timeout-minutes: 5
+    steps:
+      - name: Check out v2
+        uses: actions/checkout@v4
+        with:
+          ref: v2
+          fetch-depth: 0
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Apply update
+        env:
+          UPDATE_MODE: ${{ inputs.mode }}
+          NOW_DOING: ${{ inputs.doing }}
+          NOW_CONSUMING: ${{ inputs.consuming }}
+          NOW_NOTE: ${{ inputs.note }}
+          NOW_CLEAR_DOING: ${{ inputs.clear_doing }}
+          NOW_CLEAR_CONSUMING: ${{ inputs.clear_consuming }}
+          NOW_CLEAR_NOTE: ${{ inputs.clear_note }}
+          FEED_TYPE: ${{ inputs.feed_type }}
+          FEED_TITLE: ${{ inputs.feed_title }}
+          FEED_BODY: ${{ inputs.feed_body }}
+          FEED_HREF: ${{ inputs.feed_href }}
+          FEED_LINK_LABEL: ${{ inputs.feed_link_label }}
+          FEED_DATE: ${{ inputs.feed_date }}
+          FEED_ID: ${{ inputs.feed_id }}
+        shell: bash
+        run: |
+          if [[ "$UPDATE_MODE" == "feed" ]]; then
+            node scripts/add-feed.mjs
+          else
+            node scripts/update-now.mjs
+          fi
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Check for an effective change
+        id: changes
+        shell: bash
+        run: |
+          if git diff --quiet -- content/now.json content/feed.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Nothing changed; no commit is needed."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit and push
+        if: steps.changes.outputs.changed == 'true'
+        shell: bash
+        run: |
+          git config user.name "Shybit's Forge"
+          git config user.email "shybit-forge@users.noreply.mira.somedott.space"
+          git add content/now.json content/feed.json
+          if git diff --cached --quiet -- content/feed.json; then
+            git commit -m "Update NOW from Tasker"
+          else
+            git commit -m "Add Feed entry"
+          fi
+          git pull --rebase origin v2
+          git push origin HEAD:v2

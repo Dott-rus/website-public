@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <title>Owner setup — Dott's website</title>
+</head>
+<body>
+  <main class="owner-setup-page ibm-plex-mono-medium">
+    <fieldset>
+      <legend>Owner browser</legend>
+      <p>Mark this browser as Dott's. It will not be included in the public visitor counter.</p>
+      <form id="owner-setup-form">
+        <label for="owner-token">Presence admin token</label>
+        <input
+          id="owner-token"
+          name="token"
+          type="password"
+          required
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false">
+        <button type="submit">Mark as owner</button>
+      </form>
+      <p id="owner-setup-result" class="owner-setup-result" aria-live="polite"></p>
+      <a class="link" href="/">← Back home</a>
+    </fieldset>
+  </main>
+  <script src="/js/owner-setup.js" defer></script>
+</body>
+</html>

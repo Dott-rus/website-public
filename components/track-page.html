@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{page_description}}">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+  <title>{{page_title}}</title>
+</head>
+<body>
+  <div class="container">
+    <div id="sidebar-container" class="left-col ibm-plex-mono-light" data-layout="sidebar">
+      <!-- Sidebar will be loaded here -->
+    </div>
+
+    <div class="cent-col">
+      <div class="track-page-heading">
+        <a class="greeting link ibm-plex-mono-bold" href="/tracks/">← All tracks</a>
+        {{{draft_badge}}}
+      </div>
+
+      <fieldset class="track-details ibm-plex-mono-medium">
+        <legend>{{title}}</legend>
+
+        {{{cover_markup}}}
+
+        <dl class="track-facts">
+          <div><dt>Artist</dt><dd>{{artist}}</dd></div>
+          <div><dt>Album</dt><dd>{{album}}</dd></div>
+          <div><dt>Released</dt><dd>{{{released_markup}}}</dd></div>
+          <div><dt>Duration</dt><dd>{{duration}}</dd></div>
+        </dl>
+
+        <p class="track-description">{{description}}</p>
+      </fieldset>
+    </div>
+
+    <div class="right-col ibm-plex-mono-light" data-layout="right-track">
+      <!-- Spotify embed will be generated here -->
+    </div>
+  </div>
+
+  <div id="footer-container" data-layout="footer">
+    <!-- Footer will be loaded here -->
+  </div>
+
+  <script src="/js/components.js"></script>
+</body>
+</html>

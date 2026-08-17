@@ -1,0 +1,11 @@
+[
+  {
+    "id": "first-dental-filling",
+    "type": "life",
+    "date": "2025-08-25",
+    "title": "First dental filling",
+    "body": "My first dental filling.",
+    "href": "/about/",
+    "linkLabel": "From the about page"
+  }
+]

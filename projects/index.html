@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Public projects and repositories made or maintained by Dott.">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  
+  <title>Projects — somedott.space</title>
+</head>
+<body>
+  <div class="container">
+    <div id="sidebar-container" class="left-col ibm-plex-mono-light" data-layout="sidebar">
+      <!-- Sidebar will be loaded here -->
+    </div>
+  
+    <main class="cent-col">
+      <h1 class="project-heading greeting ibm-plex-mono-bold">My GitHub projects</h1>
+
+      <fieldset class="ibm-plex-mono-medium">
+        <legend>Stuff worth looking at</legend>
+        <div id="featured-projects-status" class="project-state" aria-live="polite"></div>
+        <div id="featured-projects-container" class="project-list" aria-busy="false"></div>
+      </fieldset>
+  
+      <fieldset class="ibm-plex-mono-medium">
+        <legend>Public repositories</legend>
+        <div id="projects-status" class="project-state" aria-live="polite" tabindex="-1"></div>
+        <div id="projects-container" class="project-list" aria-busy="false"></div>
+        <noscript>
+          <p class="project-state project-state--error">JavaScript is required to load repositories from GitHub.</p>
+        </noscript>
+      </fieldset>
+    </main>
+  
+    <div class="right-col ibm-plex-mono-light" data-layout="right-projects">
+      <!-- Right sidebar will be loaded here -->
+    </div>
+  </div>
+  
+  <div id="footer-container" data-layout="footer">
+    <!-- Footer will be loaded here -->
+  </div>
+  
+  <script src="/js/components.js" defer></script>
+  <script src="/js/projects.js" defer></script>
+</body>
+</html>

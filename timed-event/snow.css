@@ -1,0 +1,15 @@
+/* Simple full-screen canvas for snow */
+#snow-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+    mix-blend-mode: normal;
+}
+
+/* Honor users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    #snow-canvas { display: none; }
+}

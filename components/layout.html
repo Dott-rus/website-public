@@ -1,0 +1,101 @@
+<!--
+  Shared site chrome.
+
+  To add a new right sidebar, create another template here and use its
+  data-layout value on the page's right sidebar container.
+-->
+<template data-layout="sidebar">
+  <link rel="stylesheet" href="/css/wavy-text.css">
+  <ul style="list-style: none;">
+    <li style="font-weight: bold; margin-top: 10px;">─ Text things ─</li>
+    <li>┌<a href="/">Home</a></li>
+    <li>█ <a href="/feed/">Everything feed</a></li>
+    <li>█ <a href="/about">About me</a></li>
+    <li>█ <a href="//notes.somedott.space">Zametki(RUS ONLY)</a></li>
+
+    <li style="display: flex;">█ <a href="https://somedott.atabook.org" class="wave-text" style="padding-left: 9px;"><span>G</span><span>u</span><span>e</span><span>s</span><span>t</span><span>b</span><span>o</span><span>o</span><span>k</span></a></li>
+
+    <li style="font-weight: bold; margin-top: 10px;">─ My creations ─</li>
+    <li>█ <a href="/projects">Projects</a></li>
+    <li>█ <a href="/tracks">Tracks</a></li>
+    <li>█ <a href="/stuff/">Stuff</a></li>
+    <li>█ <a href="https://album.somedott.space">Photos</a></li>
+
+    <li style="font-weight: bold; margin-top: 10px;">─ Other ─</li>
+    <li>█ <a href="/buttons">Buttons</a></li>
+    <li>█ <a href="/now/" id="random-page-link" data-random-routes='{{{random_routes}}}'>Random rabbit hole</a></li>
+    <br>
+    <iframe width="180" height="180" style="border: none" src="https://dimden.dev/moon?custom=1&amp;textColor=%23ffffff&amp;linkColor=%23ffffff" name="dimdenmoonwidget" title="Moon phase" loading="lazy"></iframe>
+  </ul>
+</template>
+
+<template data-layout="right-home">
+  <section class="presence-panel" aria-labelledby="presence-heading">
+    <h2 id="presence-heading">STATUS</h2>
+    <p id="presence-status" class="presence-status" data-status="loading" aria-live="polite">
+      <span class="presence-dot" aria-hidden="true"></span>
+      <span id="presence-text">Checking...</span>
+    </p>
+  </section>
+  <section class="now-panel" aria-labelledby="now-heading">
+    <h2 id="now-heading">NOW</h2>
+    {{{now_home}}}
+  </section>
+  <iframe width="180" height="180" style="border:none" src="https://dimden.neocities.org/navlink/" name="neolink" title="Neocities links" loading="lazy"></iframe>
+</template>
+
+<template data-layout="right-now">
+  Previously on NOW...<br>
+  <p>The latest 500 changes live here. Older ones still exist in Git.</p>
+  <iframe width="180" height="180" style="border:none" src="https://dimden.neocities.org/navlink/" name="neolink" title="Neocities links" loading="lazy"></iframe>
+</template>
+
+<template data-layout="right-about">
+  RIGHT COL<br>
+  <iframe width="180" height="180" style="border:none" src="https://dimden.neocities.org/navlink/" name="neolink" title="Neocities links" loading="lazy"></iframe>
+</template>
+
+<template data-layout="right-buttons">
+  <iframe width="180" height="180" style="border:none" src="https://dimden.neocities.org/navlink/" name="neolink" title="Neocities links" loading="lazy"></iframe>
+</template>
+
+<template data-layout="right-projects">
+  GitHub repos<br>
+  <p>Public repositories, recently touched first. Forks are omitted.</p>
+  <iframe width="180" height="180" style="border:none" src="https://dimden.neocities.org/navlink/" name="neolink" title="Neocities links" loading="lazy"></iframe>
+</template>
+
+<template data-layout="right-tracks">
+  Music by someDott<br>
+  <p>Some releases, newest first.</p>
+  <iframe width="180" height="180" style="border:none" src="https://dimden.neocities.org/navlink/" name="neolink" title="Neocities links" loading="lazy"></iframe>
+</template>
+
+<template data-layout="right-feed">
+  Everything mixed together.<br>
+  <p>Newest stuff goes first.</p>
+  <a class="link" href="/now/">NOW archive →</a>
+</template>
+
+<template data-layout="right-stuff">
+  Media pile.<br>
+  <p>Finished, paused, dropped, owned or waiting.</p>
+</template>
+
+<template data-layout="right-track">
+  {{{spotify_embed}}}
+</template>
+
+<template data-layout="right-not-found">
+  No signal here.<br>
+  Try another route :)
+</template>
+
+<template data-layout="footer">
+  <footer style="margin: auto; text-align: center; margin-top: 4px;" class="ibm-plex-mono-light">
+    <span>Made by </span><img src="/Button.png" alt="dott" style="vertical-align: middle">
+    <span class="footer-separator" aria-hidden="true"> · </span>
+    <span id="visitor-counter">visitor no. ------</span>
+  </footer>
+  <script src="/js/site-state.js" defer></script>
+</template>

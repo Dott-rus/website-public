@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#222222">
+  <title>Dott's room display</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body class="ibm-plex-mono-regular tv-body">
+  <main class="tv-shell">
+    <header class="tv-head">
+      <div><span class="tv-eyebrow">DOTT'S ROOM</span><div id="date" class="tv-date">—</div></div>
+      <div class="tv-head-right"><div id="clock" class="tv-clock">--:--</div><div id="local-link" class="tv-link is-offline"><span class="tv-dot"></span> dotlap</div></div>
+    </header>
+
+    <section id="offline" class="tv-card tv-offline">
+      <div class="tv-eyebrow">LOCAL LINK</div><h1>dotlap is sleeping?</h1><p>Waiting for 127.0.0.1:8787</p>
+    </section>
+
+    <section id="dashboard" class="tv-grid" hidden>
+      <fieldset class="music-field tv-card tv-now">
+        <legend>Now playing</legend>
+        <div class="tv-now-inner">
+          <img id="track-cover" class="tv-cover" alt="Album cover">
+          <div class="tv-track-copy"><h1 id="track-title">Nothing playing</h1><div id="track-artist" class="tv-artist">—</div><div id="track-album" class="tv-sub">—</div></div>
+        </div>
+        <div class="tv-progress"><span id="track-progress"></span></div>
+        <div class="tv-progress-meta"><span id="media-state">idle</span><span id="track-time">—</span></div>
+      </fieldset>
+
+      <fieldset class="about-field tv-card tv-system">
+        <legend>dotlap</legend>
+        <div class="tv-hero-stats">
+          <div><span>CPU</span><strong id="cpu">--%</strong><small id="cpu-temp">—</small></div>
+          <div><span>GPU</span><strong id="gpu">--%</strong><small id="gpu-temp">—</small></div>
+          <div><span>RAM</span><strong id="ram">--%</strong><small id="ram-detail">—</small></div>
+          <div><span>BAT</span><strong id="battery">--%</strong><small id="battery-state">—</small></div>
+        </div>
+        <div class="tv-bars">
+          <div><span>root</span><div class="tv-meter"><i id="disk-bar"></i></div><b id="disk">—</b></div>
+          <div><span>/home</span><div class="tv-meter"><i id="home-bar"></i></div><b id="home-disk">—</b></div>
+          <div><span>vram</span><div class="tv-meter"><i id="vram-bar"></i></div><b id="vram">—</b></div>
+        </div>
+      </fieldset>
+
+      <fieldset class="mood-field tv-card tv-network">
+        <legend>Network</legend>
+        <div class="tv-net-rate"><div><span>↓</span><strong id="rx-rate">—</strong></div><div><span>↑</span><strong id="tx-rate">—</strong></div></div>
+        <div class="tv-sub" id="network">—</div>
+      </fieldset>
+
+      <fieldset class="thoughts-field tv-card tv-machine">
+        <legend>Machine</legend>
+        <div class="tv-lines"><div><span>uptime</span><b id="uptime">—</b></div><div><span>load</span><b id="load">—</b></div><div><span>kernel</span><b id="kernel">—</b></div><div><span>swap</span><b id="swap">—</b></div><div><span>GPU power</span><b id="gpu-power">—</b></div></div>
+      </fieldset>
+
+      <fieldset class="thoughts-field tv-card tv-processes">
+        <legend>Busy with</legend><div id="process-list" class="tv-procs">—</div>
+      </fieldset>
+
+      <footer class="tv-footer"><span id="hostname">dotlap</span> · <span id="os">CachyOS</span> · local data only <span class="tv-footer-right" id="last-update">—</span></footer>
+    </section>
+  </main>
+  <script src="/js/dashboard.js" defer></script>
+</body>
+</html>

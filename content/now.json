@@ -1,0 +1,150 @@
+{
+  "current": {
+    "doing": "Set up SSO for my services (TBH IDK why)",
+    "consuming": null,
+    "note": "Also renamed a lot of things\nmira = my Gitea instance;\ncove = copyparty;\niris = SSO;\nMaybe I have a lot of time... 😑",
+    "updatedAt": "2026-08-17T00:36:59.420Z"
+  },
+  "history": [
+    {
+      "at": "2026-08-17T00:36:59.420Z",
+      "changes": {
+        "doing": "Set up SSO for my services (TBH IDK why)",
+        "note": "Also renamed a lot of things\nmira = my Gitea instance;\ncove = copyparty;\niris = SSO;\nMaybe I have a lot of time... 😑"
+      }
+    },
+    {
+      "at": "2026-08-12T10:33:29.969Z",
+      "changes": {
+        "doing": "Cleaning my room",
+        "consuming": null,
+        "note": "Yep it's working! Shybit thank you for your service!"
+      }
+    },
+    {
+      "at": "2026-08-11T23:10:04.272Z",
+      "changes": {
+        "doing": "Testing gitea CI/CD"
+      }
+    },
+    {
+      "at": "2026-08-07T23:43:56.676Z",
+      "changes": {
+        "doing": "Resting at home",
+        "consuming": "... water i guess",
+        "note": "12k of steps!!"
+      }
+    },
+    {
+      "at": "2026-08-07T21:26:02.157Z",
+      "changes": {
+        "doing": "Walikng",
+        "consuming": "beer",
+        "note": "one 4.5; .5 idk; .25 idk"
+      }
+    },
+    {
+      "at": "2026-08-07T09:20:31.710Z",
+      "changes": {
+        "doing": "Nothing",
+        "note": "Tempracure is SO FUCKING HOTT... just kill me 😊"
+      }
+    },
+    {
+      "at": "2026-08-06T05:56:03.636Z",
+      "changes": {
+        "note": "GOOD MORNING NIGHT CITY! Oops wrong one!"
+      }
+    },
+    {
+      "at": "2026-08-05T10:54:50.186Z",
+      "changes": {
+        "note": "Arrived at [REDACTED]"
+      }
+    },
+    {
+      "at": "2026-08-04T18:09:49.104Z",
+      "changes": {
+        "note": "Look at the sky\nI'm still here\nI'll be alive next year"
+      }
+    },
+    {
+      "at": "2026-08-04T17:22:49.873Z",
+      "changes": {
+        "note": "I'am still alive!"
+      }
+    },
+    {
+      "at": "2026-08-02T18:03:20.367Z",
+      "changes": {
+        "doing": null,
+        "consuming": null,
+        "note": "Just arrived at spot. Weather is amazing and internet is working! Amazing!"
+      }
+    },
+    {
+      "at": "2026-08-02T13:52:07.407Z",
+      "changes": {
+        "doing": "Ummm... traveling",
+        "consuming": "some Soviet Movies",
+        "note": "The Adventure has begun"
+      }
+    },
+    {
+      "at": "2026-08-01T22:10:50.598Z",
+      "changes": {
+        "doing": "Chillin"
+      }
+    },
+    {
+      "at": "2026-08-01T15:44:04.071Z",
+      "changes": {
+        "doing": "Resting before packing up bags",
+        "consuming": null
+      }
+    },
+    {
+      "at": "2026-08-01T08:13:42.336Z",
+      "changes": {
+        "doing": "Packing things for yearly adventure",
+        "consuming": "Food",
+        "note": null
+      }
+    },
+    {
+      "at": "2026-08-01T01:38:17.602Z",
+      "changes": {
+        "doing": "Trying to get some sleep...",
+        "note": "I kinda like how my web-corner looks and works!"
+      }
+    },
+    {
+      "at": "2026-08-01T00:59:42.448Z",
+      "changes": {
+        "doing": "Nothing... 🫡",
+        "note": "Perhabs this is first real (not test) note here.\n\nBtw, i kinda wish that\nMut\nti\nline\nis working"
+      }
+    },
+    {
+      "at": "2026-08-01T00:52:08.210Z",
+      "changes": {
+        "doing": null,
+        "consuming": null,
+        "note": null
+      }
+    },
+    {
+      "at": "2026-08-01T00:45:14.809Z",
+      "changes": {
+        "note": "Just checking remaining field ;3"
+      }
+    },
+    {
+      "at": "2026-07-31T22:59:08.175Z",
+      "changes": {
+        "doing": "Testing sender for this thing",
+        "consuming": "Music"
+      }
+    }
+  ]
+}

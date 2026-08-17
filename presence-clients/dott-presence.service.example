@@ -1,0 +1,15 @@
+[Unit]
+Description=Dott website presence heartbeat
+After=graphical-session.target network-online.target
+Wants=network-online.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+EnvironmentFile=%h/.config/dott-presence.env
+ExecStart=/usr/bin/env bash @SCRIPT_PATH@/linux-kde.sh
+Restart=on-failure
+RestartSec=15
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="One stream for Dott's music, projects, photos, notes, stuff and everyday life.">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <title>Everything feed — somedott.space</title>
+</head>
+<body>
+  <div class="container">
+    <div id="sidebar-container" class="left-col ibm-plex-mono-light" data-layout="sidebar">
+      <!-- Sidebar will be loaded here -->
+    </div>
+
+    <main class="cent-col ibm-plex-mono-medium">
+      <h1 class="greeting ibm-plex-mono-bold">Everything feed</h1>
+      <p class="simple-page-intro">Tracks, projects, photos, notes and random life stuff, in one place.</p>
+
+      <p class="feed-source-links">
+        [<a class="link" href="/now/">NOW</a>]
+        [<a class="link" href="/tracks/">tracks</a>]
+        [<a class="link" href="/projects/">projects</a>]
+        [<a class="link" href="https://album.somedott.space/">photos ↗</a>]
+        [<a class="link" href="https://notes.somedott.space/">zametki ↗</a>]
+        [<a class="link" href="/stuff/">stuff</a>]
+      </p>
+
+      <fieldset class="feed-field">
+        <legend>The stream</legend>
+        <div class="simple-feed-toolbar" aria-label="Filter feed">
+          {{{feed_filters}}}
+        </div>
+        <p id="feed-result-status" class="simple-feed-status" aria-live="polite"></p>
+        <ol id="feed-stream" class="simple-feed-stream">
+          {{{feed_items}}}
+        </ol>
+      </fieldset>
+    </main>
+
+    <aside class="right-col ibm-plex-mono-light" data-layout="right-feed">
+      <!-- Right sidebar will be loaded here -->
+    </aside>
+  </div>
+
+  <div id="footer-container" data-layout="footer">
+    <!-- Footer will be loaded here -->
+  </div>
+
+  <script src="/js/components.js"></script>
+  <script src="/js/feed.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Stuff Dott is playing, finishing, pausing, dropping, collecting or saving for later.">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <title>Stuff — somedott.space</title>
+</head>
+<body>
+  <div class="container">
+    <div id="sidebar-container" class="left-col ibm-plex-mono-light" data-layout="sidebar">
+      <!-- Sidebar will be loaded here -->
+    </div>
+
+    <main class="cent-col ibm-plex-mono-medium">
+      <h1 class="greeting ibm-plex-mono-bold">Stuff</h1>
+      <p class="simple-page-intro">Things I play, watch, listen to, finish, pause, drop or leave for later.</p>
+
+      <nav class="simple-collection-index" aria-label="Stuff sections">
+        {{{collection_index}}}
+      </nav>
+
+      <fieldset class="stuff-filter-field">
+        <legend>Filter by state</legend>
+        <div class="stuff-toolbar" aria-label="Filter stuff by state">
+          {{{stuff_filters}}}
+        </div>
+        <p id="stuff-result-status" class="stuff-result-status" aria-live="polite"></p>
+      </fieldset>
+
+      <div id="stuff-groups" class="simple-collection-groups">
+        {{{collections}}}
+      </div>
+    </main>
+
+    <aside class="right-col ibm-plex-mono-light" data-layout="right-stuff">
+      <!-- Right sidebar will be loaded here -->
+    </aside>
+  </div>
+
+  <div id="footer-container" data-layout="footer">
+    <!-- Footer will be loaded here -->
+  </div>
+
+  <script src="/js/components.js"></script>
+  <script src="/js/stuff.js" defer></script>
+</body>
+</html>

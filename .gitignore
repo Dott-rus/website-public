@@ -1,0 +1,7 @@
+plchld.png
+dist/
+node_modules/
+LOCAL_DEVELOPMENT.md
+CODEX_HANDOFF.md
+.dev.vars*
+.env*
