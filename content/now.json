@@ -1,11 +1,17 @@
 {
   "current": {
     "doing": "Set up SSO for my services (TBH IDK why)",
-    "consuming": "water",
+    "consuming": "too much water",
     "note": "Also renamed a lot of things\nmira = my Gitea instance;\ncove = copyparty;\niris = SSO;\nMaybe I have a lot of time... 😑",
-    "updatedAt": "2026-08-18T09:38:08.578Z"
+    "updatedAt": "2026-08-18T09:55:45.372Z"
   },
   "history": [
+    {
+      "at": "2026-08-18T09:55:45.372Z",
+      "changes": {
+        "consuming": "too much water"
+      }
+    },
     {
       "at": "2026-08-18T09:38:08.578Z",
       "changes": {
