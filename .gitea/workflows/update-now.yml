@@ -139,3 +139,54 @@ jobs:
           fi
           git pull --rebase origin v2
           git push origin HEAD:v2
+
+      - name: Send Actions result email
+        if: always()
+        continue-on-error: true
+        env:
+          SMTP_HOST: ${{ secrets.ACTIONS_SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.ACTIONS_SMTP_PORT }}
+          SMTP_USER: ${{ secrets.ACTIONS_SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.ACTIONS_SMTP_PASSWORD }}
+          MAIL_TO: ${{ secrets.ACTIONS_MAIL_TO }}
+          RESULT: ${{ job.status }}
+          REPOSITORY: ${{ gitea.repository }}
+          REF_NAME: ${{ gitea.ref_name }}
+          SHA: ${{ gitea.sha }}
+          ACTOR: ${{ gitea.actor }}
+          RUN_ID: ${{ gitea.run_id }}
+          SERVER_URL: ${{ gitea.server_url }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          result_upper="$(printf '%s' "$RESULT" | tr '[:lower:]' '[:upper:]')"
+          subject="[Mira Actions] ${result_upper}: ${REPOSITORY}"
+          run_url="${SERVER_URL%/}/${REPOSITORY}/actions/runs/${RUN_ID}"
+          mail_file="$(mktemp)"
+          trap 'rm -f "$mail_file"' EXIT
+
+          cat >"$mail_file" <<EOF
+          From: Mira Actions <${SMTP_USER}>
+          To: ${MAIL_TO}
+          Subject: ${subject}
+          Content-Type: text/plain; charset=UTF-8
+
+          Workflow: Update site status
+          Result: ${result_upper}
+          Repository: ${REPOSITORY}
+          Ref: ${REF_NAME}
+          Commit: ${SHA}
+          Triggered by: ${ACTOR}
+
+          ${run_url}
+          EOF
+
+          curl --fail --silent --show-error \
+            --url "smtp://${SMTP_HOST}:${SMTP_PORT}" \
+            --ssl-reqd \
+            --user "${SMTP_USER}:${SMTP_PASSWORD}" \
+            --mail-from "${SMTP_USER}" \
+            --mail-rcpt "${MAIL_TO}" \
+            --upload-file "$mail_file"
+
