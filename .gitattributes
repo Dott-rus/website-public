@@ -1,1 +1,6 @@
 *.png binary
+
+
+scripts/** linguist-detectable=false
+tests/** linguist-detectable=false
+functions/** linguist-detectable=false
