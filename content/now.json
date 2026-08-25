@@ -1,11 +1,19 @@
 {
   "current": {
-    "doing": null,
-    "consuming": null,
-    "note": "Woah! 42 visitors! hiiii! :)",
-    "updatedAt": "2026-08-24T10:08:50.089Z"
+    "doing": "Dodging",
+    "consuming": "Some fastfood. (Yummy but i know that it is bad)",
+    "note": "Gosh I HATE when I have to dodge street promoters (especially when elections soon) because 1. I have to dodge them and 2. I really don't like the party they're promoting",
+    "updatedAt": "2026-08-25T15:21:27.345Z"
   },
   "history": [
+    {
+      "at": "2026-08-25T15:21:27.345Z",
+      "changes": {
+        "doing": "Dodging",
+        "consuming": "Some fastfood. (Yummy but i know that it is bad)",
+        "note": "Gosh I HATE when I have to dodge street promoters (especially when elections soon) because 1. I have to dodge them and 2. I really don't like the party they're promoting"
+      }
+    },
     {
       "at": "2026-08-24T10:08:50.089Z",
       "changes": {
