@@ -17,7 +17,8 @@ export async function onRequestGet(context) {
     });
     if (!response.ok) return new Response('Not found', { status: 404 });
     const user = await response.json();
-    if ((user.login || user.username) !== 'Dott') return new Response('Not found', { status: 404 });
+    const login = String(user.login || user.username || '').toLowerCase();
+    if (login !== 'dott') return new Response('Not found', { status: 404 });
   } catch {
     return new Response('Not found', { status: 404 });
   }
