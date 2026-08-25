@@ -12,7 +12,6 @@
     <header class="owner-header">
       <div>
         <h1 class="greeting ibm-plex-mono-bold">Owner</h1>
-        <p>Small content editor for this site. Writes only to Mira, branch <code>v2</code>.</p>
       </div>
       <a class="link" href="/">← Back home</a>
     </header>
@@ -29,106 +28,23 @@
     </fieldset>
 
     <fieldset>
-      <legend>Mira connection</legend>
-      <form id="mira-connect-form" class="owner-form">
-        <label for="mira-token">Mira API token</label>
-        <input id="mira-token" name="token" type="password" autocomplete="current-password" autocapitalize="off" spellcheck="false" placeholder="Token stays in this browser">
-        <label class="owner-check"><input id="mira-remember" type="checkbox"> Remember on this device</label>
+      <legend>Access</legend>
+      <form id="cms-access-form" class="owner-form">
+        <label for="cms-token">Token</label>
+        <input id="cms-token" name="token" type="password" autocomplete="current-password" autocapitalize="off" spellcheck="false">
+        <label class="owner-check"><input id="cms-remember" type="checkbox"> Remember on this device</label>
         <div class="owner-button-row">
-          <button type="submit">Connect</button>
-          <button id="mira-forget" type="button" class="owner-button-secondary">Forget token</button>
+          <button type="submit">Open</button>
+          <button id="cms-forget" type="button" class="owner-button-secondary">Forget</button>
         </div>
       </form>
-      <p id="mira-status" class="owner-result" aria-live="polite">Not connected.</p>
+      <p id="cms-access-result" class="owner-result" aria-live="polite"></p>
     </fieldset>
 
-    <section id="owner-cms" class="owner-cms" hidden>
-      <nav class="owner-tabs" aria-label="Content editors">
-        <button type="button" class="owner-tab is-active" data-owner-tab="feed" aria-pressed="true">Feed</button>
-        <button type="button" class="owner-tab" data-owner-tab="stuff" aria-pressed="false">Stuff</button>
-        <button type="button" class="owner-tab" data-owner-tab="tracks" aria-pressed="false">Tracks</button>
-      </nav>
-
-      <section data-owner-panel="feed">
-        <fieldset>
-          <legend>Add feed entry</legend>
-          <form id="feed-form" class="owner-form">
-            <label>Type
-              <select name="type" required>
-                <option value="life">Life</option>
-                <option value="site">Site</option>
-                <option value="project">Project</option>
-                <option value="photo">Photo</option>
-                <option value="note">Note</option>
-                <option value="collection">Collection</option>
-              </select>
-            </label>
-            <label>Title <input name="title" maxlength="140" required></label>
-            <label>Body <textarea name="body" rows="5" required></textarea></label>
-            <div class="owner-grid-2">
-              <label>Link <input name="href" placeholder="/stuff/ or https://…"></label>
-              <label>Link label <input name="linkLabel" maxlength="80" placeholder="Open"></label>
-            </div>
-            <div class="owner-grid-2">
-              <label>Date <input name="date" type="datetime-local"></label>
-              <label>ID <input name="id" pattern="[a-z0-9-]+" placeholder="generated automatically"></label>
-            </div>
-            <button type="submit">Add to feed</button>
-          </form>
-          <p id="feed-result" class="owner-result" aria-live="polite"></p>
-        </fieldset>
-      </section>
-
-      <section data-owner-panel="stuff" hidden>
-        <fieldset>
-          <legend>Stuff</legend>
-          <div class="owner-button-row owner-toolbar">
-            <label>Group <select id="stuff-group"></select></label>
-            <button id="stuff-reload" type="button" class="owner-button-secondary">Reload</button>
-            <button id="stuff-add" type="button">+ Add item</button>
-          </div>
-          <div id="stuff-items" class="owner-item-list"></div>
-          <p id="stuff-result" class="owner-result" aria-live="polite"></p>
-        </fieldset>
-      </section>
-
-      <section data-owner-panel="tracks" hidden>
-        <fieldset>
-          <legend>Tracks</legend>
-          <div class="owner-button-row owner-toolbar">
-            <label>Track <select id="track-select"></select></label>
-            <button id="tracks-reload" type="button" class="owner-button-secondary">Reload</button>
-            <button id="track-new" type="button">+ New track</button>
-          </div>
-          <form id="track-form" class="owner-form" hidden>
-            <input type="hidden" name="filename">
-            <div class="owner-grid-2">
-              <label>Slug <input name="slug" required></label>
-              <label>Title <input name="title" required></label>
-            </div>
-            <div class="owner-grid-2">
-              <label>Artist <input name="artist" required></label>
-              <label>Album <input name="album" required></label>
-            </div>
-            <div class="owner-grid-2">
-              <label>Released <input name="released" type="date"></label>
-              <label>Duration <input name="duration" placeholder="2:07"></label>
-            </div>
-            <div class="owner-grid-2">
-              <label>Spotify track ID <input name="spotifyTrackId"></label>
-              <label>Cover filename <input name="cover" placeholder="cover.jpg"></label>
-            </div>
-            <label>Description <textarea name="description" rows="5" required></textarea></label>
-            <label class="owner-check"><input name="draft" type="checkbox"> Draft</label>
-            <button type="submit">Save track</button>
-          </form>
-          <p id="track-result" class="owner-result" aria-live="polite"></p>
-        </fieldset>
-      </section>
-    </section>
+    <section id="owner-private-root"></section>
   </main>
 
   <script src="/js/owner-setup.js" defer></script>
-  <script src="/js/owner-cms.js" defer></script>
+  <script src="/js/owner-loader.js" defer></script>
 </body>
 </html>
