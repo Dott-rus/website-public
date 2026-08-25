@@ -1,36 +1,12 @@
+import { assertHref, assertText as sharedAssertText, escapeHtml } from './content-utils.mjs';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
+const assertText = (value, label, { max = 240 } = {}) => sharedAssertText(value, label, max);
 const idPattern = /^[a-z0-9-]+$/;
 
 function isPlainObject(value) {
   return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
-}
-
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
-}
-
-function assertText(value, label, { max = 240 } = {}) {
-  if (typeof value !== 'string' || !value.trim()) {
-    throw new Error(`${label} must be a non-empty string`);
-  }
-  if (Array.from(value).length > max) {
-    throw new Error(`${label} must not exceed ${max} characters`);
-  }
-}
-
-function assertHref(value, label) {
-  if (value === undefined) return;
-  assertText(value, label, { max: 500 });
-  if (!value.startsWith('/') && !/^https:\/\//i.test(value)) {
-    throw new Error(`${label} must be a root-relative path or HTTPS URL`);
-  }
 }
 
 export function validateCollections(document, source = 'content/collections.json') {

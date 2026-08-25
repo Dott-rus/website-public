@@ -1,16 +1,8 @@
+import { escapeHtml } from './content-utils.mjs';
 import { access, readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 
 const trackListMarker = '<!-- TRACK_LIST -->';
-
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
-}
 
 function formatReleaseDate(released) {
   if (!released) return '';

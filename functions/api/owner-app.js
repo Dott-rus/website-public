@@ -1,4 +1,4 @@
-import { OWNER_APP_SOURCE } from '../_private/owner-app-source.js';
+import { ownerApp } from '../_private/owner-app.js';
 
 const MIRA_USER_ENDPOINT = 'https://mira.somedott.space/api/v1/user';
 
@@ -22,7 +22,8 @@ export async function onRequestGet(context) {
   } catch {
     return new Response('Not found', { status: 404 });
   }
-  return new Response(OWNER_APP_SOURCE, {
+  const source = `(${ownerApp.toString()})();`;
+  return new Response(source, {
     headers: {
       'Content-Type': 'application/javascript; charset=utf-8',
       'Cache-Control': 'private, max-age=31536000, immutable',

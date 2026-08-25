@@ -1,3 +1,4 @@
+import { assertHref, assertText, escapeHtml } from './content-utils.mjs';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
@@ -18,36 +19,10 @@ function isPlainObject(value) {
   return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
 }
 
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
-}
-
-function assertText(value, label, { max = 500 } = {}) {
-  if (typeof value !== 'string' || !value.trim()) {
-    throw new Error(`${label} must be a non-empty string`);
-  }
-  if (Array.from(value).length > max) {
-    throw new Error(`${label} must not exceed ${max} characters`);
-  }
-}
-
 function assertDate(value, label) {
-  assertText(value, label, { max: 40 });
+  assertText(value, label, 40);
   const date = new Date(value.length === 10 ? `${value}T12:00:00Z` : value);
   if (Number.isNaN(date.getTime())) throw new Error(`${label} must be a valid date`);
-}
-
-function assertHref(value, label) {
-  if (value === undefined) return;
-  assertText(value, label);
-  if (!value.startsWith('/') && !/^https:\/\//i.test(value)) {
-    throw new Error(`${label} must be a root-relative path or HTTPS URL`);
-  }
 }
 
 export function validateFeedEntries(entries, source = 'content/feed.json') {
@@ -56,16 +31,16 @@ export function validateFeedEntries(entries, source = 'content/feed.json') {
   entries.forEach((entry, index) => {
     const label = `${source}[${index}]`;
     if (!isPlainObject(entry)) throw new Error(`${label} must be an object`);
-    assertText(entry.id, `${label}.id`, { max: 80 });
+    assertText(entry.id, `${label}.id`, 80);
     if (!/^[a-z0-9-]+$/.test(entry.id)) throw new Error(`${label}.id is not URL-safe`);
     if (ids.has(entry.id)) throw new Error(`${label}.id is duplicated`);
     ids.add(entry.id);
     if (!curatedTypes.has(entry.type)) throw new Error(`${label}.type is not supported`);
     assertDate(entry.date, `${label}.date`);
-    assertText(entry.title, `${label}.title`, { max: 140 });
+    assertText(entry.title, `${label}.title`, 140);
     assertText(entry.body, `${label}.body`);
     assertHref(entry.href, `${label}.href`);
-    if (entry.href) assertText(entry.linkLabel, `${label}.linkLabel`, { max: 80 });
+    if (entry.href) assertText(entry.linkLabel, `${label}.linkLabel`, 80);
   });
   return entries;
 }
@@ -98,7 +73,7 @@ export function addFeedEntry(entries, input, timestamp = new Date().toISOString(
   if (!curatedTypes.has(type)) {
     throw new Error(`FEED_TYPE must be one of: ${Array.from(curatedTypes).join(', ')}`);
   }
-  assertText(title, 'FEED_TITLE', { max: 140 });
+  assertText(title, 'FEED_TITLE', 140);
   assertText(body, 'FEED_BODY');
 
   const date = requestedDate || timestamp;

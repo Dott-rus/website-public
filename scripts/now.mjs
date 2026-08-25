@@ -1,3 +1,4 @@
+import { escapeHtml } from './content-utils.mjs';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
@@ -113,15 +114,6 @@ export function applyNowUpdate(document, input, timestamp = new Date().toISOStri
 
   validateNowDocument(nextDocument);
   return { changed: true, document: nextDocument };
-}
-
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
 }
 
 function formatTimestamp(timestamp) {
