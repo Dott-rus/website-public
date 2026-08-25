@@ -11,5 +11,8 @@
     "clean-css": "^5.3.3",
     "html-minifier-terser": "^7.2.0",
     "terser": "^5.49.0"
+  },
+  "dependencies": {
+    "yaml": "^2.9.0"
   }
 }

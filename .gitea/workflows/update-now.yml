@@ -118,7 +118,7 @@ jobs:
         id: changes
         shell: bash
         run: |
-          if git diff --quiet -- content/now.json content/feed.json; then
+          if git diff --quiet -- content/now.json content/feed.yaml; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "Nothing changed; no commit is needed."
           else
@@ -131,8 +131,8 @@ jobs:
         run: |
           git config user.name "Shybit's Forge"
           git config user.email "shybit-forge@users.noreply.mira.somedott.space"
-          git add content/now.json content/feed.json
-          if git diff --cached --quiet -- content/feed.json; then
+          git add content/now.json content/feed.yaml
+          if git diff --cached --quiet -- content/feed.yaml; then
             git commit -m "Update NOW from Tasker"
           else
             git commit -m "Add Feed entry"

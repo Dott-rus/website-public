@@ -23,7 +23,7 @@
     if (!token) return;
     show('loading', 'Checking…');
     try {
-      const response = await fetch('/api/owner-app?v=1', {
+      const response = await fetch('/api/owner-app?v=2', {
         headers: { Authorization: `Bearer ${token}` },
         cache: 'force-cache',
       });

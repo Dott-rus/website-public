@@ -1,4 +1,5 @@
 import { assertHref, assertText, escapeHtml } from './content-utils.mjs';
+import { parseYaml } from './content-yaml.mjs';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
@@ -25,7 +26,7 @@ function assertDate(value, label) {
   if (Number.isNaN(date.getTime())) throw new Error(`${label} must be a valid date`);
 }
 
-export function validateFeedEntries(entries, source = 'content/feed.json') {
+export function validateFeedEntries(entries, source = 'content/feed.yaml') {
   if (!Array.isArray(entries)) throw new Error(`${source} must contain an array`);
   const ids = new Set();
   entries.forEach((entry, index) => {
@@ -46,12 +47,12 @@ export function validateFeedEntries(entries, source = 'content/feed.json') {
 }
 
 export async function loadFeedEntries(projectRoot) {
-  const filename = path.join(projectRoot, 'content', 'feed.json');
+  const filename = path.join(projectRoot, 'content', 'feed.yaml');
   let entries;
   try {
-    entries = JSON.parse(await readFile(filename, 'utf8'));
+    entries = parseYaml(await readFile(filename, 'utf8'), 'content/feed.yaml');
   } catch (error) {
-    throw new Error(`Could not parse content/feed.json: ${error.message}`);
+    throw error;
   }
   return validateFeedEntries(entries);
 }

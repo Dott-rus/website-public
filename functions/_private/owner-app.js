@@ -60,16 +60,33 @@ export function ownerApp() {
     return btoa(binary);
   }
 
+  async function yaml(operation, payload) {
+    const response = await fetch('/api/owner-app?v=2', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ operation, ...payload }),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || `YAML request returned ${response.status}`);
+    return data;
+  }
+
   async function getFile(path) {
     const data = await api(`/repos/${OWNER}/${REPO}/contents/${encodeURIComponentPath(path)}?ref=${encodeURIComponent(BRANCH)}`);
-    return { data: JSON.parse(decodeBase64(data.content)), sha: data.sha, raw: data };
+    const parsed = await yaml('parse', { source: decodeBase64(data.content) });
+    return { data: parsed.value, sha: data.sha, raw: data };
   }
 
   async function saveFile(path, value, sha, message, create = false) {
+    const serialized = await yaml('stringify', { value });
     const body = {
       branch: BRANCH,
       message,
-      content: encodeBase64(`${JSON.stringify(value, null, 2)}\n`),
+      content: encodeBase64(serialized.source),
     };
     if (sha) body.sha = sha;
     const method = create ? 'POST' : 'PUT';
@@ -112,7 +129,7 @@ export function ownerApp() {
     button.disabled = true;
     setResult(feedResult, 'loading', 'Loading current feed from Mira...');
     try {
-      const current = await getFile('content/feed.json');
+      const current = await getFile('content/feed.yaml');
       const form = new FormData(feedForm);
       const type = String(form.get('type') || '').trim();
       const href = String(form.get('href') || '').trim();
@@ -131,7 +148,7 @@ export function ownerApp() {
       if (!/^[a-z0-9-]+$/.test(entry.id)) throw new Error('ID must contain only lowercase letters, numbers and hyphens');
       if (current.data.some((item) => item.id === entry.id)) throw new Error(`Feed ID ${entry.id} already exists`);
       const next = [entry, ...current.data];
-      const saved = await saveFile('content/feed.json', next, current.sha, `Add feed entry: ${entry.title}`);
+      const saved = await saveFile('content/feed.yaml', next, current.sha, `Add feed entry: ${entry.title}`);
       feedForm.reset();
       setResult(feedResult, 'success', `Saved to Mira · ${saved.commit?.sha?.slice(0, 8) || 'commit created'}`);
     } catch (error) {
@@ -153,7 +170,7 @@ export function ownerApp() {
   async function loadStuff() {
     setResult(stuffResult, 'loading', 'Loading Stuff from Mira...');
     try {
-      const file = await getFile('content/collections.json');
+      const file = await getFile('content/collections.yaml');
       stuffDocument = file.data;
       stuffSha = file.sha;
       stuffGroup.replaceChildren(...stuffDocument.groups.map((group) => new Option(group.title, group.id)));
@@ -202,7 +219,7 @@ export function ownerApp() {
       const button = form.querySelector('button[type="submit"]');
       button.disabled = true;
       try {
-        const fresh = await getFile('content/collections.json');
+        const fresh = await getFile('content/collections.yaml');
         const freshGroup = fresh.data.groups.find((candidate) => candidate.id === group.id);
         if (!freshGroup || !freshGroup.items[index] || freshGroup.items[index].title !== item.title) {
           throw new Error('Stuff changed since it was loaded. Reload before saving.');
@@ -218,7 +235,7 @@ export function ownerApp() {
         }
         freshGroup.items[index] = nextItem;
         fresh.data.updatedAt = new Date().toISOString().slice(0, 10);
-        const saved = await saveFile('content/collections.json', fresh.data, fresh.sha, `Update Stuff: ${nextItem.title}`);
+        const saved = await saveFile('content/collections.yaml', fresh.data, fresh.sha, `Update Stuff: ${nextItem.title}`);
         setResult(stuffResult, 'success', `Saved ${nextItem.title} · ${saved.commit?.sha?.slice(0, 8) || 'commit created'}`);
         await loadStuff();
       } catch (error) {
@@ -231,14 +248,14 @@ export function ownerApp() {
     form.querySelector('[data-delete]').addEventListener('click', async () => {
       if (!confirm(`Delete ${item.title} from Stuff?`)) return;
       try {
-        const fresh = await getFile('content/collections.json');
+        const fresh = await getFile('content/collections.yaml');
         const freshGroup = fresh.data.groups.find((candidate) => candidate.id === group.id);
         if (!freshGroup || !freshGroup.items[index] || freshGroup.items[index].title !== item.title) {
           throw new Error('Stuff changed since it was loaded. Reload before deleting.');
         }
         freshGroup.items.splice(index, 1);
         fresh.data.updatedAt = new Date().toISOString().slice(0, 10);
-        const saved = await saveFile('content/collections.json', fresh.data, fresh.sha, `Remove Stuff: ${item.title}`);
+        const saved = await saveFile('content/collections.yaml', fresh.data, fresh.sha, `Remove Stuff: ${item.title}`);
         setResult(stuffResult, 'success', `Removed ${item.title} · ${saved.commit?.sha?.slice(0, 8) || 'commit created'}`);
         await loadStuff();
       } catch (error) {
@@ -259,11 +276,11 @@ export function ownerApp() {
     const title = prompt('New item title:')?.trim();
     if (!title) return;
     try {
-      const fresh = await getFile('content/collections.json');
+      const fresh = await getFile('content/collections.yaml');
       const freshGroup = fresh.data.groups.find((candidate) => candidate.id === group.id);
       freshGroup.items.push({ title, meta: 'not set', status: 'not-set' });
       fresh.data.updatedAt = new Date().toISOString().slice(0, 10);
-      const saved = await saveFile('content/collections.json', fresh.data, fresh.sha, `Add Stuff: ${title}`);
+      const saved = await saveFile('content/collections.yaml', fresh.data, fresh.sha, `Add Stuff: ${title}`);
       setResult(stuffResult, 'success', `Added ${title} · ${saved.commit?.sha?.slice(0, 8) || 'commit created'}`);
       await loadStuff();
       const cards = stuffItems.querySelectorAll('details');
@@ -287,7 +304,7 @@ export function ownerApp() {
     setResult(trackResult, 'loading', 'Loading tracks from Mira...');
     try {
       const list = await api(`/repos/${OWNER}/${REPO}/contents/content/tracks?ref=${encodeURIComponent(BRANCH)}`);
-      trackFiles = Array.isArray(list) ? list.filter((item) => item.type === 'file' && item.name.endsWith('.json')) : [];
+      trackFiles = Array.isArray(list) ? list.filter((item) => item.type === 'file' && item.name.endsWith('.yaml')) : [];
       trackSelect.replaceChildren(new Option('Choose a track…', ''), ...trackFiles.map((file) => new Option(file.name, file.name)));
       trackForm.hidden = true;
       setResult(trackResult, 'success', `Loaded ${trackFiles.length} track files.`);
@@ -339,8 +356,8 @@ export function ownerApp() {
       }
       track.draft = trackForm.elements.draft.checked;
       const currentFilename = trackForm.elements.filename.value;
-      const filename = currentFilename || `${track.slug.replace(/[^a-zA-Z0-9_-]+/g, '-').replace(/^-|-$/g, '')}.json`;
-      if (!filename || filename === '.json') throw new Error('Slug is required for a new track');
+      const filename = currentFilename || `${track.slug.replace(/[^a-zA-Z0-9_-]+/g, '-').replace(/^-|-$/g, '')}.yaml`;
+      if (!filename || filename === '.yaml') throw new Error('Slug is required for a new track');
 
       let sha = activeTrackSha;
       if (!creatingTrack) {

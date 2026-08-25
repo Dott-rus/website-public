@@ -1,4 +1,5 @@
 import { escapeHtml } from './content-utils.mjs';
+import { parseYaml } from './content-yaml.mjs';
 import { access, readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 
@@ -41,7 +42,7 @@ function validateIsoDate(value, sourcePath) {
 
 async function normalizeTrack(data, sourcePath, projectRoot) {
   if (!data || Array.isArray(data) || typeof data !== 'object') {
-    throw new Error(`${sourcePath}: track data must be a JSON object`);
+    throw new Error(`${sourcePath}: track data must be a YAML object`);
   }
   if (typeof data.draft !== 'boolean') {
     throw new Error(`${sourcePath}: "draft" must be true or false`);
@@ -126,7 +127,7 @@ async function normalizeTrack(data, sourcePath, projectRoot) {
 export async function loadTracks(projectRoot) {
   const contentDirectory = path.join(projectRoot, 'content', 'tracks');
   const entries = (await readdir(contentDirectory, { withFileTypes: true }))
-    .filter((entry) => entry.isFile() && entry.name.endsWith('.json'))
+    .filter((entry) => entry.isFile() && entry.name.endsWith('.yaml'))
     .sort((a, b) => a.name.localeCompare(b.name));
 
   if (!entries.length) {
@@ -139,11 +140,12 @@ export async function loadTracks(projectRoot) {
     const sourcePath = path.join('content', 'tracks', entry.name);
     let data;
     try {
-      data = JSON.parse(
+      data = parseYaml(
         await readFile(path.join(contentDirectory, entry.name), 'utf8'),
+        sourcePath,
       );
     } catch (error) {
-      throw new Error(`${sourcePath}: invalid JSON (${error.message})`);
+      throw error;
     }
 
     const track = await normalizeTrack(data, sourcePath, projectRoot);

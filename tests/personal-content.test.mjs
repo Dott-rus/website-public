@@ -68,7 +68,7 @@ test('collections reject unsafe links', () => {
   assert.throws(() => validateCollections(document), /root-relative path or HTTPS URL/);
 });
 
-test('collections reject item states missing from the JSON status list', () => {
+test('collections reject item states missing from the YAML status list', () => {
   const document = collectionDocument();
   document.groups[0].items[0].status = 'invented';
   assert.throws(() => validateCollections(document), /references unknown status/);

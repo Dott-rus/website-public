@@ -1,0 +1,69 @@
+updatedAt: 2026-08-02
+statuses:
+  - id: in-progress
+    label: In progress
+  - id: completed
+    label: Completed
+  - id: on-pause
+    label: On pause
+  - id: dropped
+    label: Dropped
+  - id: backlog
+    label: Backlog
+  - id: owned
+    label: Owned
+  - id: not-set
+    label: Not set
+groups:
+  - id: music
+    symbol: ♫
+    title: Music
+    description: Albums I bought on Bandcamp.
+    items:
+      - title: unbeatable [ost]
+        meta: D-CELL SOUND TEAM
+        status: owned
+        cover: https://f4.bcbits.com/img/a4149670988_7.jpg
+        href: https://dcellgames.bandcamp.com/album/unbeatable-ost
+      - title: ALBUM.
+        meta: UNBEATABLE
+        status: owned
+        cover: https://f4.bcbits.com/img/a1500478355_7.jpg
+        href: https://dcellgames.bandcamp.com/album/album
+      - title: Volume Alpha 64
+        meta: TABBY
+        status: owned
+        cover: https://f4.bcbits.com/img/a0118842240_7.jpg
+        href: https://tabbymusic.bandcamp.com/album/volume-alpha-64
+      - title: Sounds Of Tokyo-To Future
+        meta: 2 Mello
+        status: owned
+        cover: https://f4.bcbits.com/img/a2429332587_7.jpg
+        href: https://2mellomakes.bandcamp.com/album/sounds-of-tokyo-to-future
+      - title: Memories Of Tokyo-To
+        meta: 2 Mello
+        status: owned
+        cover: https://f4.bcbits.com/img/a1865167543_7.jpg
+        href: https://2mellomakes.bandcamp.com/album/memories-of-tokyo-to
+      - title: LAMENTING MALICE
+        meta: Cynthoni
+        status: owned
+        cover: https://f4.bcbits.com/img/a1897641613_7.jpg
+        href: https://cynthoni.bandcamp.com/album/lamenting-malice
+  - id: games
+    symbol: ◆
+    title: Games and stuff
+    description: Things that are very good at eating my time.
+    items:
+      - title: Balatro
+        meta: game
+        status: dropped
+      - title: Beat Saber
+        meta: VR / rhythm
+        status: on-pause
+      - title: osu!
+        meta: rhythm
+        status: in-progress
+      - title: Demon Slayer
+        meta: series
+        status: completed

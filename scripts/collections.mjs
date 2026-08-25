@@ -1,4 +1,5 @@
 import { assertHref, assertText as sharedAssertText, escapeHtml } from './content-utils.mjs';
+import { parseYaml } from './content-yaml.mjs';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
@@ -9,7 +10,7 @@ function isPlainObject(value) {
   return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
 }
 
-export function validateCollections(document, source = 'content/collections.json') {
+export function validateCollections(document, source = 'content/collections.yaml') {
   if (!isPlainObject(document)) throw new Error(`${source} must contain an object`);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(document.updatedAt || '')) {
     throw new Error(`${source}.updatedAt must use YYYY-MM-DD`);
@@ -68,12 +69,12 @@ export function validateCollections(document, source = 'content/collections.json
 }
 
 export async function loadCollections(projectRoot) {
-  const filename = path.join(projectRoot, 'content', 'collections.json');
+  const filename = path.join(projectRoot, 'content', 'collections.yaml');
   let document;
   try {
-    document = JSON.parse(await readFile(filename, 'utf8'));
+    document = parseYaml(await readFile(filename, 'utf8'), 'content/collections.yaml');
   } catch (error) {
-    throw new Error(`Could not parse content/collections.json: ${error.message}`);
+    throw error;
   }
   return validateCollections(document);
 }
