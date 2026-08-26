@@ -390,7 +390,7 @@ async function buildEntry(
         html = replaceRequiredPlaceholder(
           html,
           '{{{days}}}',
-          renderDays(days, nowDocument),
+          renderDays(days, nowDocument, { demo: !productionTools }),
           childRelativePath,
         );
       }

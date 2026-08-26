@@ -49,11 +49,17 @@
     return node.innerHTML;
   }
 
+  function coverOf(item = {}) { return item.cover || item.image || item.poster || item.thumbnail || item.artwork || item.coverUrl || item.imageUrl || item.posterUrl || ''; }
+  function mediaItem(item, meta = '', subtitle = '', kind = 'music') {
+    const cover = coverOf(item);
+    return `<span class="day-media-item day-media-${kind}">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-media-copy"><span>${escapeHtml(item.title || '?')}</span>${subtitle ? `<small>${escapeHtml(subtitle)}</small>` : ''}${meta ? `<small>${escapeHtml(meta)}</small>` : ''}</span></span>`;
+  }
+
   function renderYami(data) {
     const gaming = Array.isArray(data?.gaming) ? data.gaming : [];
     const watching = Array.isArray(data?.watching) ? data.watching : [];
-    upsertLiveRow('gaming', gaming.length ? `<span class="day-key">PLAYED</span> ${gaming.map((x) => `${escapeHtml(x.title)}${x.minutes ? ` <small>${Math.round(x.minutes)}m</small>` : ''}`).join(', ')}` : '');
-    upsertLiveRow('watching', watching.length ? `<span class="day-key">WATCHED</span> ${watching.map((x) => `${escapeHtml(x.title)}${x.episodes ? ` <small>${x.episodes} ep${x.episodes === 1 ? '' : 's'}</small>` : ''}`).join(', ')}` : '');
+    upsertLiveRow('gaming', gaming.length ? `<span class="day-key">PLAYED</span><span class="day-media-items">${gaming.map((x) => mediaItem(x, x.minutes ? `${Math.round(x.minutes)}m` : '', '', 'game')).join('')}</span>` : '');
+    upsertLiveRow('watching', watching.length ? `<span class="day-key">WATCHED</span><span class="day-media-items">${watching.map((x) => mediaItem(x, x.episodes ? `${x.episodes} ep${x.episodes === 1 ? '' : 's'}` : '', '', 'poster')).join('')}</span>` : '');
   }
 
   async function refreshYami() {
@@ -88,7 +94,7 @@
           const key=(x)=>kind==='track'?`${x.artist}\n${x.track}`:x.album;
           if (i<normalized.length && key(normalized[i]) && key(normalized[i])===key(normalized[start])) continue;
           const count=i-start, threshold=kind==='track'?3:4;
-          if (key(normalized[start]) && count>=threshold) streaks.push({kind,count,title:kind==='track'?normalized[start].track:normalized[start].album});
+          if (key(normalized[start]) && count>=threshold) streaks.push({kind,count,title:kind==='track'?normalized[start].track:normalized[start].album,artist:normalized[start].artist,cover:normalized[start].cover});
           start=i;
         }
       }
@@ -96,6 +102,6 @@
       if (!quiet) { quiet=document.createElement('div'); quiet.className='day-quiet'; root.querySelector('.day-digest')?.append(quiet); }
       quiet.innerHTML=`<span class="day-key">LISTENED</span> ${listens.length} plays <small>· ${tracks.size} tracks · ${artists.size} artists</small>`;
       const digest=root.querySelector('.day-digest');
-      streaks.sort((a,b)=>b.count-a.count).slice(0,3).forEach((s)=>{ const el=document.createElement('div'); el.innerHTML=`<span class="day-key">MUSIC</span> ${escapeHtml(s.title)} <small>×${s.count}${s.kind==='album'?' tracks':''}</small>`; digest?.insertBefore(el, quiet); });
+      streaks.sort((a,b)=>b.count-a.count).slice(0,3).forEach((s)=>{ const el=document.createElement('div'); el.className='day-media-row'; el.innerHTML=`<span class="day-key">MUSIC</span><span class="day-media-items">${mediaItem(s, `×${s.count}${s.kind==='album'?' tracks':''}`, s.artist)}</span>`; digest?.insertBefore(el, quiet); });
     }).catch(() => {});
 })();

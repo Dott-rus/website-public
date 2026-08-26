@@ -71,12 +71,21 @@ function renderNow(events) {
   return `<section class="day-section day-now"><h3>NOW</h3><div class="day-lines">${events.map((event) => `<div><time>${escapeHtml(timeOnly(event.at))}</time> ${Object.entries(event.changes).map(([key, value]) => `<span>${escapeHtml(key)}: ${escapeHtml(value ?? 'cleared')}</span>`).join(' · ')}</div>`).join('')}</div></section>`;
 }
 
+function mediaCover(item = {}) {
+  return item.cover || item.image || item.poster || item.thumbnail || item.artwork || item.coverUrl || item.imageUrl || item.posterUrl || '';
+}
+
+function renderMediaItem(item = {}, meta = '', subtitle = '', kind = 'music') {
+  const cover = mediaCover(item);
+  return `<span class="day-media-item day-media-${kind}">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-media-copy"><span>${escapeHtml(item.title || '?')}</span>${subtitle ? `<small>${escapeHtml(subtitle)}</small>` : ''}${meta ? `<small>${escapeHtml(meta)}</small>` : ''}</span></span>`;
+}
+
 function renderDigest(day, live = false) {
   const rows = [];
-  if (day.gaming?.length) rows.push(`<div data-kind="gaming"><span class="day-key">PLAYED</span> ${day.gaming.map((x) => `${escapeHtml(x.title)}${x.minutes ? ` <small>${Math.round(x.minutes)}m</small>` : ''}`).join(', ')}</div>`);
-  if (day.watching?.length) rows.push(`<div data-kind="watching"><span class="day-key">WATCHED</span> ${day.watching.map((x) => `${escapeHtml(x.title)}${x.episodes ? ` <small>${escapeHtml(String(x.episodes))} ep${Number(x.episodes) === 1 ? '' : 's'}</small>` : ''}`).join(', ')}</div>`);
+  if (day.gaming?.length) rows.push(`<div data-kind="gaming" class="day-media-row day-media-section day-media-section-games"><span class="day-key">PLAYED</span><span class="day-media-items">${day.gaming.map((x) => renderMediaItem(x, x.minutes ? `${Math.round(x.minutes)}m` : '', '', 'game')).join('')}</span></div>`);
+  if (day.watching?.length) rows.push(`<div data-kind="watching" class="day-media-row day-media-section day-media-section-watch"><span class="day-key">WATCHED</span><span class="day-media-items">${day.watching.map((x) => renderMediaItem(x, x.episodes ? `${x.episodes} ep${Number(x.episodes) === 1 ? '' : 's'}` : '', '', 'poster')).join('')}</span></div>`);
   const streaks = day.music?.streaks || [];
-  for (const streak of streaks) rows.push(`<div><span class="day-key">MUSIC</span> ${escapeHtml(streak.title)} <small>×${Number(streak.count) || 0}${streak.kind === 'album' ? ' tracks' : ''}</small></div>`);
+  for (const streak of streaks) rows.push(`<div class="day-media-row"><span class="day-key">MUSIC</span><span class="day-media-items">${renderMediaItem(streak, `×${Number(streak.count) || 0}${streak.kind === 'album' ? ' tracks' : ''}`, streak.artist)}</span></div>`);
   const plays = Number(day.music?.plays || 0);
   const musicQuiet = plays ? `<div class="day-quiet"><span class="day-key">LISTENED</span> ${plays} plays${day.music.tracks ? ` <small>· ${day.music.tracks} tracks</small>` : ''}${day.music.artists ? ` <small>· ${day.music.artists} artists</small>` : ''}</div>` : '';
   const commits = Number(day.code?.commits || 0);
@@ -118,8 +127,66 @@ function renderCompact(day, today) {
   return bits.length ? bits.join(' · ') : (day.date===today ? 'live' : 'quiet');
 }
 
-export function renderDays(days, nowDocument) {
+
+function demoDays(today) {
+  const d = (delta) => shiftDate(today, delta);
+  return [
+    {
+      date: today,
+      gaming: [
+        { title: 'Portal 2', minutes: 132, cover: '/img/tracks/oktidk.png' },
+        { title: 'Bomb Rush Cyberfunk', minutes: 47, cover: '/img/tracks/snowing-somewhere.jpg' },
+      ],
+      watching: [
+        { title: 'Jet Lag: The Game', episodes: 2, poster: '/img/tracks/silent-illusions.jpg' },
+        { title: 'Serial Experiments Lain — deliberately very long title for layout testing', episodes: 3, image: '/img/tracks/oh-i-knew.jpg' },
+      ],
+      music: {
+        plays: 83,
+        tracks: 61,
+        artists: 38,
+        streaks: [
+          { kind: 'album', title: 'Selected Ambient Works 85–92', artist: 'Aphex Twin', count: 9, cover: '/img/tracks/i-dont-know.jpg' },
+          { kind: 'track', title: 'Resonance', artist: 'HOME', count: 5, cover: '/img/tracks/snowing-somewhere.jpg' },
+        ],
+      },
+      code: { commits: 7, sources: { mira: 5, github: 2 } },
+      now: [
+        { at: `${today}T00:42:00+03:00`, changes: { status: 'watching Jet Lag' } },
+        { at: `${today}T01:08:00+03:00`, changes: { status: 'messing with Days CSS', device: 'dotlap' } },
+      ],
+    },
+    {
+      date: d(-1),
+      bakedAt: `${d(-1)}T21:00:00.000Z`,
+      gaming: [{ title: 'Beat Saber', minutes: 58, artwork: '/img/tracks/oh-i-knew.jpg' }],
+      watching: [{ title: 'Arcane', episodes: 4, thumbnail: '/img/tracks/silent-illusions.jpg' }],
+      music: { plays: 54, tracks: 50, artists: 31, streaks: [] },
+      code: { commits: 3, sources: { mira: 3, github: 0 } },
+      now: [],
+      note: '<p>Dev fixture note. This is here to check how a published day note sits next to media and activity.</p><p>Second paragraph, because one line always looks suspiciously good.</p>',
+    },
+    {
+      date: d(-2),
+      bakedAt: `${d(-2)}T21:00:00.000Z`,
+      gaming: [],
+      watching: [],
+      music: { plays: 11, tracks: 10, artists: 7, streaks: [{ kind: 'album', title: 'Odyssey', artist: 'HOME', count: 6, coverUrl: '/img/tracks/snowing-somewhere.jpg' }] },
+      code: { commits: 0, sources: { mira: 0, github: 0 } },
+      now: [],
+      notePending: true,
+    },
+    {
+      date: d(-3),
+      bakedAt: `${d(-3)}T21:00:00.000Z`,
+      gaming: [], watching: [], music: {}, code: {}, now: [],
+    },
+  ];
+}
+
+export function renderDays(days, nowDocument, { demo = false } = {}) {
   const today = localDateString();
+  if (demo) days = demoDays(today);
   const existingToday = days.find((day) => day.date === today);
   const todayDay = existingToday || { date: today, gaming: [], watching: [], music: {}, code: {}, now: todayNowEvents(nowDocument, today) };
   if (existingToday && !existingToday.now?.length) existingToday.now = todayNowEvents(nowDocument, today);

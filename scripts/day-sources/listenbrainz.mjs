@@ -3,6 +3,15 @@ import { dayBounds } from './time.mjs';
 const API = 'https://api.listenbrainz.org/1';
 const USER = process.env.LISTENBRAINZ_USER || 'somedott';
 
+function coverUrl(metadata = {}) {
+  const mapping = metadata.mbid_mapping || {};
+  const release = mapping.caa_release_mbid || mapping.release_mbid;
+  const id = mapping.caa_id;
+  if (release && id) return `https://coverartarchive.org/release/${encodeURIComponent(release)}/${encodeURIComponent(id)}-250.jpg`;
+  if (release) return `https://coverartarchive.org/release/${encodeURIComponent(release)}/front-250`;
+  return '';
+}
+
 async function page(date, maxTs) {
   const { minTs } = dayBounds(date);
   const url = new URL(`${API}/user/${encodeURIComponent(USER)}/listens`);
@@ -17,7 +26,7 @@ async function page(date, maxTs) {
 function streaks(listens) {
   const rows = listens.slice().sort((a,b)=>a.listened_at-b.listened_at).map((listen) => {
     const m = listen.track_metadata || {};
-    return { track: m.track_name || '', artist: m.artist_name || '', album: m.release_name || '' };
+    return { track: m.track_name || '', artist: m.artist_name || '', album: m.release_name || '', cover: coverUrl(m) };
   });
   const result = [];
   for (const kind of ['track','album']) {
@@ -28,7 +37,7 @@ function streaks(listens) {
       const count = i - start;
       const threshold = kind === 'track' ? 3 : 4;
       if (rows[start] && key(rows[start]) && count >= threshold) {
-        result.push({ kind, title: kind === 'track' ? rows[start].track : rows[start].album, count });
+        result.push({ kind, title: kind === 'track' ? rows[start].track : rows[start].album, artist: rows[start].artist, count, cover: rows[start].cover || '' });
       }
       start = i;
     }
