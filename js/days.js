@@ -1,4 +1,31 @@
 (() => {
+  const entries = [...document.querySelectorAll('[data-day-entry]')];
+  const strip = document.querySelector('[data-days-strip]');
+  const picker = document.querySelector('[data-day-picker]');
+
+  function select(date, updateUrl = true) {
+    const target = document.querySelector(`[data-day-entry="${CSS.escape(date)}"]`);
+    if (!target) return false;
+    entries.forEach((entry) => entry.classList.toggle('is-selected', entry === target));
+    document.querySelectorAll('[data-day-link]').forEach((link) => link.classList.toggle('is-selected', link.dataset.dayLink === date));
+    if (picker) picker.value = date;
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (updateUrl) history.replaceState(null, '', `#day-${date}`);
+    return true;
+  }
+
+  document.addEventListener('click', (event) => {
+    const open = event.target.closest('[data-day-open]');
+    if (open) select(open.dataset.dayOpen);
+    const link = event.target.closest('[data-day-link]');
+    if (link) { event.preventDefault(); select(link.dataset.dayLink); }
+  });
+  picker?.addEventListener('change', () => select(picker.value));
+
+  const hashDate = location.hash.match(/^#day-(\d{4}-\d{2}-\d{2})$/)?.[1];
+  if (hashDate) select(hashDate, false);
+  else document.querySelector('[data-day-entry].is-selected')?.dataset.dayEntry && select(document.querySelector('[data-day-entry].is-selected').dataset.dayEntry, false);
+
   const root = document.querySelector('[data-live-day]');
   if (!root) return;
   const USER = 'somedott';
@@ -21,8 +48,7 @@
         for (let i=1;i<=normalized.length;i++) {
           const key=(x)=>kind==='track'?`${x.artist}\n${x.track}`:x.album;
           if (i<normalized.length && key(normalized[i]) && key(normalized[i])===key(normalized[start])) continue;
-          const count=i-start;
-          const threshold=kind==='track'?3:4;
+          const count=i-start, threshold=kind==='track'?3:4;
           if (key(normalized[start]) && count>=threshold) streaks.push({kind,count,title:kind==='track'?normalized[start].track:normalized[start].album});
           start=i;
         }

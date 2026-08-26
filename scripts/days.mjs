@@ -89,33 +89,49 @@ function dateLabel(date, today) {
   return new Intl.DateTimeFormat('en-GB', { timeZone: 'UTC', day: '2-digit', month: 'short' }).format(new Date(`${date}T12:00:00Z`)).toUpperCase();
 }
 
-function renderCalendar(days, today) {
-  const active = new Set(days.map((day) => day.date));
-  active.add(today);
-  const [year, month] = today.split('-').map(Number);
-  const first = new Date(Date.UTC(year, month - 1, 1));
-  const lastDay = new Date(Date.UTC(year, month, 0)).getUTCDate();
-  const offset = (first.getUTCDay() + 6) % 7;
-  const cells = Array.from({ length: offset }, () => '<span></span>');
-  for (let d = 1; d <= lastDay; d++) {
-    const date = `${year}-${String(month).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-    const cls = [active.has(date) ? 'has-data' : '', date === today ? 'is-today' : ''].filter(Boolean).join(' ');
-    cells.push(`<a href="#day-${date}" class="${cls}">${d}</a>`);
-  }
-  const title = new Intl.DateTimeFormat('en-GB', { timeZone: 'UTC', month: 'long', year: 'numeric' }).format(first);
-  return `<section class="days-calendar"><h2>${escapeHtml(title)}</h2><div class="days-weekdays"><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span></div><div class="days-grid">${cells.join('')}</div></section>`;
+function shiftDate(date, delta) {
+  const [y,m,d] = date.split('-').map(Number);
+  const value = new Date(Date.UTC(y,m-1,d+delta));
+  return value.toISOString().slice(0,10);
 }
 
+function dayMeta(date) {
+  const value = new Date(`${date}T12:00:00Z`);
+  return {
+    day: new Intl.DateTimeFormat('en-GB',{timeZone:'UTC',day:'2-digit'}).format(value),
+    weekday: new Intl.DateTimeFormat('en-GB',{timeZone:'UTC',weekday:'short'}).format(value).toUpperCase(),
+    month: new Intl.DateTimeFormat('en-GB',{timeZone:'UTC',month:'short'}).format(value).toUpperCase(),
+    monthLong: new Intl.DateTimeFormat('en-GB',{timeZone:'UTC',month:'long',year:'numeric'}).format(value),
+  };
+}
+
+function renderDayStrip(days, today) {
+  const available = new Set(days.map((day)=>day.date));
+  available.add(today);
+  const dates = Array.from({length:14},(_,i)=>shiftDate(today,i-10));
+  const current = dayMeta(today);
+  return `<nav class="days-nav" aria-label="Day navigation"><div class="days-month"><button type="button" data-day-shift="-7" aria-label="Previous week">←</button><strong>${escapeHtml(current.monthLong)}</strong><button type="button" data-day-shift="7" aria-label="Next week">→</button><label class="days-jump" title="Jump to date">⌗<input type="date" data-day-picker value="${today}"></label></div><div class="days-strip" data-days-strip>${dates.map((date)=>{const meta=dayMeta(date);const has=available.has(date);return `<a href="#day-${date}" data-day-link="${date}" class="${date===today?'is-today ':''}${has?'has-data':''}"><span>${meta.weekday}</span><strong>${meta.day}</strong><small>${meta.month}</small></a>`}).join('')}</div></nav>`;
+}
+
+function renderCompact(day, today) {
+  const bits=[];
+  if(day.gaming?.length) bits.push(`${day.gaming.length} game${day.gaming.length===1?'':'s'}`);
+  if(day.watching?.length) bits.push(`${day.watching.length} title${day.watching.length===1?'':'s'} watched`);
+  if(Number(day.music?.plays||0)) bits.push(`${Number(day.music.plays)} plays`);
+  if(Number(day.code?.commits||0)) bits.push(`${Number(day.code.commits)} commits`);
+  return bits.length ? bits.join(' · ') : (day.date===today ? 'Live day' : 'Quiet day');
+}
 export function renderDays(days, nowDocument) {
   const today = localDateString();
   const existingToday = days.find((day) => day.date === today);
   const todayDay = existingToday || { date: today, gaming: [], watching: [], music: {}, code: {}, now: todayNowEvents(nowDocument, today) };
   if (existingToday && !existingToday.now?.length) existingToday.now = todayNowEvents(nowDocument, today);
-  const ordered = [todayDay, ...days.filter((day) => day.date !== today)].sort((a, b) => b.date.localeCompare(a.date));
+  const ordered = [todayDay, ...days.filter((day) => day.date !== today)].sort((a,b)=>b.date.localeCompare(a.date));
   const list = ordered.map((day) => {
     const isToday = day.date === today;
-    const note = day.note ? `<article class="day-note markdown-body">${day.note}</article>` : day.notePending ? '<div class="day-note-pending">✎ note available after 14 days</div>' : '';
-    return `<details class="day-card" id="day-${day.date}" ${isToday ? 'open' : ''}><summary><strong>${escapeHtml(dateLabel(day.date, today))}</strong><span>${escapeHtml(day.date)}</span></summary><div class="day-body" ${isToday ? 'data-live-day' : ''}>${renderDigest(day, isToday && !day.bakedAt)}${note}</div></details>`;
+    const meta = dayMeta(day.date);
+    const note = day.note ? `<article class="day-note markdown-body">${day.note}</article>` : day.notePending ? '<div class="day-note-pending">✎ personal note unlocks after 14 days</div>' : '';
+    return `<article class="day-entry ${isToday?'is-selected':''}" id="day-${day.date}" data-day-entry="${day.date}"><button class="day-entry-head" type="button" data-day-open="${day.date}"><span class="day-date"><strong>${escapeHtml(meta.day)}</strong><span>${escapeHtml(meta.month)}</span></span><span class="day-title"><strong>${isToday?'TODAY':escapeHtml(meta.weekday)}</strong><small>${escapeHtml(renderCompact(day,today))}</small></span><span class="day-chevron" aria-hidden="true">↘</span></button><div class="day-expanded"><div class="day-body" ${isToday?'data-live-day':''}>${renderDigest(day,isToday&&!day.bakedAt)}${note}</div></div></article>`;
   }).join('');
-  return `${renderCalendar(days, today)}<section class="days-list">${list}</section>`;
+  return `${renderDayStrip(days,today)}<section class="days-list" data-days-list>${list}</section>`;
 }
