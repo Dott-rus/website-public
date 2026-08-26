@@ -1510,3 +1510,28 @@ fieldset {
     .owner-grid-2 { grid-template-columns: 1fr; }
     .owner-button-row > * { flex-basis: 100%; }
 }
+
+/* Days / activity archive */
+.days-calendar { margin: 14px 0 20px; max-width: 420px; }
+.days-calendar h2 { margin: 0 0 8px; font-size: 1rem; }
+.days-weekdays, .days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; }
+.days-weekdays { color: #777; font-size: .68rem; margin-bottom: 4px; }
+.days-grid a { color: #888; padding: 5px 2px; text-decoration: none; border: 1px solid transparent; }
+.days-grid a.has-data { color: #ddd; }
+.days-grid a.has-data::after { content: '·'; display: block; color: #d95763; line-height: 2px; }
+.days-grid a.is-today { border-color: #f5f5dc66; color: #fff; }
+.days-list { display: grid; gap: 8px; }
+.day-card { border: 1px solid #f5f5dc33; background: #1b1b1b; }
+.day-card > summary { cursor: pointer; padding: 10px 12px; display: flex; justify-content: space-between; gap: 12px; }
+.day-card > summary span { color: #777; font-size: .72rem; }
+.day-body { padding: 2px 12px 14px; }
+.day-live-note, .day-note-pending, .day-quiet { color: #777; font-size: .72rem; }
+.day-digest { display: grid; gap: 4px; margin: 8px 0; }
+.day-code small { color: #888; margin-left: 6px; }
+.day-now { margin-top: 10px; color: #bbb; font-size: .78rem; }
+.day-now > div { margin-top: 3px; }
+.day-now time { color: #777; margin-right: 6px; }
+.day-note { margin-top: 16px; padding-top: 12px; border-top: 1px dashed #f5f5dc33; }
+.day-note img { max-width: 100%; height: auto; }
+.day-note pre { overflow-x: auto; padding: 8px; background: #151515; }
+.day-note-pending { margin-top: 14px; }

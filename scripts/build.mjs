@@ -30,6 +30,7 @@ import {
   renderFeed,
   renderFeedFilters,
 } from './feed.mjs';
+import { loadDays, renderDays } from './days.mjs';
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 export const projectRoot = path.resolve(scriptDirectory, '..');
@@ -318,6 +319,7 @@ async function buildEntry(
   nowDocument,
   collectionsDocument,
   feedEntries,
+  days,
   productionExcludedFiles,
 ) {
   const entries = await readdir(sourcePath, { withFileTypes: true });
@@ -342,6 +344,7 @@ async function buildEntry(
         nowDocument,
         collectionsDocument,
         feedEntries,
+        days,
         productionExcludedFiles,
       );
       continue;
@@ -380,6 +383,14 @@ async function buildEntry(
           html,
           '{{{collections}}}',
           renderCollections(collectionsDocument),
+          childRelativePath,
+        );
+      }
+      if (childRelativePath === path.join('days', 'index.html')) {
+        html = replaceRequiredPlaceholder(
+          html,
+          '{{{days}}}',
+          renderDays(days, nowDocument),
           childRelativePath,
         );
       }
@@ -462,6 +473,7 @@ export async function build({ production = true } = {}) {
     nowDocument,
     collectionsDocument,
     curatedFeedEntries,
+    days,
   ] = await Promise.all([
     readFile(layoutFile, 'utf8'),
     readFile(trackPageTemplateFile, 'utf8'),
@@ -469,6 +481,7 @@ export async function build({ production = true } = {}) {
     loadNow(projectRoot),
     loadCollections(projectRoot),
     loadFeedEntries(projectRoot),
+    loadDays(projectRoot),
   ]);
   const tracks = production
     ? allTracks.filter((track) => !track.draft)
@@ -488,6 +501,7 @@ export async function build({ production = true } = {}) {
     '/buttons/',
     '/now/',
     '/feed/',
+    '/days/',
     '/stuff/',
     ...tracks.map((track) => `/tracks/${track.slug}/`),
     'https://album.somedott.space/',
@@ -538,6 +552,7 @@ export async function build({ production = true } = {}) {
     nowDocument,
     collectionsDocument,
     feedEntries,
+    days,
     productionExcludedFiles,
   );
   await buildTrackPages(
