@@ -1,0 +1,66 @@
+name: Bake daily activity
+
+on:
+  schedule:
+    # 00:00 Europe/Moscow (UTC+03:00)
+    - cron: '0 21 * * *'
+  workflow_dispatch:
+    inputs:
+      date:
+        description: Optional YYYY-MM-DD to rebake; empty means previous local day
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  bake:
+    runs-on: shybit-forge
+    timeout-minutes: 10
+    steps:
+      - name: Check out v2
+        uses: actions/checkout@v4
+        with:
+          ref: v2
+          fetch-depth: 0
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Bake day
+        env:
+          LISTENBRAINZ_USER: somedott
+          SITE_TIME_ZONE: Europe/Moscow
+          MIRA_TOKEN: ${{ secrets.DAYS_MIRA_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.DAYS_GITHUB_TOKEN }}
+          YAMI_DAY_URL: ${{ secrets.DAYS_YAMI_DAY_URL }}
+          YAMI_TOKEN: ${{ secrets.DAYS_YAMI_TOKEN }}
+          BAKE_DATE: ${{ inputs.date }}
+        shell: bash
+        run: |
+          if [[ -n "${BAKE_DATE:-}" ]]; then
+            node scripts/bake-day.mjs "$BAKE_DATE"
+          else
+            node scripts/bake-day.mjs
+          fi
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Commit baked day
+        shell: bash
+        run: |
+          if git diff --quiet -- content/days; then
+            echo "Nothing changed."
+            exit 0
+          fi
+          git config user.name "Shybit's Forge"
+          git config user.email "shybit-forge@users.noreply.mira.somedott.space"
+          git add content/days
+          git commit -m "Bake daily activity"
+          git pull --rebase origin v2
+          git push origin HEAD:v2
