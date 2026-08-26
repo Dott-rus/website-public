@@ -1,0 +1,31 @@
+name: Smoke Days code counters
+
+on:
+  push:
+    branches:
+      - days-dev
+    paths:
+      - '.gitea/workflows/smoke-days-code.yml'
+
+jobs:
+  smoke:
+    runs-on: shybit-forge
+    timeout-minutes: 5
+    steps:
+      - name: Check out days-dev
+        uses: actions/checkout@v4
+        with:
+          ref: days-dev
+          fetch-depth: 1
+
+      - name: Check code counters
+        env:
+          MIRA_TOKEN: ${{ secrets.DAYS_MIRA_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.DAYS_GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { collectCode } from './scripts/day-sources/code.mjs';
+          const data = await collectCode('2026-08-26');
+          console.log(`Mira ${data.sources.mira} / GitHub ${data.sources.github} / total ${data.commits}`);
+          NODE
