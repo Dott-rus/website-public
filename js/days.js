@@ -40,14 +40,20 @@
       row.dataset.liveYami = kind;
       digest?.prepend(row);
     }
-    row.textContent = text;
+    row.innerHTML = text;
+  }
+
+  function escapeHtml(value) {
+    const node = document.createElement('span');
+    node.textContent = String(value ?? '');
+    return node.innerHTML;
   }
 
   function renderYami(data) {
     const gaming = Array.isArray(data?.gaming) ? data.gaming : [];
     const watching = Array.isArray(data?.watching) ? data.watching : [];
-    upsertLiveRow('gaming', gaming.length ? `🎮 ${gaming.map((x) => `${x.title}${x.minutes ? ` · ${Math.round(x.minutes)}m` : ''}`).join(', ')}` : '');
-    upsertLiveRow('watching', watching.length ? `📺 ${watching.map((x) => `${x.title}${x.episodes ? ` · ${x.episodes} ep${x.episodes === 1 ? '' : 's'}` : ''}`).join(', ')}` : '');
+    upsertLiveRow('gaming', gaming.length ? `<span class="day-key">PLAYED</span> ${gaming.map((x) => `${escapeHtml(x.title)}${x.minutes ? ` <small>${Math.round(x.minutes)}m</small>` : ''}`).join(', ')}` : '');
+    upsertLiveRow('watching', watching.length ? `<span class="day-key">WATCHED</span> ${watching.map((x) => `${escapeHtml(x.title)}${x.episodes ? ` <small>${x.episodes} ep${x.episodes === 1 ? '' : 's'}</small>` : ''}`).join(', ')}` : '');
   }
 
   async function refreshYami() {
@@ -88,8 +94,8 @@
       }
       let quiet=root.querySelector('.day-quiet');
       if (!quiet) { quiet=document.createElement('div'); quiet.className='day-quiet'; root.querySelector('.day-digest')?.append(quiet); }
-      quiet.textContent=`${listens.length} plays · ${tracks.size} tracks · ${artists.size} artists`;
+      quiet.innerHTML=`<span class="day-key">LISTENED</span> ${listens.length} plays <small>· ${tracks.size} tracks · ${artists.size} artists</small>`;
       const digest=root.querySelector('.day-digest');
-      streaks.sort((a,b)=>b.count-a.count).slice(0,3).forEach((s)=>{ const el=document.createElement('div'); el.textContent=`♫ ${s.title} ×${s.count}${s.kind==='album'?' tracks':''}`; digest?.insertBefore(el, quiet); });
+      streaks.sort((a,b)=>b.count-a.count).slice(0,3).forEach((s)=>{ const el=document.createElement('div'); el.innerHTML=`<span class="day-key">MUSIC</span> ${escapeHtml(s.title)} <small>×${s.count}${s.kind==='album'?' tracks':''}</small>`; digest?.insertBefore(el, quiet); });
     }).catch(() => {});
 })();
