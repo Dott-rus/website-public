@@ -29,7 +29,7 @@ function streaks(listens) {
     return { track: m.track_name || '', artist: m.artist_name || '', album: m.release_name || '', cover: coverUrl(m) };
   });
   const result = [];
-  for (const kind of ['track','album']) {
+  for (const kind of ['track']) {
     let start = 0;
     const key = (x) => kind === 'track' ? `${x.artist}\n${x.track}` : x.album;
     for (let i=1; i<=rows.length; i++) {

@@ -88,7 +88,7 @@
         return { track:m.track_name||'?', artist:m.artist_name||'?', album:m.release_name||'' };
       });
       const streaks=[];
-      for (const kind of ['track','album']) {
+      for (const kind of ['track']) {
         let start=0;
         for (let i=1;i<=normalized.length;i++) {
           const key=(x)=>kind==='track'?`${x.artist}\n${x.track}`:x.album;

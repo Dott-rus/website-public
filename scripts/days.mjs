@@ -146,7 +146,6 @@ function demoDays(today) {
         tracks: 61,
         artists: 38,
         streaks: [
-          { kind: 'album', title: 'Selected Ambient Works 85–92', artist: 'Aphex Twin', count: 9, cover: '/img/tracks/i-dont-know.jpg' },
           { kind: 'track', title: 'Resonance', artist: 'HOME', count: 5, cover: '/img/tracks/snowing-somewhere.jpg' },
         ],
       },
@@ -171,7 +170,7 @@ function demoDays(today) {
       bakedAt: `${d(-2)}T21:00:00.000Z`,
       gaming: [],
       watching: [],
-      music: { plays: 11, tracks: 10, artists: 7, streaks: [{ kind: 'album', title: 'Odyssey', artist: 'HOME', count: 6, coverUrl: '/img/tracks/snowing-somewhere.jpg' }] },
+      music: { plays: 11, tracks: 10, artists: 7, streaks: [] },
       code: { commits: 0, sources: { mira: 0, github: 0 } },
       now: [],
       notePending: true,
