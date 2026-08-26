@@ -31,6 +31,7 @@ import {
   renderFeedFilters,
 } from './feed.mjs';
 import { loadDays, renderDays } from './days.mjs';
+import { generateCspHeaders } from './csp.mjs';
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 export const projectRoot = path.resolve(scriptDirectory, '..');
@@ -562,6 +563,12 @@ export async function build({ production = true } = {}) {
     counters,
     productionTools,
   );
+
+  if (production) {
+    const { policy } = await generateCspHeaders(outputDirectory);
+    counters.assets += 1;
+    console.log(`Generated CSP (${policy.length} chars)`);
+  }
 
   const elapsed = Math.round(performance.now() - startedAt);
   const skippedDrafts = production
