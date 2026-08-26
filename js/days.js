@@ -28,6 +28,39 @@
 
   const root = document.querySelector('[data-live-day]');
   if (!root) return;
+
+  const digest = root.querySelector('.day-digest');
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Moscow', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+
+  function upsertLiveRow(kind, text) {
+    let row = digest?.querySelector(`[data-live-yami="${kind}"]`);
+    if (!text) { row?.remove(); return; }
+    if (!row) {
+      row = document.createElement('div');
+      row.dataset.liveYami = kind;
+      digest?.prepend(row);
+    }
+    row.textContent = text;
+  }
+
+  function renderYami(data) {
+    const gaming = Array.isArray(data?.gaming) ? data.gaming : [];
+    const watching = Array.isArray(data?.watching) ? data.watching : [];
+    upsertLiveRow('gaming', gaming.length ? `🎮 ${gaming.map((x) => `${x.title}${x.minutes ? ` · ${Math.round(x.minutes)}m` : ''}`).join(', ')}` : '');
+    upsertLiveRow('watching', watching.length ? `📺 ${watching.map((x) => `${x.title}${x.episodes ? ` · ${x.episodes} ep${x.episodes === 1 ? '' : 's'}` : ''}`).join(', ')}` : '');
+  }
+
+  async function refreshYami() {
+    try {
+      const response = await fetch(`https://yume.somedott.space/api/days/${today}`, { cache: 'no-store' });
+      if (!response.ok) return;
+      renderYami(await response.json());
+    } catch {}
+  }
+
+  refreshYami();
+  setInterval(refreshYami, 60_000);
+
   const USER = 'somedott';
   const start = new Date();
   const parts = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Moscow', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(start).reduce((a,p)=>(a[p.type]=p.value,a),{});
