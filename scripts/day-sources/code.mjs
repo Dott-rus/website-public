@@ -39,7 +39,7 @@ async function githubCommits(date) {
     catch(e){
       // A fine-grained token can list all repos visible to the account while only
       // being granted Contents access to a subset. Skip those inaccessible repos.
-      if(!String(e.message).match(/returned (403|404|409|422)/)) throw e;
+      if(!String(e.message).match(/returned (403|404|409|422|451)/)) throw e;
     }
   }
   return commits;
