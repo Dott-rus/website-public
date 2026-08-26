@@ -36,7 +36,11 @@ async function githubCommits(date) {
     const url=new URL(`https://api.github.com/repos/${repo.full_name}/commits`);
     url.searchParams.set('since',start.toISOString()); url.searchParams.set('until',end.toISOString()); url.searchParams.set('per_page','100');
     try { for (const c of await json(url,headers)) if(c.sha) commits.push({sha:c.sha,source:'github'}); }
-    catch(e){ if(!String(e.message).match(/returned (409|422)/)) throw e; }
+    catch(e){
+      // A fine-grained token can list all repos visible to the account while only
+      // being granted Contents access to a subset. Skip those inaccessible repos.
+      if(!String(e.message).match(/returned (403|404|409|422)/)) throw e;
+    }
   }
   return commits;
 }
