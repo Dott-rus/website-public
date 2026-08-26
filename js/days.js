@@ -50,6 +50,31 @@
   }
 
   function coverOf(item = {}) { return item.cover || item.image || item.poster || item.thumbnail || item.artwork || item.coverUrl || item.imageUrl || item.posterUrl || ''; }
+  function watchedMeta(item = {}) {
+    const watched = Array.isArray(item.watched) ? item.watched : [];
+    if (!watched.length) return item.episodes ? `${item.episodes} ep${Number(item.episodes) === 1 ? '' : 's'}` : '';
+    const seasons = new Map();
+    for (const entry of watched) {
+      const season = Number(entry?.season);
+      const episode = Number(entry?.episode);
+      if (!Number.isFinite(season) || !Number.isFinite(episode)) continue;
+      if (!seasons.has(season)) seasons.set(season, []);
+      seasons.get(season).push(episode);
+    }
+    const ranges = (values) => {
+      const nums = [...new Set(values)].sort((a,b)=>a-b);
+      const parts = [];
+      for (let i=0;i<nums.length;) {
+        let j=i; while (j+1<nums.length && nums[j+1]===nums[j]+1) j++;
+        parts.push(i===j ? `E${nums[i]}` : `E${nums[i]}–E${nums[j]}`);
+        i=j+1;
+      }
+      return parts.join(', ');
+    };
+    const detail = [...seasons.entries()].sort((a,b)=>a[0]-b[0]).map(([season, episodes])=>`S${season} · ${ranges(episodes)}`).join(' / ');
+    return detail || (item.episodes ? `${item.episodes} ep${Number(item.episodes) === 1 ? '' : 's'}` : '');
+  }
+
   function mediaItem(item, meta = '', subtitle = '', kind = 'music') {
     const cover = coverOf(item);
     return `<span class="day-media-item day-media-${kind}">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-media-copy"><span>${escapeHtml(item.title || '?')}</span>${subtitle ? `<small>${escapeHtml(subtitle)}</small>` : ''}${meta ? `<small>${escapeHtml(meta)}</small>` : ''}</span></span>`;
@@ -59,7 +84,7 @@
     const gaming = Array.isArray(data?.gaming) ? data.gaming : [];
     const watching = Array.isArray(data?.watching) ? data.watching : [];
     upsertLiveRow('gaming', gaming.length ? `<span class="day-key">PLAYED</span><span class="day-media-items">${gaming.map((x) => mediaItem(x, x.minutes ? `${Math.round(x.minutes)}m` : '', '', 'game')).join('')}</span>` : '');
-    upsertLiveRow('watching', watching.length ? `<span class="day-key">WATCHED</span><span class="day-media-items">${watching.map((x) => mediaItem(x, x.episodes ? `${x.episodes} ep${x.episodes === 1 ? '' : 's'}` : '', '', 'poster')).join('')}</span>` : '');
+    upsertLiveRow('watching', watching.length ? `<span class="day-key">WATCHED</span><span class="day-media-items">${watching.map((x) => mediaItem(x, watchedMeta(x), '', 'poster')).join('')}</span>` : '');
   }
 
   async function refreshYami() {

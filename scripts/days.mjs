@@ -75,6 +75,31 @@ function mediaCover(item = {}) {
   return item.cover || item.image || item.poster || item.thumbnail || item.artwork || item.coverUrl || item.imageUrl || item.posterUrl || '';
 }
 
+function watchedMeta(item = {}) {
+  const watched = Array.isArray(item.watched) ? item.watched : [];
+  if (!watched.length) return item.episodes ? `${item.episodes} ep${Number(item.episodes) === 1 ? '' : 's'}` : '';
+  const seasons = new Map();
+  for (const entry of watched) {
+    const season = Number(entry?.season);
+    const episode = Number(entry?.episode);
+    if (!Number.isFinite(season) || !Number.isFinite(episode)) continue;
+    if (!seasons.has(season)) seasons.set(season, []);
+    seasons.get(season).push(episode);
+  }
+  const ranges = (values) => {
+    const nums = [...new Set(values)].sort((a,b)=>a-b);
+    const parts = [];
+    for (let i=0;i<nums.length;) {
+      let j=i; while (j+1<nums.length && nums[j+1]===nums[j]+1) j++;
+      parts.push(i===j ? `E${nums[i]}` : `E${nums[i]}–E${nums[j]}`);
+      i=j+1;
+    }
+    return parts.join(', ');
+  };
+  const detail = [...seasons.entries()].sort((a,b)=>a[0]-b[0]).map(([season, episodes])=>`S${season} · ${ranges(episodes)}`).join(' / ');
+  return detail || (item.episodes ? `${item.episodes} ep${Number(item.episodes) === 1 ? '' : 's'}` : '');
+}
+
 function renderMediaItem(item = {}, meta = '', subtitle = '', kind = 'music') {
   const cover = mediaCover(item);
   return `<span class="day-media-item day-media-${kind}">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-media-copy"><span>${escapeHtml(item.title || '?')}</span>${subtitle ? `<small>${escapeHtml(subtitle)}</small>` : ''}${meta ? `<small>${escapeHtml(meta)}</small>` : ''}</span></span>`;
@@ -83,7 +108,7 @@ function renderMediaItem(item = {}, meta = '', subtitle = '', kind = 'music') {
 function renderDigest(day, live = false) {
   const rows = [];
   if (day.gaming?.length) rows.push(`<div data-kind="gaming" class="day-media-row day-media-section day-media-section-games"><span class="day-key">PLAYED</span><span class="day-media-items">${day.gaming.map((x) => renderMediaItem(x, x.minutes ? `${Math.round(x.minutes)}m` : '', '', 'game')).join('')}</span></div>`);
-  if (day.watching?.length) rows.push(`<div data-kind="watching" class="day-media-row day-media-section day-media-section-watch"><span class="day-key">WATCHED</span><span class="day-media-items">${day.watching.map((x) => renderMediaItem(x, x.episodes ? `${x.episodes} ep${Number(x.episodes) === 1 ? '' : 's'}` : '', '', 'poster')).join('')}</span></div>`);
+  if (day.watching?.length) rows.push(`<div data-kind="watching" class="day-media-row day-media-section day-media-section-watch"><span class="day-key">WATCHED</span><span class="day-media-items">${day.watching.map((x) => renderMediaItem(x, watchedMeta(x), '', 'poster')).join('')}</span></div>`);
   const streaks = day.music?.streaks || [];
   for (const streak of streaks) rows.push(`<div class="day-media-row"><span class="day-key">MUSIC</span><span class="day-media-items">${renderMediaItem(streak, `${Number(streak.count) || 0} times${streak.kind === 'album' ? ' tracks' : ''}`, streak.artist)}</span></div>`);
   const plays = Number(day.music?.plays || 0);
@@ -138,8 +163,8 @@ function demoDays(today) {
         { title: 'Bomb Rush Cyberfunk', minutes: 47, cover: '/img/tracks/snowing-somewhere.jpg' },
       ],
       watching: [
-        { title: 'Jet Lag: The Game', episodes: 2, poster: '/img/tracks/silent-illusions.jpg' },
-        { title: 'Serial Experiments Lain — deliberately very long title for layout testing', episodes: 3, image: '/img/tracks/oh-i-knew.jpg' },
+        { title: 'Jet Lag: The Game', episodes: 3, watched: [{ season: 4, episode: 4 }, { season: 4, episode: 5 }, { season: 4, episode: 6 }], poster: '/img/tracks/silent-illusions.jpg' },
+        { title: 'Serial Experiments Lain — deliberately very long title for layout testing', episodes: 2, watched: [{ season: 1, episode: 4 }, { season: 1, episode: 6 }], image: '/img/tracks/oh-i-knew.jpg' },
       ],
       music: {
         plays: 83,
