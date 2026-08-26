@@ -34,8 +34,7 @@ jobs:
           SITE_TIME_ZONE: Europe/Moscow
           MIRA_TOKEN: ${{ secrets.DAYS_MIRA_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.DAYS_GITHUB_TOKEN }}
-          YAMI_DAY_URL: ${{ secrets.DAYS_YAMI_DAY_URL }}
-          YAMI_TOKEN: ${{ secrets.DAYS_YAMI_TOKEN }}
+          YAMI_DAY_URL: http://yume-day-api:8788/day/{date}
           BAKE_DATE: ${{ inputs.date }}
         shell: bash
         run: |
