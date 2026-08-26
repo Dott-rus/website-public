@@ -18,14 +18,33 @@ jobs:
           ref: days-dev
           fetch-depth: 1
 
-      - name: Check code counters
+      - name: Check API auth and counters
         env:
           MIRA_TOKEN: ${{ secrets.DAYS_MIRA_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.DAYS_GITHUB_TOKEN }}
         shell: bash
         run: |
           node --input-type=module <<'NODE'
-          import { collectCode } from './scripts/day-sources/code.mjs';
-          const data = await collectCode('2026-08-26');
-          console.log(`Mira ${data.sources.mira} / GitHub ${data.sources.github} / total ${data.commits}`);
+          async function probe(name, url, headers) {
+            const r = await fetch(url, { headers });
+            let body = {};
+            try { body = await r.json(); } catch {}
+            console.log(`${name}: HTTP ${r.status}${body?.message ? ` · ${body.message}` : ''}`);
+            return r.ok;
+          }
+
+          const miraHeaders = { Accept: 'application/json', Authorization: `token ${process.env.MIRA_TOKEN}` };
+          const ghHeaders = { Accept: 'application/vnd.github+json', Authorization: `Bearer ${process.env.GITHUB_TOKEN}`, 'X-GitHub-Api-Version': '2022-11-28' };
+
+          await probe('Mira /user', 'https://mira.somedott.space/api/v1/user', miraHeaders);
+          await probe('GitHub /user', 'https://api.github.com/user', ghHeaders);
+          await probe('GitHub /user/repos', 'https://api.github.com/user/repos?per_page=1&affiliation=owner', ghHeaders);
+
+          const { collectCode } = await import('./scripts/day-sources/code.mjs');
+          try {
+            const data = await collectCode('2026-08-26');
+            console.log(`Counters: Mira ${data.sources.mira} / GitHub ${data.sources.github} / total ${data.commits}`);
+          } catch (e) {
+            console.log(`Counters failed: ${e.message}`);
+          }
           NODE
