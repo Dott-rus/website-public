@@ -2,10 +2,16 @@
   "current": {
     "doing": "on a walk",
     "consuming": "Some fastfood. (Yummy but i know that it is bad)",
-    "note": "Today is REALLY cold.. i lkie it!",
-    "updatedAt": "2026-08-27T11:59:54.627Z"
+    "note": "Today is colder than i expexted... and i like it!",
+    "updatedAt": "2026-08-27T12:11:18.384Z"
   },
   "history": [
+    {
+      "at": "2026-08-27T12:11:18.384Z",
+      "changes": {
+        "note": "Today is colder than i expexted... and i like it!"
+      }
+    },
     {
       "at": "2026-08-27T11:59:54.627Z",
       "changes": {
