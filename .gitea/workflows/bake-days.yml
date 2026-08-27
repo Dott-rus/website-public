@@ -53,7 +53,7 @@ jobs:
       - name: Commit baked day
         shell: bash
         run: |
-          if git diff --quiet -- content/days; then
+          if [[ -z "" ]]; then
             echo "Nothing changed."
             exit 0
           fi
