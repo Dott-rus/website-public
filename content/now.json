@@ -1,11 +1,18 @@
 {
   "current": {
-    "doing": null,
+    "doing": "on a walk",
     "consuming": "Some fastfood. (Yummy but i know that it is bad)",
-    "note": "HAPPY BIRTHDAY P6NVQ!!!!!!!!!!!!!🎇🎆🎉🎉🎉🎉",
-    "updatedAt": "2026-08-25T21:09:40.627Z"
+    "note": "Today is REALLY cold.. i lkie it!",
+    "updatedAt": "2026-08-27T11:59:54.627Z"
   },
   "history": [
+    {
+      "at": "2026-08-27T11:59:54.627Z",
+      "changes": {
+        "doing": "on a walk",
+        "note": "Today is REALLY cold.. i lkie it!"
+      }
+    },
     {
       "at": "2026-08-25T21:09:40.627Z",
       "changes": {
