@@ -6,6 +6,7 @@ const RUNTIME_SOURCES = {
     'https://image.tmdb.org',
     'https://shikimori.one',
     'https://coverartarchive.org',
+    'https://images.igdb.com',
   ],
   connect: [
     'https://api.listenbrainz.org',
@@ -67,7 +68,12 @@ export async function generateCspHeaders(outputDirectory) {
         const tagName = match[1].toLowerCase();
         const a = attrs(match[0]);
         if (tagName === 'img') addOrigin(sources.img, a.get('src'));
-        else if (tagName === 'script') addOrigin(sources.script, a.get('src'));
+        else if (tagName === 'script') {
+          const src = a.get('src');
+          addOrigin(sources.script, src);
+          // Third-party widgets commonly fetch JSON from the same origin at runtime.
+          addOrigin(sources.connect, src);
+        }
         else if (tagName === 'iframe') addOrigin(sources.frame, a.get('src'));
         else if (['audio', 'video', 'source'].includes(tagName)) addOrigin(sources.media, a.get('src'));
         else if (tagName === 'link') {
