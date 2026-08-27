@@ -1648,3 +1648,11 @@ fieldset {
 .day-media-copy small,.day-digest small,.day-code small { font-size:.76rem; }
 .day-media-poster .day-media-copy > span,.day-media-game .day-media-copy > span { font-size:.86rem; line-height:1.3; }
 .day-live-note,.day-note-pending,.day-quiet { font-size:.78rem; }
+/* IGDB game covers are portrait box art (roughly 3:4). */
+.day-media-game { width:172px; max-width:172px; }
+.day-media-game > img { width:172px; height:229px; aspect-ratio:3/4; object-fit:cover; }
+.day-media-game .day-media-copy { width:172px; }
+@media screen and (max-width:520px) {
+  .day-media-game,.day-media-game .day-media-copy { width:136px; max-width:136px; }
+  .day-media-game > img { width:136px; height:181px; }
+}
