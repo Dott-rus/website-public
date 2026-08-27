@@ -83,7 +83,7 @@
   function renderYami(data) {
     const gaming = Array.isArray(data?.gaming) ? data.gaming : [];
     const watching = Array.isArray(data?.watching) ? data.watching : [];
-    upsertLiveRow('gaming', gaming.length ? `<span class="day-key">PLAYED</span><span class="day-media-items">${gaming.map((x) => mediaItem(x, x.minutes ? `${Math.round(x.minutes)}m` : '', '', 'game')).join('')}</span>` : '');
+    upsertLiveRow('gaming', gaming.length ? `<span class="day-key">PLAYED</span><span class="day-media-items">${gaming.map((x) => mediaItem(x, [x.minutes ? `${Math.round(x.minutes)}m` : '', x.plays ? `${x.plays} play${Number(x.plays) === 1 ? '' : 's'}` : ''].filter(Boolean).join(' · '), '', 'game')).join('')}</span>` : '');
     upsertLiveRow('watching', watching.length ? `<span class="day-key">WATCHED</span><span class="day-media-items">${watching.map((x) => mediaItem(x, watchedMeta(x), '', 'poster')).join('')}</span>` : '');
   }
 

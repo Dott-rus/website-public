@@ -107,7 +107,7 @@ function renderMediaItem(item = {}, meta = '', subtitle = '', kind = 'music') {
 
 function renderDigest(day, live = false) {
   const rows = [];
-  if (day.gaming?.length) rows.push(`<div data-kind="gaming" class="day-media-row day-media-section day-media-section-games"><span class="day-key">PLAYED</span><span class="day-media-items">${day.gaming.map((x) => renderMediaItem(x, x.minutes ? `${Math.round(x.minutes)}m` : '', '', 'game')).join('')}</span></div>`);
+  if (day.gaming?.length) rows.push(`<div data-kind="gaming" class="day-media-row day-media-section day-media-section-games"><span class="day-key">PLAYED</span><span class="day-media-items">${day.gaming.map((x) => renderMediaItem(x, [x.minutes ? `${Math.round(x.minutes)}m` : '', x.plays ? `${x.plays} play${Number(x.plays) === 1 ? '' : 's'}` : ''].filter(Boolean).join(' · '), '', 'game')).join('')}</span></div>`);
   if (day.watching?.length) rows.push(`<div data-kind="watching" class="day-media-row day-media-section day-media-section-watch"><span class="day-key">WATCHED</span><span class="day-media-items">${day.watching.map((x) => renderMediaItem(x, watchedMeta(x), '', 'poster')).join('')}</span></div>`);
   const streaks = day.music?.streaks || [];
   for (const streak of streaks) rows.push(`<div class="day-media-row"><span class="day-key">MUSIC</span><span class="day-media-items">${renderMediaItem(streak, `${Number(streak.count) || 0} times${streak.kind === 'album' ? ' tracks' : ''}`, streak.artist)}</span></div>`);
@@ -183,7 +183,7 @@ function demoDays(today) {
     {
       date: d(-1),
       bakedAt: `${d(-1)}T21:00:00.000Z`,
-      gaming: [{ title: 'Beat Saber', minutes: 58, artwork: '/img/tracks/oh-i-knew.jpg' }],
+      gaming: [{ title: 'osu!', minutes: 58, plays: 37, artwork: '/img/tracks/oh-i-knew.jpg' }],
       watching: [{ title: 'Arcane', episodes: 4, thumbnail: '/img/tracks/silent-illusions.jpg' }],
       music: { plays: 54, tracks: 50, artists: 31, streaks: [] },
       code: { commits: 3, sources: { mira: 3, github: 0 } },
