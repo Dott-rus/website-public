@@ -80,10 +80,26 @@
     return `<span class="day-media-item day-media-${kind}">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-media-copy"><span>${escapeHtml(item.title || '?')}</span>${subtitle ? `<small>${escapeHtml(subtitle)}</small>` : ''}${meta ? `<small>${escapeHtml(meta)}</small>` : ''}</span></span>`;
   }
 
+  function gameItem(item = {}) {
+    const hasInsights = item.supported === true || Number(item.plays || 0) > 0 || (item.insights && typeof item.insights === 'object');
+    if (!hasInsights) return mediaItem(item, item.minutes ? `${Math.round(item.minutes)}m` : '', '', 'game');
+
+    const cover = coverOf(item);
+    const stats = [];
+    if (item.minutes) stats.push(`${Math.round(item.minutes)}m played`);
+    if (Number(item.plays || 0) > 0) stats.push(`${Number(item.plays)} plays`);
+    if (item.insights && typeof item.insights === 'object') {
+      for (const [label, value] of Object.entries(item.insights)) {
+        if (value !== null && value !== undefined && value !== '') stats.push(`${label}: ${value}`);
+      }
+    }
+    return `<span class="day-game-insight">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-game-insight-body"><strong>${escapeHtml(item.title || '?')}</strong><span class="day-game-insight-stats">${stats.map((stat) => `<small>${escapeHtml(stat)}</small>`).join('')}</span></span></span>`;
+  }
+
   function renderYami(data) {
     const gaming = Array.isArray(data?.gaming) ? data.gaming : [];
     const watching = Array.isArray(data?.watching) ? data.watching : [];
-    upsertLiveRow('gaming', gaming.length ? `<span class="day-key">PLAYED</span><span class="day-media-items">${gaming.map((x) => mediaItem(x, x.minutes ? `${Math.round(x.minutes)}m` : '', '', 'game')).join('')}</span>` : '');
+    upsertLiveRow('gaming', gaming.length ? `<span class="day-key">PLAYED</span><span class="day-media-items">${gaming.map(gameItem).join('')}</span>` : '');
     upsertLiveRow('watching', watching.length ? `<span class="day-key">WATCHED</span><span class="day-media-items">${watching.map((x) => mediaItem(x, watchedMeta(x), '', 'poster')).join('')}</span>` : '');
   }
 

@@ -105,9 +105,25 @@ function renderMediaItem(item = {}, meta = '', subtitle = '', kind = 'music') {
   return `<span class="day-media-item day-media-${kind}">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-media-copy"><span>${escapeHtml(item.title || '?')}</span>${subtitle ? `<small>${escapeHtml(subtitle)}</small>` : ''}${meta ? `<small>${escapeHtml(meta)}</small>` : ''}</span></span>`;
 }
 
+function renderGameItem(item = {}) {
+  const hasInsights = item.supported === true || Number(item.plays || 0) > 0 || (item.insights && typeof item.insights === 'object');
+  if (!hasInsights) return renderMediaItem(item, item.minutes ? `${Math.round(item.minutes)}m` : '', '', 'game');
+
+  const cover = mediaCover(item);
+  const stats = [];
+  if (item.minutes) stats.push(`${Math.round(item.minutes)}m played`);
+  if (Number(item.plays || 0) > 0) stats.push(`${Number(item.plays)} plays`);
+  if (item.insights && typeof item.insights === 'object') {
+    for (const [label, value] of Object.entries(item.insights)) {
+      if (value !== null && value !== undefined && value !== '') stats.push(`${label}: ${value}`);
+    }
+  }
+  return `<span class="day-game-insight">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-game-insight-body"><strong>${escapeHtml(item.title || '?')}</strong><span class="day-game-insight-stats">${stats.map((stat) => `<small>${escapeHtml(stat)}</small>`).join('')}</span></span></span>`;
+}
+
 function renderDigest(day, live = false) {
   const rows = [];
-  if (day.gaming?.length) rows.push(`<div data-kind="gaming" class="day-media-row day-media-section day-media-section-games"><span class="day-key">PLAYED</span><span class="day-media-items">${day.gaming.map((x) => renderMediaItem(x, x.minutes ? `${Math.round(x.minutes)}m` : '', '', 'game')).join('')}</span></div>`);
+  if (day.gaming?.length) rows.push(`<div data-kind="gaming" class="day-media-row day-media-section day-media-section-games"><span class="day-key">PLAYED</span><span class="day-media-items">${day.gaming.map(renderGameItem).join('')}</span></div>`);
   if (day.watching?.length) rows.push(`<div data-kind="watching" class="day-media-row day-media-section day-media-section-watch"><span class="day-key">WATCHED</span><span class="day-media-items">${day.watching.map((x) => renderMediaItem(x, watchedMeta(x), '', 'poster')).join('')}</span></div>`);
   const streaks = day.music?.streaks || [];
   for (const streak of streaks) rows.push(`<div class="day-media-row"><span class="day-key">MUSIC</span><span class="day-media-items">${renderMediaItem(streak, `${Number(streak.count) || 0} times${streak.kind === 'album' ? ' tracks' : ''}`, streak.artist)}</span></div>`);
@@ -159,8 +175,8 @@ function demoDays(today) {
     {
       date: today,
       gaming: [
-        { title: 'Portal 2', minutes: 132, cover: '/img/tracks/oktidk.png' },
-        { title: 'Bomb Rush Cyberfunk', minutes: 47, cover: '/img/tracks/snowing-somewhere.jpg' },
+        { title: 'osu!', minutes: 102, plays: 46, cover: '/img/tracks/oktidk.png' },
+        { title: 'Portal 2', minutes: 47, cover: '/img/tracks/snowing-somewhere.jpg' },
       ],
       watching: [
         { title: 'Jet Lag: The Game', episodes: 3, watched: [{ season: 4, episode: 4 }, { season: 4, episode: 5 }, { season: 4, episode: 6 }], poster: '/img/tracks/silent-illusions.jpg' },

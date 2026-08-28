@@ -1592,31 +1592,31 @@ fieldset {
 .day-media-poster .day-media-copy > span { white-space:normal; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; font-size:.72rem; line-height:1.2; }
 .day-media-poster .day-media-copy small { margin-top:2px; }
 .day-media-section-games .day-media-items { gap:10px 14px; }
-.day-media-game { display:flex; width:150px; max-width:150px; flex-direction:column; align-items:stretch; gap:5px; }
-.day-media-game > img { width:150px; height:84px; aspect-ratio:16/9; object-fit:cover; }
-.day-media-game .day-media-copy { width:150px; }
+.day-media-game { display:flex; width:88px; max-width:88px; flex-direction:column; align-items:stretch; gap:5px; }
+.day-media-game > img { width:88px; height:132px; aspect-ratio:2/3; object-fit:cover; }
+.day-media-game .day-media-copy { width:88px; }
 .day-media-game .day-media-copy > span { font-size:.72rem; }
 .day-media-music > img { width:64px; height:64px; aspect-ratio:1; }
 @media screen and (max-width:520px) {
   .day-media-poster,.day-media-poster .day-media-copy { width:78px; max-width:78px; }
   .day-media-poster > img { width:78px; height:117px; }
-  .day-media-game,.day-media-game .day-media-copy { width:132px; max-width:132px; }
-  .day-media-game > img { width:132px; height:74px; }
+  .day-media-game,.day-media-game .day-media-copy { width:78px; max-width:78px; }
+  .day-media-game > img { width:78px; height:117px; }
   .day-media-music > img { width:56px; height:56px; }
 }
 /* Keep different media aspect ratios, but give them comparable visual weight. */
 .day-media-poster { width:112px; max-width:112px; }
 .day-media-poster > img { width:112px; height:168px; }
 .day-media-poster .day-media-copy { width:112px; }
-.day-media-game { width:190px; max-width:190px; }
-.day-media-game > img { width:190px; height:107px; }
-.day-media-game .day-media-copy { width:190px; }
+.day-media-game { width:112px; max-width:112px; }
+.day-media-game > img { width:112px; height:168px; }
+.day-media-game .day-media-copy { width:112px; }
 .day-media-music > img { width:82px; height:82px; }
 @media screen and (max-width:520px) {
   .day-media-poster,.day-media-poster .day-media-copy { width:96px; max-width:96px; }
   .day-media-poster > img { width:96px; height:144px; }
-  .day-media-game,.day-media-game .day-media-copy { width:164px; max-width:164px; }
-  .day-media-game > img { width:164px; height:92px; }
+  .day-media-game,.day-media-game .day-media-copy { width:96px; max-width:96px; }
+  .day-media-game > img { width:96px; height:144px; }
   .day-media-music > img { width:72px; height:72px; }
 }
 /* Days media is the visual part of the entry: let it use the full content width. */
@@ -1627,9 +1627,9 @@ fieldset {
 .day-media-poster { width:132px; max-width:132px; }
 .day-media-poster > img { width:132px; height:198px; }
 .day-media-poster .day-media-copy { width:132px; }
-.day-media-game { width:230px; max-width:230px; }
-.day-media-game > img { width:230px; height:129px; }
-.day-media-game .day-media-copy { width:230px; }
+.day-media-game { width:132px; max-width:132px; }
+.day-media-game > img { width:132px; height:198px; }
+.day-media-game .day-media-copy { width:132px; }
 .day-media-music > img { width:96px; height:96px; }
 .day-media-copy > span { font-size:.78rem; }
 .day-media-poster .day-media-copy > span,.day-media-game .day-media-copy > span { font-size:.76rem; }
@@ -1637,8 +1637,8 @@ fieldset {
   .day-media-row { grid-template-columns:1fr; }
   .day-media-poster,.day-media-poster .day-media-copy { width:108px; max-width:108px; }
   .day-media-poster > img { width:108px; height:162px; }
-  .day-media-game,.day-media-game .day-media-copy { width:184px; max-width:184px; }
-  .day-media-game > img { width:184px; height:103px; }
+  .day-media-game,.day-media-game .day-media-copy { width:108px; max-width:108px; }
+  .day-media-game > img { width:108px; height:162px; }
   .day-media-music > img { width:80px; height:80px; }
 }
 /* Days should read like content, not tiny metadata. */
@@ -1648,3 +1648,46 @@ fieldset {
 .day-media-copy small,.day-digest small,.day-code small { font-size:.76rem; }
 .day-media-poster .day-media-copy > span,.day-media-game .day-media-copy > span { font-size:.86rem; line-height:1.3; }
 .day-live-note,.day-note-pending,.day-quiet { font-size:.78rem; }
+
+/* Games with integration data use a dedicated status card. */
+.day-media-section-games .day-game-insight {
+  display:grid;
+  grid-template-columns:132px minmax(0,1fr);
+  gap:14px;
+  width:min(100%,480px);
+  min-height:198px;
+}
+.day-game-insight > img {
+  width:132px;
+  height:198px;
+  aspect-ratio:2/3;
+  object-fit:cover;
+  border:1px solid #f5f5dc44;
+  background:#151515;
+}
+.day-game-insight-body {
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:10px;
+  padding-top:1px;
+}
+.day-game-insight-body > strong {
+  max-width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:.9rem;
+  line-height:1.3;
+}
+.day-game-insight-stats { display:flex; flex-direction:column; gap:4px; min-width:0; }
+.day-game-insight-stats small { font-size:.76rem; line-height:1.3; }
+@media screen and (max-width:520px) {
+  .day-media-section-games .day-game-insight {
+    grid-template-columns:108px minmax(0,1fr);
+    gap:11px;
+    min-height:162px;
+  }
+  .day-game-insight > img { width:108px; height:162px; }
+}
