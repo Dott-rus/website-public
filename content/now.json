@@ -1,11 +1,44 @@
 {
   "current": {
     "doing": null,
-    "consuming": "Some fastfood. (Yummy but i know that it is bad)",
-    "note": "HAPPY BIRTHDAY P6NVQ!!!!!!!!!!!!!🎇🎆🎉🎉🎉🎉",
-    "updatedAt": "2026-08-25T21:09:40.627Z"
+    "consuming": null,
+    "note": "i want to write something here, but i dunno what",
+    "updatedAt": "2026-08-28T11:46:56.166Z"
   },
   "history": [
+    {
+      "at": "2026-08-28T11:46:56.166Z",
+      "changes": {
+        "note": "i want to write something here, but i dunno what"
+      }
+    },
+    {
+      "at": "2026-08-27T23:45:11.010Z",
+      "changes": {
+        "note": "Portal 2 custom maps is hard for me... epesially in 2:44 AM.............."
+      }
+    },
+    {
+      "at": "2026-08-27T18:55:27.102Z",
+      "changes": {
+        "doing": null,
+        "consuming": null,
+        "note": "Yay! 50 people! Hiii!"
+      }
+    },
+    {
+      "at": "2026-08-27T12:11:18.384Z",
+      "changes": {
+        "note": "Today is colder than i expexted... and i like it!"
+      }
+    },
+    {
+      "at": "2026-08-27T11:59:54.627Z",
+      "changes": {
+        "doing": "on a walk",
+        "note": "Today is REALLY cold.. i lkie it!"
+      }
+    },
     {
       "at": "2026-08-25T21:09:40.627Z",
       "changes": {

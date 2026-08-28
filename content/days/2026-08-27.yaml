@@ -1,0 +1,41 @@
+date: 2026-08-27
+bakedAt: 2026-08-27T21:42:12.565Z
+gaming:
+  - title: Portal 2
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co1rs4.jpg
+    minutes: 101
+watching:
+  - title: "Jet Lag: The Game"
+    cover: https://image.tmdb.org/t/p/w500/9XhuLVDsLfNV6DUQXQhgf8uRWAD.jpg
+    kind: series
+    episodes: 3
+    watched:
+      - season: 17
+        episode: 1
+      - season: 17
+        episode: 2
+      - season: 17
+        episode: 3
+music:
+  plays: 21
+  tracks: 20
+  artists: 19
+  streaks: []
+code:
+  commits: 14
+  sources:
+    mira: 13
+    github: 1
+now:
+  - at: 2026-08-27T11:59:54.627Z
+    changes:
+      doing: on a walk
+      note: Today is REALLY cold.. i lkie it!
+  - at: 2026-08-27T12:11:18.384Z
+    changes:
+      note: Today is colder than i expexted... and i like it!
+  - at: 2026-08-27T18:55:27.102Z
+    changes:
+      doing: null
+      consuming: null
+      note: Yay! 50 people! Hiii!

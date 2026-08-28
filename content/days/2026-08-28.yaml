@@ -1,0 +1,42 @@
+date: 2026-08-28
+bakedAt: 2026-08-28T21:02:44.879Z
+gaming:
+  - title: Portal 2
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co1rs4.jpg
+    minutes: 43
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 23
+    plays: 24
+    supported: true
+    insights:
+      global rank: "#427,683"
+      best: 62.97pp · 75.46% · Guinea Pig Bridge [Reform's Expert]
+  - title: Rhythm Doctor
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co9xi0.jpg
+    minutes: 12
+watching:
+  - title: "Jet Lag: The Game"
+    cover: https://image.tmdb.org/t/p/w500/9XhuLVDsLfNV6DUQXQhgf8uRWAD.jpg
+    kind: series
+    episodes: 1
+    watched:
+      - season: 17
+        episode: 4
+music:
+  plays: 50
+  tracks: 50
+  artists: 45
+  streaks: []
+code:
+  commits: 7
+  sources:
+    mira: 7
+    github: 0
+now:
+  - at: 2026-08-27T23:45:11.010Z
+    changes:
+      note: Portal 2 custom maps is hard for me... epesially in 2:44 AM..............
+  - at: 2026-08-28T11:46:56.166Z
+    changes:
+      note: i want to write something here, but i dunno what

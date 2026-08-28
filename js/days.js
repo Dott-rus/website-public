@@ -113,10 +113,12 @@
   function renderYami(data) {
     const gaming = Array.isArray(data?.gaming) ? data.gaming : [];
     const watching = Array.isArray(data?.watching) ? data.watching : [];
+
     const supported = gaming.filter((item) => item.supported === true || Number(item.plays || 0) > 0 || (item.insights && typeof item.insights === 'object'));
     const generic = gaming.filter((item) => !supported.includes(item));
     const games = `${supported.length ? `<span class="day-game-supported-grid">${supported.map(gameItem).join('')}</span>` : ''}${generic.length ? `<span class="day-game-generic-grid">${generic.map(gameItem).join('')}</span>` : ''}`;
     upsertLiveRow('gaming', gaming.length ? `<span class="day-key">PLAYED</span><span class="day-media-items day-game-groups">${games}</span>` : '');
+
     upsertLiveRow('watching', watching.length ? `<span class="day-key">WATCHED</span><span class="day-media-items">${watching.map((x) => mediaItem(x, watchedMeta(x), '', 'poster')).join('')}</span>` : '');
   }
 

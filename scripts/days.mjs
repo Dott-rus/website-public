@@ -137,12 +137,14 @@ function renderGameItem(item = {}) {
 
 function renderDigest(day, live = false) {
   const rows = [];
+
   if (day.gaming?.length) {
     const supported = day.gaming.filter((item) => item.supported === true || Number(item.plays || 0) > 0 || (item.insights && typeof item.insights === 'object'));
     const generic = day.gaming.filter((item) => !supported.includes(item));
     const games = `${supported.length ? `<span class="day-game-supported-grid">${supported.map(renderGameItem).join('')}</span>` : ''}${generic.length ? `<span class="day-game-generic-grid">${generic.map(renderGameItem).join('')}</span>` : ''}`;
     rows.push(`<div data-kind="gaming" class="day-media-row day-media-section day-media-section-games"><span class="day-key">PLAYED</span><span class="day-media-items day-game-groups">${games}</span></div>`);
   }
+
   if (day.watching?.length) rows.push(`<div data-kind="watching" class="day-media-row day-media-section day-media-section-watch"><span class="day-key">WATCHED</span><span class="day-media-items">${day.watching.map((x) => renderMediaItem(x, watchedMeta(x), '', 'poster')).join('')}</span></div>`);
   const streaks = day.music?.streaks || [];
   for (const streak of streaks) rows.push(`<div class="day-media-row"><span class="day-key">MUSIC</span><span class="day-media-items">${renderMediaItem(streak, `${Number(streak.count) || 0} times${streak.kind === 'album' ? ' tracks' : ''}`, streak.artist)}</span></div>`);
@@ -218,6 +220,7 @@ function demoDays(today) {
     {
       date: d(-1),
       bakedAt: `${d(-1)}T21:00:00.000Z`,
+
       gaming: [
         { title: 'osu!', minutes: 184, plays: 137, cover: '/img/tracks/oktidk.png', insights: { 'global rank': '#183,742 → #183,391 ↑351', pp: '+31.70', best: '146pp · 98.42% · Flamewall [Nymphe\'s HARD]', PBs: 2 }, rankedPlay: { matches: '12 · 8W 4L', rating: '1,427 → 1,486 ↑59', division: 'Gold II', streak: 'W3' } },
         { title: 'Geometry Dash', minutes: 96, cover: '/img/tracks/silent-illusions.jpg', supported: true, insights: { attempts: 284, stars: '+17', demons: '+1', PB: '43% → 58%' } },
@@ -251,6 +254,7 @@ function demoDays(today) {
         { at: `${d(-1)}T21:37:00+03:00`, changes: { status: 'watching Arcane' } },
       ],
       note: '<p>Deliberately overloaded dev fixture: lots of games, supported integrations, watched media, music and commits in one day.</p><p>If this day still reads cleanly, the layout is probably not going to explode on a real busy day.</p>',
+
     },
     {
       date: d(-2),
