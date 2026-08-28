@@ -106,24 +106,34 @@ function renderMediaItem(item = {}, meta = '', subtitle = '', kind = 'music') {
 }
 
 function renderGameItem(item = {}) {
-  const hasInsights = item.supported === true || Number(item.plays || 0) > 0 || (item.insights && typeof item.insights === 'object');
-  if (!hasInsights) {
+    const hasInsights = item.supported === true || Number(item.plays || 0) > 0 || (item.insights && typeof item.insights === 'object');
+    if (!hasInsights) {
     const achievements = Number(item.achievements || item.achievementsUnlocked || 0);
     const meta = [item.minutes ? `${Math.round(item.minutes)}m` : '', achievements ? `+${achievements} ach` : ''].filter(Boolean).join(' · ');
     return renderMediaItem(item, meta, '', 'game');
-  }
+    }
 
   const cover = mediaCover(item);
-  const stats = [];
-  if (item.minutes) stats.push(`${Math.round(item.minutes)}m played`);
-  if (Number(item.plays || 0) > 0) stats.push(`${Number(item.plays)} plays`);
-  if (item.insights && typeof item.insights === 'object') {
-    for (const [label, value] of Object.entries(item.insights)) {
-      if (value !== null && value !== undefined && value !== '') stats.push(`${label}: ${value}`);
+    const title = item.title || '?';
+    const summary = [item.minutes ? `${Math.round(item.minutes)}m` : '', Number(item.plays || 0) > 0 ? `${Number(item.plays)} plays` : ''].filter(Boolean).join(' · ');
+    if (title === 'osu!') {
+      const insights = item.insights && typeof item.insights === 'object' ? item.insights : {};
+      const standardOrder = ['global rank', 'pp', 'best', 'PBs'];
+      const standard = standardOrder.filter((label) => insights[label] !== null && insights[label] !== undefined && insights[label] !== '').map((label) => `<span class="day-game-stat"><small>${escapeHtml(label)}</small><b>${escapeHtml(insights[label])}</b></span>`).join('');
+      const ranked = item.rankedPlay && typeof item.rankedPlay === 'object' ? Object.entries(item.rankedPlay).filter(([, value]) => value !== null && value !== undefined && value !== '').map(([label, value]) => `<span class="day-game-stat"><small>${escapeHtml(label)}</small><b>${escapeHtml(value)}</b></span>`).join('') : '';
+      return `<span class="day-game-insight day-game-osu">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-game-insight-body"><span class="day-game-title-row"><strong>${escapeHtml(title)}</strong>${summary ? `<small>${escapeHtml(summary)}</small>` : ''}</span><span class="day-game-section"><span class="day-game-section-label">STANDARD</span><span class="day-game-stat-grid">${standard || '<small class="day-game-muted">collecting telemetry</small>'}</span></span>${ranked ? `<span class="day-game-section"><span class="day-game-section-label">RANKED PLAY</span><span class="day-game-stat-grid">${ranked}</span></span>` : ''}</span></span>`;
     }
+
+    const stats = [];
+    if (item.minutes) stats.push(`${Math.round(item.minutes)}m played`);
+    if (Number(item.plays || 0) > 0) stats.push(`${Number(item.plays)} plays`);
+    if (item.insights && typeof item.insights === 'object') {
+      for (const [label, value] of Object.entries(item.insights)) {
+        if (value !== null && value !== undefined && value !== '') stats.push(`${label}: ${value}`);
+      }
+    }
+    return `<span class="day-game-insight">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-game-insight-body"><strong>${escapeHtml(title)}</strong><span class="day-game-insight-stats">${stats.map((stat) => `<small>${escapeHtml(stat)}</small>`).join('')}</span></span></span>`;
   }
-  return `<span class="day-game-insight">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-game-insight-body"><strong>${escapeHtml(item.title || '?')}</strong><span class="day-game-insight-stats">${stats.map((stat) => `<small>${escapeHtml(stat)}</small>`).join('')}</span></span></span>`;
-}
 
 function renderDigest(day, live = false) {
   const rows = [];
@@ -209,7 +219,7 @@ function demoDays(today) {
       date: d(-1),
       bakedAt: `${d(-1)}T21:00:00.000Z`,
       gaming: [
-        { title: 'osu!', minutes: 184, plays: 137, cover: '/img/tracks/oktidk.png', insights: { ranked: '62 plays', 'global rank': '#183,742 → #183,391 ↑351', pp: '+31.7', best: '146pp · 98.42%' } },
+        { title: 'osu!', minutes: 184, plays: 137, cover: '/img/tracks/oktidk.png', insights: { 'global rank': '#183,742 → #183,391 ↑351', pp: '+31.70', best: '146pp · 98.42% · Flamewall [Nymphe\'s HARD]', PBs: 2 }, rankedPlay: { matches: '12 · 8W 4L', rating: '1,427 → 1,486 ↑59', division: 'Gold II', streak: 'W3' } },
         { title: 'Geometry Dash', minutes: 96, cover: '/img/tracks/silent-illusions.jpg', supported: true, insights: { attempts: 284, stars: '+17', demons: '+1', PB: '43% → 58%' } },
         { title: 'Factorio', minutes: 221, cover: '/img/tracks/snowing-somewhere.jpg', supported: true, insights: { science: '18.4k', built: '1,247 entities', rockets: 3 } },
         { title: 'Portal 2', minutes: 73, achievements: 2, cover: '/img/tracks/oh-i-knew.jpg' },
