@@ -1716,4 +1716,3 @@ fieldset {
 @media screen and (max-width:720px) {
   .day-game-supported-grid { grid-template-columns:1fr; }
 }
-}

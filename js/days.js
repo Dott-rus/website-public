@@ -40,6 +40,7 @@
       row.dataset.liveYami = kind;
       digest?.prepend(row);
     }
+    row.className = `day-media-row day-media-section ${kind === 'gaming' ? 'day-media-section-games' : 'day-media-section-watch'}`;
     row.innerHTML = text;
   }
 
