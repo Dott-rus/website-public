@@ -1691,3 +1691,12 @@ fieldset {
   }
   .day-game-insight > img { width:108px; height:162px; }
 }
+
+/* Keep integrated games in a two-column table and generic Steam cards below it. */
+.day-game-groups { display:flex; flex-direction:column; gap:18px; width:100%; }
+.day-game-supported-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px 20px; width:100%; }
+.day-game-generic-grid { display:flex; flex-wrap:wrap; gap:14px 16px; width:100%; }
+.day-media-section-games .day-game-supported-grid .day-game-insight { width:100%; }
+@media screen and (max-width:720px) {
+  .day-game-supported-grid { grid-template-columns:1fr; }
+}
