@@ -1,0 +1,36 @@
+date: 2026-08-29
+bakedAt: 2026-08-29T21:02:23.920Z
+gaming:
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 29
+    plays: 21
+    supported: true
+    insights:
+      pp: "+0.00"
+      global rank: "#427,683 → #428,054 ↓371"
+      best: 65.18pp · 93.82% · Gravity (feat. WithoutMyArmor) (osu! edit) [Insane]
+  - title: Rhythm Doctor
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co9xi0.jpg
+    minutes: 10
+watching:
+  - title: "Jet Lag: The Game"
+    cover: https://image.tmdb.org/t/p/w500/9XhuLVDsLfNV6DUQXQhgf8uRWAD.jpg
+    kind: series
+    episodes: 2
+    watched:
+      - season: 17
+        episode: 5
+      - season: 17
+        episode: 6
+music:
+  plays: 8
+  tracks: 8
+  artists: 8
+  streaks: []
+code:
+  commits: 3
+  sources:
+    mira: 3
+    github: 0
+now: []
