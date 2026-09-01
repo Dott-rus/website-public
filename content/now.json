@@ -1,11 +1,18 @@
 {
   "current": {
     "doing": null,
-    "consuming": null,
-    "note": "i want to write something here, but i dunno what",
-    "updatedAt": "2026-08-28T11:46:56.166Z"
+    "consuming": "Water",
+    "note": "Happy 1st of September! 🎉 Now i am a student! 🎉",
+    "updatedAt": "2026-09-01T12:06:35.760Z"
   },
   "history": [
+    {
+      "at": "2026-09-01T12:06:35.760Z",
+      "changes": {
+        "consuming": "Water",
+        "note": "Happy 1st of September! 🎉 Now i am a student! 🎉"
+      }
+    },
     {
       "at": "2026-08-28T11:46:56.166Z",
       "changes": {
