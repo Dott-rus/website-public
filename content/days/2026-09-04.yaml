@@ -1,0 +1,25 @@
+date: 2026-09-04
+bakedAt: 2026-09-04T21:18:15.537Z
+gaming:
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 44
+    plays: 19
+    supported: true
+    insights:
+      pp: "+0.05"
+      global rank: "#429,934 → #430,176 ↓242"
+      best: 69.09pp · 91.85% · Leave The Lights On (KROT Remix) [Insane]
+      PBs: 1
+watching: []
+music:
+  plays: 2
+  tracks: 2
+  artists: 1
+  streaks: []
+code:
+  commits: 2
+  sources:
+    mira: 1
+    github: 1
+now: []
