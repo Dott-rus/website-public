@@ -1,0 +1,24 @@
+date: 2026-09-05
+bakedAt: 2026-09-09T08:37:48.239Z
+gaming:
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 34
+    plays: 19
+    supported: true
+    insights:
+      pp: "+0.00"
+      global rank: "#430,176 → #430,641 ↓465"
+      best: 71.96pp · 93.74% · Teo [Akitoshi vs. SnowNiNo's Insane]
+watching: []
+music:
+  plays: 53
+  tracks: 52
+  artists: 50
+  streaks: []
+code:
+  commits: 1
+  sources:
+    mira: 1
+    github: 0
+now: []
