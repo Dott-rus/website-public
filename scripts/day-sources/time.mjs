@@ -1,10 +1,11 @@
 export const SITE_TIME_ZONE = process.env.SITE_TIME_ZONE || 'Europe/Moscow';
 
 export function localDateString(date = new Date()) {
-  return new Intl.DateTimeFormat('en-CA', {
+  const parts = new Intl.DateTimeFormat('en-CA', {
     timeZone: SITE_TIME_ZONE,
     year: 'numeric', month: '2-digit', day: '2-digit',
-  }).format(date);
+  }).formatToParts(date).reduce((out, part) => (out[part.type] = part.value, out), {});
+  return `${parts.year}-${parts.month}-${parts.day}`;
 }
 
 export function dayBounds(date) {

@@ -3,14 +3,12 @@ import path from 'node:path';
 import MarkdownIt from 'markdown-it';
 import { parseYaml } from './content-yaml.mjs';
 import { escapeHtml } from './content-utils.mjs';
+import { localDateString } from './day-sources/time.mjs';
 
 const md = new MarkdownIt({ html: false, linkify: true, typographer: false });
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const MOSCOW = 'Europe/Moscow';
 
-function localDateString(date = new Date()) {
-  return new Intl.DateTimeFormat('en-CA', { timeZone: MOSCOW, year: 'numeric', month: '2-digit', day: '2-digit' }).format(date);
-}
 
 function dayNumber(value) {
   const [y, m, d] = value.split('-').map(Number);

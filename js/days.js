@@ -1,7 +1,77 @@
 (() => {
-  const entries = [...document.querySelectorAll('[data-day-entry]')];
+  const MOSCOW = 'Europe/Moscow';
+  const localDate = () => {
+    const parts = new Intl.DateTimeFormat('en-CA', {
+      timeZone: MOSCOW, year: 'numeric', month: '2-digit', day: '2-digit',
+    }).formatToParts(new Date()).reduce((out, part) => (out[part.type] = part.value, out), {});
+    return `${parts.year}-${parts.month}-${parts.day}`;
+  };
+  const shiftDate = (date, delta) => {
+    const [year, month, day] = date.split('-').map(Number);
+    return new Date(Date.UTC(year, month - 1, day + delta)).toISOString().slice(0, 10);
+  };
+  const dayMeta = (date) => {
+    const value = new Date(`${date}T12:00:00Z`);
+    return {
+      weekday: new Intl.DateTimeFormat('en-GB', { timeZone: 'UTC', weekday: 'short' }).format(value).toUpperCase(),
+      month: new Intl.DateTimeFormat('en-GB', { timeZone: 'UTC', month: 'short' }).format(value).toUpperCase(),
+      monthLong: new Intl.DateTimeFormat('en-GB', { timeZone: 'UTC', month: 'long', year: 'numeric' }).format(value),
+      day: new Intl.DateTimeFormat('en-GB', { timeZone: 'UTC', day: '2-digit' }).format(value),
+    };
+  };
+
+  let today = localDate();
   const strip = document.querySelector('[data-days-strip]');
   const picker = document.querySelector('[data-day-picker]');
+  const list = document.querySelector('[data-days-list]');
+
+  function repairStaleToday() {
+    const staleBody = document.querySelector('[data-live-day]');
+    const staleEntry = staleBody?.closest('[data-day-entry]');
+    if (!staleEntry || staleEntry.dataset.dayEntry === today || !list) return;
+
+    const staleDate = staleEntry.dataset.dayEntry;
+    const staleMeta = dayMeta(staleDate);
+    staleEntry.classList.remove('is-selected');
+    staleBody.removeAttribute('data-live-day');
+    staleBody.querySelector('.day-live-note')?.remove();
+    const staleStrong = staleEntry.querySelector('.day-title strong');
+    const staleSmall = staleEntry.querySelector('.day-title small');
+    if (staleStrong) staleStrong.textContent = staleMeta.weekday;
+    if (staleSmall?.textContent.trim() === 'live') staleSmall.textContent = 'quiet';
+
+    let currentEntry = document.querySelector(`[data-day-entry="${CSS.escape(today)}"]`);
+    if (!currentEntry) {
+      const meta = dayMeta(today);
+      currentEntry = document.createElement('article');
+      currentEntry.className = 'day-entry is-selected';
+      currentEntry.id = `day-${today}`;
+      currentEntry.dataset.dayEntry = today;
+      currentEntry.innerHTML = `<button class="day-entry-head" type="button" data-day-open="${today}"><span class="day-date">${meta.day} ${meta.month}</span><span class="day-title"><strong>TODAY</strong><small>live</small></span><span class="day-chevron" aria-hidden="true">[+]</span></button><div class="day-expanded"><div class="day-body" data-live-day><p class="day-live-note">[live] today is still being collected</p><section class="day-section"><h3>ACTIVITY</h3><div class="day-digest"><div class="day-quiet" data-live-empty>Nothing recorded yet.</div></div></section></div></div>`;
+      list.prepend(currentEntry);
+    } else {
+      currentEntry.classList.add('is-selected');
+      currentEntry.querySelector('.day-body')?.setAttribute('data-live-day', '');
+      const strong = currentEntry.querySelector('.day-title strong');
+      if (strong) strong.textContent = 'TODAY';
+    }
+
+    if (strip) {
+      const available = new Set([...list.querySelectorAll('[data-day-entry]')].map((entry) => entry.dataset.dayEntry));
+      const dates = Array.from({ length: 14 }, (_, index) => shiftDate(today, index - 10));
+      strip.innerHTML = dates.map((date) => {
+        const meta = dayMeta(date);
+        const classes = `${date === today ? 'is-today ' : ''}${available.has(date) ? 'has-data' : ''}`;
+        return `<a href="#day-${date}" data-day-link="${date}" class="${classes}"><span>${meta.weekday}</span> ${meta.day}${date === today ? '*' : ''}</a>`;
+      }).join(' ');
+    }
+    if (picker) picker.value = today;
+    const monthLabel = document.querySelector('.days-month > span');
+    if (monthLabel) monthLabel.textContent = dayMeta(today).monthLong;
+  }
+
+  repairStaleToday();
+  const entries = [...document.querySelectorAll('[data-day-entry]')];
 
   function select(date, updateUrl = true) {
     const target = document.querySelector(`[data-day-entry="${CSS.escape(date)}"]`);
@@ -30,7 +100,13 @@
   if (!root) return;
 
   const digest = root.querySelector('.day-digest');
-  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Moscow', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+  const initialEmpty = [...(digest?.querySelectorAll('.day-quiet') || [])].find((node) => node.textContent.trim() === 'Nothing recorded yet.');
+  if (initialEmpty) initialEmpty.dataset.liveEmpty = '';
+  const clearLiveEmpty = () => digest?.querySelector('[data-live-empty]')?.remove();
+
+  setInterval(() => {
+    if (localDate() !== today) location.reload();
+  }, 60_000);
 
   function upsertLiveRow(kind, text) {
     let row = digest?.querySelector(`[data-live-yami="${kind}"]`);
@@ -114,6 +190,7 @@
   function renderYami(data) {
     const gaming = Array.isArray(data?.gaming) ? data.gaming : [];
     const watching = Array.isArray(data?.watching) ? data.watching : [];
+    if (gaming.length || watching.length) clearLiveEmpty();
 
     const supported = gaming.filter((item) => item.supported === true || Number(item.plays || 0) > 0 || (item.insights && typeof item.insights === 'object'));
     const generic = gaming.filter((item) => !supported.includes(item));
@@ -143,6 +220,7 @@
     .then((data) => {
       const listens = data?.payload?.listens || [];
       if (!listens.length) return;
+      clearLiveEmpty();
       const tracks = new Set(), artists = new Set();
       const normalized = listens.slice().sort((a,b)=>(a.listened_at||0)-(b.listened_at||0)).map((x) => {
         const m=x.track_metadata||{}; tracks.add(`${m.artist_name}\n${m.track_name}`); artists.add(m.artist_name||'');
