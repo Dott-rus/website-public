@@ -1,11 +1,19 @@
 {
   "current": {
-    "doing": null,
-    "consuming": "Water",
-    "note": "Happy 1st of September! 🎉 Now i am a student! 🎉",
-    "updatedAt": "2026-09-01T12:06:35.760Z"
+    "doing": "Standing",
+    "consuming": "FUCKING CHOCOLATE BAR",
+    "note": "I've been through so much shit today. I fucking want a chocolate bar, I fucking earned it.",
+    "updatedAt": "2026-09-10T14:41:54.760Z"
   },
   "history": [
+    {
+      "at": "2026-09-10T14:41:54.760Z",
+      "changes": {
+        "doing": "Standing",
+        "consuming": "FUCKING CHOCOLATE BAR",
+        "note": "I've been through so much shit today. I fucking want a chocolate bar, I fucking earned it."
+      }
+    },
     {
       "at": "2026-09-01T12:06:35.760Z",
       "changes": {
