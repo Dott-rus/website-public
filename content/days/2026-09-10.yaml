@@ -1,0 +1,30 @@
+date: 2026-09-10
+bakedAt: 2026-09-11T06:48:16.743Z
+gaming: []
+watching: []
+music:
+  plays: 46
+  tracks: 27
+  artists: 25
+  streaks:
+    - kind: track
+      title: S.W.A.K.
+      artist: luxury elite
+      count: 10
+      cover: https://coverartarchive.org/release/0171d59f-7b85-4c14-aa60-9c1a15f5d625/11100605601-250.jpg
+    - kind: track
+      title: DOWN
+      artist: Juna Field
+      count: 4
+      cover: ""
+code:
+  commits: 1
+  sources:
+    mira: 1
+    github: 0
+now:
+  - at: 2026-09-10T14:41:54.760Z
+    changes:
+      doing: Standing
+      consuming: FUCKING CHOCOLATE BAR
+      note: I've been through so much shit today. I fucking want a chocolate bar, I fucking earned it.
