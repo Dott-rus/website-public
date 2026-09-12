@@ -1,0 +1,21 @@
+date: 2026-09-12
+bakedAt: 2026-09-12T21:07:34.859Z
+gaming:
+  - title: Not for Broadcast
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co5bcn.jpg
+    minutes: 349
+  - title: "Bully: Scholarship Edition"
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co2gvl.jpg
+    minutes: 45
+watching: []
+music:
+  plays: 21
+  tracks: 17
+  artists: 14
+  streaks: []
+code:
+  commits: 1
+  sources:
+    mira: 1
+    github: 0
+now: []
