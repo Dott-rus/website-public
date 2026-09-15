@@ -1,87 +1,15 @@
 date: 2026-09-14
 bakedAt: 2026-09-14T21:04:15.112Z
 gaming:
-  - title: Super Smash Bros.™ for Nintendo 3DS
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 19105
-  - title: Tomodachi Life™
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 8825
-  - title: "Animal Crossing: New Leaf"
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 2723
-  - title: Mario Kart™ 7
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 1729
-  - title: Apotris
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 1003
-  - title: Rune Factory 4
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 784
-  - title: Pokémon™ Ultra Sun
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 573
-  - title: "Phoenix Wright: Ace Attorney Trilogy"
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 284
-  - title: Super Mario Maker™ for Nintendo 3DS
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 156
-  - title: WarioWare™ Gold
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 58
-  - title: "The Legend of Zelda™: Majora's Mask 3D"
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 34
-  - title: Angband
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 20
   - title: "Minecraft: Bedrock Edition"
     cover: https://images.igdb.com/igdb/image/upload/t_original/coa0ti.jpg
     minutes: 17
-  - title: "Animal Crossing™:  Happy Home Designer"
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 17
-  - title: Geometry Dash 3DS
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 14
-  - title: Doors-3DS
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 14
   - title: Minecraft
     cover: https://images.igdb.com/igdb/image/upload/t_original/coa77e.jpg
     minutes: 13
-  - title: "The Legend of Zelda™: A Link Between Worlds"
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 11
-  - title: Yoshi's New Island™
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 8
-  - title: PixelMaker Studio
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 7
-  - title: RPG Maker Fes
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 5
   - title: Balatro
     cover: https://images.igdb.com/igdb/image/upload/t_original/co9f4g.jpg
     minutes: 4
-  - title: Super-Haxagon
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 3
-  - title: Resident Evil™ Revelations
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 3
-  - title: "Need For Speed™: The Run"
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 2
-  - title: Yet Another Flappy Bird
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 1
-  - title: Mario Golf™ World Tour
-    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
-    minutes: 1
 watching: []
 music:
   plays: 21
