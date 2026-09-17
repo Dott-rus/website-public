@@ -1,0 +1,46 @@
+date: 2026-09-17
+bakedAt: 2026-09-17T21:06:59.024Z
+gaming:
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 113
+    plays: 61
+    supported: true
+    insights:
+      pp: "+12.59"
+      global rank: "#435,791 → #433,635 ↑2156"
+      best: 101.01pp · 96.88% · Omen (feat. Asena) [Booliix's Insane]
+      PBs: 3
+  - title: Balatro
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co9f4g.jpg
+    minutes: 41
+  - title: CTGP-7 Downloader
+    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
+    minutes: 19
+  - title: "Animal Crossing: New Leaf"
+    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
+    minutes: 15
+  - title: LEGO Island
+    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
+    minutes: 13
+  - title: Mario Kart™ 7
+    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
+    minutes: 12
+  - title: Apotris
+    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
+    minutes: 11
+  - title: Dice of Kalma
+    cover: https://images.igdb.com/igdb/image/upload/t_original/coauar.jpg
+    minutes: 4
+watching: []
+music:
+  plays: 39
+  tracks: 38
+  artists: 36
+  streaks: []
+code:
+  commits: 3
+  sources:
+    mira: 3
+    github: 0
+now: []
