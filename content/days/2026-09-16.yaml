@@ -1,6 +1,16 @@
 date: 2026-09-16
-bakedAt: 2026-09-17T10:11:53.112Z
+bakedAt: 2026-09-17T12:12:03.815Z
 gaming:
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 79
+    plays: 39
+    supported: true
+    insights:
+      pp: "+0.00"
+      global rank: "#435,300 → #435,791 ↓491"
+      best: 79.58pp · 93.98% · Fata Morgana [captin's Insane]
+      PBs: 4
   - title: "Animal Crossing: New Leaf"
     cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
     minutes: 18
@@ -32,8 +42,8 @@ music:
   artists: 26
   streaks: []
 code:
-  commits: 1
+  commits: 0
   sources:
-    mira: 1
+    mira: 0
     github: 0
 now: []
