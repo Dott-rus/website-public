@@ -1,0 +1,37 @@
+date: 2026-09-18
+bakedAt: 2026-09-18T21:04:13.671Z
+gaming:
+  - title: Mario Kart™ 7
+    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
+    minutes: 67
+  - title: CTGP-7 Downloader
+    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
+    minutes: 51
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 46
+    plays: 30
+    supported: true
+    insights:
+      pp: "+3.61"
+      global rank: "#433,635 → #433,336 ↑299"
+      best: 90.13pp · 86.01% · Say Goodbye (Sped Up & Cut Ver.) [A r M i N's Nightmare]
+      PBs: 2
+  - title: Minecraft
+    cover: https://images.igdb.com/igdb/image/upload/t_original/coa77e.jpg
+    minutes: 15
+  - title: Flipnote Studio 3D
+    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
+    minutes: 3
+watching: []
+music:
+  plays: 0
+  tracks: 0
+  artists: 0
+  streaks: []
+code:
+  commits: 1
+  sources:
+    mira: 1
+    github: 0
+now: []
