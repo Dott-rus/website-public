@@ -1,0 +1,25 @@
+date: 2026-09-22
+bakedAt: 2026-09-22T21:04:04.580Z
+gaming:
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 120
+    plays: 56
+    supported: true
+    insights:
+      pp: "+11.63"
+      global rank: "#434,836 → #432,933 ↑1903"
+      best: 91.25pp · 93.52% · Kira Kira Days (Cut Ver.) [Reform's Expert]
+      PBs: 10
+watching: []
+music:
+  plays: 17
+  tracks: 16
+  artists: 15
+  streaks: []
+code:
+  commits: 0
+  sources:
+    mira: 0
+    github: 0
+now: []
