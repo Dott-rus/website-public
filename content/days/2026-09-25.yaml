@@ -1,0 +1,27 @@
+date: 2026-09-25
+bakedAt: 2026-09-25T21:02:41.259Z
+gaming:
+  - title: Watch Dogs 2
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co2p3j.jpg
+    minutes: 65
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 13
+    plays: 5
+    supported: true
+    insights:
+      pp: "+0.00"
+      global rank: "#433,745 → #434,021 ↓276"
+      best: 46.79pp · 85.61% · Rocking to the Beat (Cut Ver.) [Insane]
+watching: []
+music:
+  plays: 17
+  tracks: 16
+  artists: 14
+  streaks: []
+code:
+  commits: 2
+  sources:
+    mira: 2
+    github: 0
+now: []
