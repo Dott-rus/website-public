@@ -1,0 +1,27 @@
+date: 2026-09-26
+bakedAt: 2026-09-26T21:02:44.325Z
+gaming:
+  - title: Watch Dogs 2
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co2p3j.jpg
+    minutes: 266
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 5
+    plays: 1
+    supported: true
+    insights:
+      pp: "+0.00"
+      global rank: "#434,021 → #434,350 ↓329"
+      best: 16.59pp · 78.35% · Frou-frou foxes in midsummer fires [app's Insane]
+watching: []
+music:
+  plays: 30
+  tracks: 30
+  artists: 21
+  streaks: []
+code:
+  commits: 1
+  sources:
+    mira: 1
+    github: 0
+now: []
