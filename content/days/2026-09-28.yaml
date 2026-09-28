@@ -1,0 +1,36 @@
+date: 2026-09-28
+bakedAt: 2026-09-28T21:02:00.589Z
+gaming:
+  - title: Minecraft
+    cover: https://images.igdb.com/igdb/image/upload/t_original/coa77e.jpg
+    minutes: 133
+  - title: Watch Dogs 2
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co2p3j.jpg
+    minutes: 94
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 6
+    plays: 3
+    supported: true
+    insights:
+      pp: "+0.00"
+      global rank: "#434,843 → #435,247 ↓404"
+      best: "41.99pp · 88.95% · Bum [Insane: Nomad]"
+  - title: "Minecraft: Bedrock Edition"
+    cover: https://images.igdb.com/igdb/image/upload/t_original/coa0ti.jpg
+    minutes: 3
+  - title: DATA WING
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co1t72.jpg
+    minutes: 1
+watching: []
+music:
+  plays: 36
+  tracks: 35
+  artists: 26
+  streaks: []
+code:
+  commits: 1
+  sources:
+    mira: 1
+    github: 0
+now: []
