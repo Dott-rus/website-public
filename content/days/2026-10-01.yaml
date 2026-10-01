@@ -1,0 +1,32 @@
+date: 2026-10-01
+bakedAt: 2026-10-01T21:03:25.328Z
+gaming:
+  - title: Minecraft
+    cover: https://images.igdb.com/igdb/image/upload/t_original/coa77e.jpg
+    minutes: 55
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 42
+    plays: 31
+    supported: true
+    insights:
+      pp: "+0.00"
+      global rank: "#435,968 → #436,619 ↓651"
+      best: 45.82pp · 88.33% · Ashes [Dust]
+  - title: "Minecraft: Bedrock Edition"
+    cover: https://images.igdb.com/igdb/image/upload/t_original/coa0ti.jpg
+    minutes: 28
+watching: []
+music:
+  plays: 0
+  tracks: 0
+  artists: 0
+  streaks: []
+code:
+  commits: 1
+  sources:
+    mira: 1
+    github: 0
+now: []
+warnings:
+  - "music: fetch failed"
