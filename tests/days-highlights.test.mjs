@@ -7,7 +7,7 @@ test('days omit highlights when none are set', () => {
 });
 test('multiple highlights preserve type, artist and notes and escape authored content', () => {
   const html = renderHighlights([{type:'track', title:'Track <one>', artist:'A & B', note:'<script>bad</script>', url:'javascript:alert(1)'}, {type:'album', title:'Two', url:'https://example.org/album', cover:'https://example.org/cover.png'}]);
-  assert.equal((html.match(/class="day-highlight"/g) || []).length, 2);
+  assert.equal((html.match(/<article class="day-highlight[^"]*"/g) || []).length, 2);
   assert.ok(html.includes('Track &lt;one&gt;'));
   assert.ok(html.includes('A &amp; B'));
   assert.ok(!html.includes('javascript:'));

@@ -50,7 +50,7 @@
       const entry = document.createElement('article');
       entry.className = 'day-entry'; entry.id = `day-${today}`; entry.dataset.dayEntry = today;
       entry.setAttribute('aria-labelledby', `title-${today}`);
-      entry.innerHTML = `<header class="day-heading"><div class="day-kicker"><span data-day-weekday>Today</span><span class="day-state is-live" data-day-state>● LIVE</span></div><h2 id="title-${today}" tabindex="-1"><time datetime="${today}">${title}</time></h2><p class="day-overview" data-day-overview>live</p></header><div class="day-body" data-live-day><p class="day-live-note">[live] collecting today</p><section class="day-section"><h3 class="day-section-title">Activity</h3><div class="day-digest"><div class="day-empty" data-live-empty><span aria-hidden="true">· · ·</span><p>Nothing recorded yet.</p><small></small></div></div></section></div>`;
+      entry.innerHTML = `<header class="day-heading"><div class="day-kicker"><span data-day-weekday>Today</span><span class="day-state is-live" data-day-state>● LIVE</span></div><h2 id="title-${today}" tabindex="-1"><time datetime="${today}">${title}</time></h2><p class="day-overview" data-day-overview>live</p></header><div class="day-body" data-live-day><p class="day-live-note">[live] collecting today</p><section class="day-section"><div class="day-digest"><div class="day-empty" data-live-empty><span aria-hidden="true">· · ·</span><p>Nothing recorded yet.</p><small></small></div></div></section></div>`;
       list.prepend(entry);
       const link = document.createElement('a');
       link.className = 'days-index-row'; link.href = `#day-${today}`; link.dataset.dayLink = today;
@@ -159,7 +159,7 @@
     let row = digest?.querySelector(`[data-live-yami="${kind}"], [data-kind="${kind}"]`);
     if (!text) { row?.remove(); return; }
     if (!row) {
-      row = document.createElement('div');
+      row = document.createElement('fieldset');
       row.dataset.liveYami = kind;
       digest?.prepend(row);
     }
@@ -258,9 +258,9 @@
     const supported = gaming.filter((item) => item.supported === true || Number(item.plays || 0) > 0 || (item.insights && typeof item.insights === 'object'));
     const generic = gaming.filter((item) => !supported.includes(item));
     const games = `${supported.length ? `<span class="day-game-supported-grid">${supported.map(gameItem).join('')}</span>` : ''}${generic.length ? `<span class="day-game-generic-grid">${generic.map(gameItem).join('')}</span>` : ''}`;
-    upsertLiveRow('gaming', gaming.length ? `<span class="day-key">PLAYED</span><span class="day-media-items day-game-groups">${games}</span>` : '');
+    upsertLiveRow('gaming', gaming.length ? `<legend>Played</legend><span class="day-media-items day-game-groups">${games}</span>` : '');
 
-    upsertLiveRow('watching', watching.length ? `<span class="day-key">WATCHED</span><span class="day-media-items">${watching.map((x) => mediaItem(x, watchedMeta(x), '', 'poster')).join('')}</span>` : '');
+    upsertLiveRow('watching', watching.length ? `<legend>Watched</legend><span class="day-media-items">${watching.map((x) => mediaItem(x, watchedMeta(x), '', 'poster')).join('')}</span>` : '');
   }
 
   async function refreshYami() {
@@ -302,9 +302,9 @@
         }
       }
       let quiet=root.querySelector('.day-quiet');
-      if (!quiet) { quiet=document.createElement('div'); quiet.className='day-quiet'; root.querySelector('.day-digest')?.append(quiet); }
-      quiet.innerHTML=`<span class="day-key">LISTENED</span> ${listens.length} plays <small>· ${tracks.size} tracks · ${artists.size} artists</small>`;
+      if (!quiet) { quiet=document.createElement('fieldset'); quiet.className='day-quiet'; root.querySelector('.day-digest')?.append(quiet); }
+      quiet.innerHTML=`<legend>Listened</legend> ${listens.length} plays <small>· ${tracks.size} tracks · ${artists.size} artists</small>`;
       const digest=root.querySelector('.day-digest');
-      streaks.sort((a,b)=>b.count-a.count).slice(0,3).forEach((s)=>{ const el=document.createElement('div'); el.className='day-media-row'; el.innerHTML=`<span class="day-key">MUSIC</span><span class="day-media-items">${mediaItem(s, `×${s.count}${s.kind==='album'?' tracks':''}`, s.artist)}</span>`; digest?.insertBefore(el, quiet); });
+      streaks.sort((a,b)=>b.count-a.count).slice(0,3).forEach((s)=>{ const el=document.createElement('fieldset'); el.className='day-media-row day-music'; el.innerHTML=`<legend>On repeat</legend><span class="day-media-items">${mediaItem(s, `×${s.count}${s.kind==='album'?' tracks':''}`, s.artist)}</span>`; digest?.insertBefore(el, quiet); });
     }).catch(() => {});
 })();

@@ -140,18 +140,18 @@ function renderDigest(day, live = false) {
     const supported = day.gaming.filter((item) => item.supported === true || Number(item.plays || 0) > 0 || (item.insights && typeof item.insights === 'object'));
     const generic = day.gaming.filter((item) => !supported.includes(item));
     const games = `${supported.length ? `<span class="day-game-supported-grid">${supported.map(renderGameItem).join('')}</span>` : ''}${generic.length ? `<span class="day-game-generic-grid">${generic.map(renderGameItem).join('')}</span>` : ''}`;
-    rows.push(`<div data-kind="gaming" class="day-media-row day-media-section day-media-section-games"><span class="day-key">PLAYED</span><span class="day-media-items day-game-groups">${games}</span></div>`);
+    rows.push(`<fieldset data-kind="gaming" class="day-media-row day-media-section day-media-section-games"><legend>Played</legend><span class="day-media-items day-game-groups">${games}</span></fieldset>`);
   }
 
-  if (day.watching?.length) rows.push(`<div data-kind="watching" class="day-media-row day-media-section day-media-section-watch"><span class="day-key">WATCHED</span><span class="day-media-items">${day.watching.map((x) => renderMediaItem(x, watchedMeta(x), '', 'poster')).join('')}</span></div>`);
+  if (day.watching?.length) rows.push(`<fieldset data-kind="watching" class="day-media-row day-media-section day-media-section-watch"><legend>Watched</legend><span class="day-media-items">${day.watching.map((x) => renderMediaItem(x, watchedMeta(x), '', 'poster')).join('')}</span></fieldset>`);
   const streaks = day.music?.streaks || [];
-  for (const streak of streaks) rows.push(`<div class="day-media-row"><span class="day-key">MUSIC</span><span class="day-media-items">${renderMediaItem(streak, `${Number(streak.count) || 0} times${streak.kind === 'album' ? ' tracks' : ''}`, streak.artist)}</span></div>`);
+  for (const streak of streaks) rows.push(`<fieldset class="day-media-row day-music"><legend>On repeat</legend><span class="day-media-items">${renderMediaItem(streak, `${Number(streak.count) || 0} times${streak.kind === 'album' ? ' tracks' : ''}`, streak.artist)}</span></fieldset>`);
   const plays = Number(day.music?.plays || 0);
-  const musicQuiet = plays ? `<div class="day-quiet"><span class="day-key">LISTENED</span> ${plays} plays${day.music.tracks ? ` <small>· ${day.music.tracks} tracks</small>` : ''}${day.music.artists ? ` <small>· ${day.music.artists} artists</small>` : ''}</div>` : '';
+  const musicQuiet = plays ? `<fieldset class="day-quiet"><legend>Listened</legend> ${plays} plays${day.music.tracks ? ` <small>· ${day.music.tracks} tracks</small>` : ''}${day.music.artists ? ` <small>· ${day.music.artists} artists</small>` : ''}</fieldset>` : '';
   const commits = Number(day.code?.commits || 0);
-  const code = commits ? `<div class="day-code"><span class="day-key">CODE</span> ${commits} commit${commits === 1 ? '' : 's'} <small>· Mira ${Number(day.code?.sources?.mira || 0)} · GitHub ${Number(day.code?.sources?.github || 0)}</small></div>` : '';
+  const code = commits ? `<fieldset class="day-code"><legend>Code</legend> ${commits} commit${commits === 1 ? '' : 's'} <small>· Mira ${Number(day.code?.sources?.mira || 0)} · GitHub ${Number(day.code?.sources?.github || 0)}</small></fieldset>` : '';
   const empty = !rows.length && !plays && !commits ? '<div class="day-empty"><span aria-hidden="true">· · ·</span><p>Nothing recorded yet.</p><small></small></div>' : '';
-  return `${live ? '<p class="day-live-note">[live] collecting today</p>' : ''}<section class="day-section"><h3 class="day-section-title">Activity</h3><div class="day-digest">${rows.join('')}${code}${musicQuiet}${empty}</div></section>${renderNow(day.now || [])}`;
+  return `${live ? '<p class="day-live-note">[live] collecting today</p>' : ''}<section class="day-section"><div class="day-digest">${rows.join('')}${code}${musicQuiet}${empty}</div></section>${renderNow(day.now || [])}`;
 }
 
 function shiftDate(date, delta) {
@@ -308,10 +308,10 @@ export function renderHighlights(items) {
   const valid = items.filter(item => item && typeof item.title === 'string' && item.title.trim());
   if (!valid.length) return '';
   const safeUrl = value => typeof value === 'string' && /^https?:\/\//i.test(value) ? escapeHtml(value) : '';
-  return `<section class="day-highlights" aria-label="Highlights of the day"><h3>Highlights</h3><div class="day-highlights-grid">${valid.map(item => {
+  return `<fieldset class="day-highlights" aria-label="Highlights of the day"><legend>Highlights</legend><div class="day-highlights-grid">${valid.map(item => {
     const href = safeUrl(item.url);
     const cover = safeUrl(item.cover);
     const title = href ? `<a href="${href}" rel="noopener noreferrer">${escapeHtml(item.title)}</a>` : escapeHtml(item.title);
-    return `<article class="day-highlight">${cover ? `<img src="${cover}" alt="" loading="lazy">` : ''}<div><small>${escapeHtml(item.type || 'highlight')}</small><strong>${title}</strong>${item.artist ? `<span>${escapeHtml(item.artist)}</span>` : ''}${item.note ? `<p>${escapeHtml(item.note)}</p>` : ''}</div></article>`;
-  }).join('')}</div></section>`;
+    return `<article class="day-highlight ${/^(track|album|music)$/i.test(item.type || '') ? 'day-highlight-music' : ''}">${cover ? `<img src="${cover}" alt="" loading="lazy">` : ''}<div><small>${escapeHtml(item.type || 'highlight')}</small><strong>${title}</strong>${item.artist ? `<span>${escapeHtml(item.artist)}</span>` : ''}${item.note ? `<p>${escapeHtml(item.note)}</p>` : ''}</div></article>`;
+  }).join('')}</div></fieldset>`;
 }
