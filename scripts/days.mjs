@@ -66,7 +66,7 @@ function timeOnly(value) {
 
 function renderNow(events) {
   if (!events.length) return '';
-  return `<section class="day-section day-now"><h3>NOW</h3><div class="day-lines">${events.map((event) => `<div><time>${escapeHtml(timeOnly(event.at))}</time> ${Object.entries(event.changes).map(([key, value]) => `<span>${escapeHtml(key)}: ${escapeHtml(value ?? 'cleared')}</span>`).join(' · ')}</div>`).join('')}</div></section>`;
+  return `<section class="day-section day-now"><h3 class="day-section-title">Through the day</h3><div class="day-lines">${events.map((event) => `<div><time>${escapeHtml(timeOnly(event.at))}</time> ${Object.entries(event.changes).map(([key, value]) => `<span>${escapeHtml(key)}: ${escapeHtml(value ?? 'cleared')}</span>`).join(' · ')}</div>`).join('')}</div></section>`;
 }
 
 function mediaCover(item = {}) {
@@ -149,9 +149,9 @@ function renderDigest(day, live = false) {
   const plays = Number(day.music?.plays || 0);
   const musicQuiet = plays ? `<div class="day-quiet"><span class="day-key">LISTENED</span> ${plays} plays${day.music.tracks ? ` <small>· ${day.music.tracks} tracks</small>` : ''}${day.music.artists ? ` <small>· ${day.music.artists} artists</small>` : ''}</div>` : '';
   const commits = Number(day.code?.commits || 0);
-  const code = commits ? `<div class="day-code"><span class="day-key">CODE</span> ${commits} commits <small>· Mira ${Number(day.code?.sources?.mira || 0)} · GitHub ${Number(day.code?.sources?.github || 0)}</small></div>` : '';
-  const empty = !rows.length && !plays && !commits ? '<div class="day-quiet">Nothing recorded yet.</div>' : '';
-  return `${live ? '<p class="day-live-note">[live] today is still being collected</p>' : ''}<section class="day-section"><h3>ACTIVITY</h3><div class="day-digest">${rows.join('')}${code}${musicQuiet}${empty}</div></section>${renderNow(day.now || [])}`;
+  const code = commits ? `<div class="day-code"><span class="day-key">CODE</span> ${commits} commit${commits === 1 ? '' : 's'} <small>· Mira ${Number(day.code?.sources?.mira || 0)} · GitHub ${Number(day.code?.sources?.github || 0)}</small></div>` : '';
+  const empty = !rows.length && !plays && !commits ? '<div class="day-empty"><span aria-hidden="true">· · ·</span><p>Nothing here yet.</p><small>The day is still taking shape.</small></div>' : '';
+  return `${live ? '<p class="day-live-note">Still collecting today’s little things.</p>' : ''}<section class="day-section"><h3 class="day-section-title">In the day</h3><div class="day-digest">${rows.join('')}${code}${musicQuiet}${empty}</div></section>${renderNow(day.now || [])}`;
 }
 
 function shiftDate(date, delta) {
@@ -170,25 +170,24 @@ function dayMeta(date) {
   };
 }
 
-function renderDayStrip(days, today) {
-  const available = new Set([...days.map((day) => day.date), today]);
-  const first = today.slice(0, 7) + '-01';
-  const offset = (new Date(first + 'T12:00:00Z').getUTCDay() + 6) % 7;
-  const count = new Date(Date.UTC(Number(today.slice(0,4)), Number(today.slice(5,7)), 0)).getUTCDate();
-  const cells = Array.from({length: offset}, () => '<span></span>');
-  for (let i = 1; i <= count; i++) {
-    const date = first.slice(0,8) + String(i).padStart(2,'0');
-    cells.push(available.has(date) ? `<a href="#day-${date}" data-day-link="${date}" class="${date === today ? 'is-today is-selected' : ''}" aria-label="${date}" ${date === today ? 'aria-current="date"' : ''}>${i}</a>` : `<span class="days-no-data">${i}</span>`);
-  }
-  return `<nav class="days-nav" aria-label="Day navigation"><div class="days-month"><button type="button" data-month-step="-1" aria-label="Previous month">←</button><span data-month-label>${escapeHtml(dayMeta(today).monthLong)}</span><button type="button" data-month-step="1" aria-label="Next month">→</button><button type="button" data-days-today>Today</button><label class="days-jump">Date <input type="date" data-day-picker value="${today}" max="${today}"></label></div><div class="days-weekdays" aria-hidden="true">${['M','T','W','T','F','S','S'].map(x=>`<span>${x}</span>`).join('')}</div><div class="days-strip" data-days-strip>${cells.join('')}</div><p class="days-feedback" data-days-feedback role="status"></p></nav>`;
+function renderArchive(days, today) {
+  const months = [...new Set(days.map(day => day.date.slice(0, 7)))];
+  const links = days.map(day => {
+    const meta = dayMeta(day.date);
+    const isToday = day.date === today;
+    const titles = [...(day.gaming || []), ...(day.watching || [])].map(item => item.title).filter(Boolean);
+    const subtitle = titles.slice(0, 2).join(' / ') || renderCompact(day, today);
+    return `<a class="days-index-row ${isToday ? 'is-selected' : ''}" href="#day-${day.date}" data-day-link="${day.date}" ${isToday ? 'aria-current="date"' : ''}><span class="days-index-number">${meta.day}</span><span class="days-index-copy"><strong>${isToday ? 'Today' : meta.weekday}<span>${day.note ? '✎' : ''}</span></strong><small>${escapeHtml(subtitle)}</small></span></a>`;
+  }).join('');
+  return `<details class="days-archive" data-days-archive open><summary>Browse days <span aria-hidden="true">↗</span></summary><div class="days-archive-inner"><label class="days-month-label" for="days-month">ARCHIVE</label><select id="days-month" data-days-month>${months.map(month => `<option value="${month}">${escapeHtml(dayMeta(month + '-01').monthLong)}</option>`).join('')}</select><nav class="days-index" aria-label="Choose a day">${links}</nav><label class="days-date-label">Jump to date<input type="date" data-day-picker value="${today}" max="${today}" min="${days[days.length - 1]?.date || today}"></label><p class="days-feedback" data-days-feedback role="status"></p></div></details>`;
 }
 
 function renderCompact(day, today) {
   const bits=[];
   if(day.gaming?.length) bits.push(`${day.gaming.length} game${day.gaming.length===1?'':'s'}`);
   if(day.watching?.length) bits.push(`${day.watching.length} watched`);
-  if(Number(day.music?.plays||0)) bits.push(`${Number(day.music.plays)} plays`);
-  if(Number(day.code?.commits||0)) bits.push(`${Number(day.code.commits)} commits`);
+  if(Number(day.music?.plays||0)) bits.push(`${Number(day.music.plays)} listens`);
+  if(Number(day.code?.commits||0)) bits.push(`${Number(day.code.commits)} commit${Number(day.code.commits) === 1 ? '' : 's'}`);
   return bits.length ? bits.join(' · ') : (day.date===today ? 'live' : 'quiet');
 }
 
@@ -280,15 +279,18 @@ function demoDays(today) {
 export function renderDays(days, nowDocument, { demo = false } = {}) {
   const today = localDateString();
   if (demo) days = demoDays(today);
-  const existingToday = days.find((day) => day.date === today);
+  const existingToday = days.find(day => day.date === today);
   const todayDay = existingToday || { date: today, gaming: [], watching: [], music: {}, code: {}, now: todayNowEvents(nowDocument, today) };
   if (existingToday && !existingToday.now?.length) existingToday.now = todayNowEvents(nowDocument, today);
-  const ordered = [todayDay, ...days.filter((day) => day.date !== today)].sort((a,b)=>b.date.localeCompare(a.date));
-  const list = ordered.map((day) => {
+  const ordered = [todayDay, ...days.filter(day => day.date !== today)].sort((a, b) => b.date.localeCompare(a.date));
+  const articles = ordered.map(day => {
     const isToday = day.date === today;
-    const meta = dayMeta(day.date);
-    const note = day.note ? `<article class="day-note markdown-body">${day.note}</article>` : day.notePending ? '<div class="day-note-pending">✎ personal note unlocks after 14 days</div>' : '';
-    return `<article class="day-entry ${isToday?'is-selected':''}" id="day-${day.date}" data-day-entry="${day.date}"><button class="day-entry-head" type="button" data-day-open="${day.date}" aria-expanded="${isToday}" aria-controls="body-${day.date}"><span class="day-date">${escapeHtml(meta.day)} ${escapeHtml(meta.month)}</span><span class="day-title"><strong>${isToday?'TODAY':escapeHtml(meta.weekday)}</strong><small>${escapeHtml(renderCompact(day,today))}</small></span><span class="day-chevron" aria-hidden="true">[+]</span></button><div class="day-expanded" id="body-${day.date}"><div class="day-body" ${isToday?'data-live-day':''}>${renderDigest(day,isToday&&!day.bakedAt)}${note}</div></div></article>`;
+    const date = new Date(day.date + 'T12:00:00Z');
+    const weekday = new Intl.DateTimeFormat('en-GB', { weekday: 'long', timeZone: 'UTC' }).format(date);
+    const dateTitle = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(date);
+    const note = day.note ? `<section class="day-note markdown-body" aria-label="Personal note">${day.note}</section>` : '';
+    const pending = day.notePending ? '<p class="day-note-pending">✎ A personal note will appear here after 14 days.</p>' : '';
+    return `<article class="day-entry ${isToday ? 'is-selected' : ''}" id="day-${day.date}" data-day-entry="${day.date}" aria-labelledby="title-${day.date}" ${isToday ? '' : 'hidden'}><header class="day-heading"><div class="day-kicker"><span data-day-weekday>${isToday ? 'Today' : weekday}</span><span class="day-state ${isToday ? 'is-live' : ''}" data-day-state>${isToday ? '● LIVE' : day.date.slice(0, 4)}</span></div><h2 id="title-${day.date}" tabindex="-1"><time datetime="${day.date}">${dateTitle}</time><span class="day-heading-dot">.</span></h2><p class="day-overview" data-day-overview>${escapeHtml(renderCompact(day, today))}</p></header><div class="day-body" ${isToday ? 'data-live-day' : ''}>${note}${renderDigest(day, isToday && !day.bakedAt)}${pending}</div></article>`;
   }).join('');
-  return `${renderDayStrip(days,today)}<section class="days-list" data-days-list>${list}</section>`;
+  return `<div class="days-workspace">${renderArchive(ordered, today)}<div class="days-reader"><nav class="days-reader-nav" aria-label="Adjacent days"><button type="button" data-day-step="1">← Older day</button><button type="button" data-days-today>Today</button><button type="button" data-day-step="-1">Newer day →</button></nav><section class="days-list" data-days-list>${articles}</section><p class="days-reader-foot">A little of what happened. Kept here.</p></div></div>`;
 }

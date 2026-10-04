@@ -20,142 +20,115 @@
     };
   };
 
-  let today = localDate();
-  const strip = document.querySelector('[data-days-strip]');
+  const today = localDate();
   const picker = document.querySelector('[data-day-picker]');
   const list = document.querySelector('[data-days-list]');
-
-  function repairStaleToday() {
-    const staleBody = document.querySelector('[data-live-day]');
-    const staleEntry = staleBody?.closest('[data-day-entry]');
-    if (!staleEntry || staleEntry.dataset.dayEntry === today || !list) return;
-
-    const staleDate = staleEntry.dataset.dayEntry;
-    const staleMeta = dayMeta(staleDate);
-    staleEntry.classList.remove('is-selected');
-    staleBody.removeAttribute('data-live-day');
-    staleBody.querySelector('.day-live-note')?.remove();
-    const staleStrong = staleEntry.querySelector('.day-title strong');
-    const staleSmall = staleEntry.querySelector('.day-title small');
-    if (staleStrong) staleStrong.textContent = staleMeta.weekday;
-    if (staleSmall?.textContent.trim() === 'live') staleSmall.textContent = 'quiet';
-
-    let currentEntry = document.querySelector(`[data-day-entry="${CSS.escape(today)}"]`);
-    if (!currentEntry) {
-      const meta = dayMeta(today);
-      currentEntry = document.createElement('article');
-      currentEntry.className = 'day-entry is-selected';
-      currentEntry.id = `day-${today}`;
-      currentEntry.dataset.dayEntry = today;
-      currentEntry.innerHTML = `<button class="day-entry-head" type="button" data-day-open="${today}"><span class="day-date">${meta.day} ${meta.month}</span><span class="day-title"><strong>TODAY</strong><small>live</small></span><span class="day-chevron" aria-hidden="true">[+]</span></button><div class="day-expanded"><div class="day-body" data-live-day><p class="day-live-note">[live] today is still being collected</p><section class="day-section"><h3>ACTIVITY</h3><div class="day-digest"><div class="day-quiet" data-live-empty>Nothing recorded yet.</div></div></section></div></div>`;
-      list.prepend(currentEntry);
-    } else {
-      currentEntry.classList.add('is-selected');
-      currentEntry.querySelector('.day-body')?.setAttribute('data-live-day', '');
-      const strong = currentEntry.querySelector('.day-title strong');
-      if (strong) strong.textContent = 'TODAY';
-    }
-
-    if (strip) {
-      const available = new Set([...list.querySelectorAll('[data-day-entry]')].map((entry) => entry.dataset.dayEntry));
-      const dates = Array.from({ length: 14 }, (_, index) => shiftDate(today, index - 10));
-      strip.innerHTML = dates.map((date) => {
-        const meta = dayMeta(date);
-        const classes = `${date === today ? 'is-today ' : ''}${available.has(date) ? 'has-data' : ''}`;
-        return `<a href="#day-${date}" data-day-link="${date}" class="${classes}"><span>${meta.weekday}</span> ${meta.day}${date === today ? '*' : ''}</a>`;
-      }).join(' ');
-    }
-    if (picker) picker.value = today;
-    const monthLabel = document.querySelector('.days-month > span');
-    if (monthLabel) monthLabel.textContent = dayMeta(today).monthLong;
-  }
-
-  repairStaleToday();
-  const entries = [...document.querySelectorAll('[data-day-entry]')];
-
-  entries.forEach(entry => {
-    const body = entry.querySelector('.day-expanded');
-    if (body) body.id = `body-${entry.dataset.dayEntry}`;
-    const button = entry.querySelector('[data-day-open]');
-    button?.setAttribute('aria-controls', body?.id || '');
-    button?.setAttribute('aria-expanded', String(entry.classList.contains('is-selected')));
-  });
+  const index = document.querySelector('.days-index');
+  const monthPicker = document.querySelector('[data-days-month]');
+  const archive = document.querySelector('[data-days-archive]');
   const feedback = document.querySelector('[data-days-feedback]');
-  let month = today.slice(0,7);
-  const available = new Set(entries.map(entry => entry.dataset.dayEntry));
-  const oldestMonth = [...available].sort()[0]?.slice(0,7) || month;
-  function showMonth(value) {
-    month = value;
-    const first = month + '-01';
-    const offset = (new Date(first + 'T12:00:00Z').getUTCDay() + 6) % 7;
-    const count = new Date(Date.UTC(Number(month.slice(0,4)), Number(month.slice(5,7)), 0)).getUTCDate();
-    const selected = entries.find(entry => entry.classList.contains('is-selected'))?.dataset.dayEntry;
-    const cells = Array.from({length:offset}, () => '<span></span>');
-    for (let i=1; i<=count; i++) {
-      const date = month + '-' + String(i).padStart(2,'0');
-      cells.push(available.has(date) ? `<a href="#day-${date}" data-day-link="${date}" aria-label="${date}" class="${date===today?'is-today ':''}${date===selected?'is-selected':''}" ${date===selected?'aria-current="date"':''}>${i}</a>` : `<span class="days-no-data">${i}</span>`);
+  const narrow = window.matchMedia('(max-width: 760px)');
+  if (!list || !index) return;
+
+  // A static build can outlive midnight. Keep the new live day separate from the archive.
+  const staleBody = list.querySelector('[data-live-day]');
+  if (staleBody?.closest('[data-day-entry]').dataset.dayEntry !== today) {
+    if (staleBody) {
+      const staleEntry = staleBody.closest('[data-day-entry]');
+      staleBody.removeAttribute('data-live-day');
+      staleBody.querySelector('.day-live-note')?.remove();
+      const state = staleEntry.querySelector('[data-day-state]');
+      if (state) { state.textContent = staleEntry.dataset.dayEntry.slice(0, 4); state.classList.remove('is-live'); }
+      const weekday = staleEntry.querySelector('[data-day-weekday]');
+      if (weekday) weekday.textContent = dayMeta(staleEntry.dataset.dayEntry).weekday;
+      const staleLinkTitle = index.querySelector(`[data-day-link="${staleEntry.dataset.dayEntry}"] strong`);
+      if (staleLinkTitle) staleLinkTitle.textContent = dayMeta(staleEntry.dataset.dayEntry).weekday;
     }
-    if (strip) strip.innerHTML = cells.join('');
-    const label = document.querySelector('[data-month-label]');
-    if (label) label.textContent = dayMeta(first).monthLong;
-    entries.forEach(entry => { entry.hidden = entry.dataset.dayEntry.slice(0,7) !== month; });
-    document.querySelector('[data-month-step="-1"]')?.toggleAttribute('disabled', month <= oldestMonth);
-    document.querySelector('[data-month-step="1"]')?.toggleAttribute('disabled', month >= today.slice(0,7));
-    if (feedback) feedback.textContent = entries.some(entry => !entry.hidden) ? '' : 'No entries this month.';
+    if (!list.querySelector(`[data-day-entry="${today}"]`)) {
+      const date = new Date(today + 'T12:00:00Z');
+      const title = new Intl.DateTimeFormat('en-GB', {day:'numeric', month:'long', timeZone:'UTC'}).format(date);
+      const entry = document.createElement('article');
+      entry.className = 'day-entry'; entry.id = `day-${today}`; entry.dataset.dayEntry = today;
+      entry.setAttribute('aria-labelledby', `title-${today}`);
+      entry.innerHTML = `<header class="day-heading"><div class="day-kicker"><span data-day-weekday>Today</span><span class="day-state is-live" data-day-state>● LIVE</span></div><h2 id="title-${today}" tabindex="-1"><time datetime="${today}">${title}</time><span class="day-heading-dot">.</span></h2><p class="day-overview" data-day-overview>live</p></header><div class="day-body" data-live-day><p class="day-live-note">Still collecting today’s little things.</p><section class="day-section"><h3 class="day-section-title">In the day</h3><div class="day-digest"><div class="day-empty" data-live-empty><span aria-hidden="true">· · ·</span><p>Nothing here yet.</p><small>The day is still taking shape.</small></div></div></section></div>`;
+      list.prepend(entry);
+      const link = document.createElement('a');
+      link.className = 'days-index-row'; link.href = `#day-${today}`; link.dataset.dayLink = today;
+      link.innerHTML = `<span class="days-index-number">${dayMeta(today).day}</span><span class="days-index-copy"><strong>Today</strong><small>live</small></span>`;
+      index.prepend(link);
+    }
+    if (monthPicker && ![...monthPicker.options].some(option => option.value === today.slice(0,7))) {
+      monthPicker.prepend(new Option(dayMeta(today).monthLong, today.slice(0,7)));
+    }
+    if (picker) picker.max = today;
   }
-  function select(date, updateUrl = true, scroll = false) {
+  const entries = [...list.querySelectorAll('[data-day-entry]')].sort((a,b)=>b.dataset.dayEntry.localeCompare(a.dataset.dayEntry));
+  const links = [...index.querySelectorAll('[data-day-link]')];
+  let selected = today;
+  function showMonth(month) {
+    if (monthPicker) monthPicker.value = month;
+    links.forEach(link => { link.hidden = link.dataset.dayLink.slice(0,7) !== month; });
+  }
+  function select(date, updateUrl = true, focus = false) {
     const target = entries.find(entry => entry.dataset.dayEntry === date);
     if (!target) {
       if (feedback) feedback.textContent = 'No entry for this date.';
       return false;
     }
+    selected = date;
     entries.forEach(entry => {
-      const selected = entry === target;
-      entry.classList.toggle('is-selected', selected);
-      entry.querySelector('[data-day-open]')?.setAttribute('aria-expanded', String(selected));
+      entry.hidden = entry !== target;
+      entry.classList.toggle('is-selected', entry === target);
+    });
+    links.forEach(link => {
+      const active = link.dataset.dayLink === date;
+      link.classList.toggle('is-selected', active);
+      if (active) link.setAttribute('aria-current', 'date'); else link.removeAttribute('aria-current');
     });
     if (picker) picker.value = date;
+    if (feedback) feedback.textContent = '';
     showMonth(date.slice(0,7));
-    if (scroll) target.scrollIntoView({ behavior:'smooth', block:'start' });
-    if (updateUrl) history.replaceState(null, '', `#day-${date}`);
+    const position = entries.indexOf(target);
+    document.querySelector('[data-day-step="1"]')?.toggleAttribute('disabled', position === entries.length - 1);
+    document.querySelector('[data-day-step="-1"]')?.toggleAttribute('disabled', position === 0);
+    document.querySelector('[data-days-today]')?.toggleAttribute('disabled', date === today);
+    if (updateUrl) history.pushState(null, '', `#day-${date}`);
+    if (narrow.matches && archive) archive.open = false;
+    if (focus) target.querySelector('h2')?.focus({preventScroll:true});
     return true;
   }
   document.addEventListener('click', event => {
-    const open = event.target.closest('[data-day-open]');
-    if (open) {
-      const entry = open.closest('[data-day-entry]');
-      if (entry.classList.contains('is-selected')) {
-        entry.classList.remove('is-selected');
-        open.setAttribute('aria-expanded','false');
-        history.replaceState(null,'',location.pathname + location.search);
-        showMonth(month);
-      } else select(open.dataset.dayOpen);
-    }
     const link = event.target.closest('[data-day-link]');
-    if (link) { event.preventDefault(); select(link.dataset.dayLink); }
-    const step = event.target.closest('[data-month-step]');
+    if (link) { event.preventDefault(); select(link.dataset.dayLink, true, narrow.matches); }
+    const step = event.target.closest('[data-day-step]');
     if (step && !step.disabled) {
-      const date = new Date(month + '-01T12:00:00Z');
-      date.setUTCMonth(date.getUTCMonth() + Number(step.dataset.monthStep));
-      showMonth(date.toISOString().slice(0,7));
+      const position = entries.findIndex(entry => entry.dataset.dayEntry === selected);
+      const target = entries[position + Number(step.dataset.dayStep)];
+      if (target) select(target.dataset.dayEntry);
     }
     if (event.target.closest('[data-days-today]')) select(today);
   });
-  picker?.addEventListener('change', () => select(picker.value));
-  window.addEventListener('hashchange', () => {
-    const date = location.hash.match(/^#day-(\\d{4}-\\d{2}-\\d{2})$/)?.[1];
-    if (date) select(date, false);
+  monthPicker?.addEventListener('change', () => {
+    const target = entries.find(entry => entry.dataset.dayEntry.startsWith(monthPicker.value));
+    if (target) select(target.dataset.dayEntry);
   });
-  const hashDate = location.hash.match(/^#day-(\\d{4}-\\d{2}-\\d{2})$/)?.[1];
-  showMonth(month);
-  if (hashDate) select(hashDate, false);
-  else select(today, false);
+  picker?.addEventListener('change', () => select(picker.value));
+  const syncHash = () => {
+    const date = location.hash.match(/^#day-(\d{4}-\d{2}-\d{2})$/)?.[1];
+    if (!select(date || today, false)) select(today, false);
+  };
+  window.addEventListener('popstate', syncHash);
+  window.addEventListener('hashchange', syncHash);
+  const syncArchive = () => { if (archive) archive.open = !narrow.matches; };
+  narrow.addEventListener('change', syncArchive);
+  syncArchive();
+  syncHash();
 
   const root = document.querySelector('[data-live-day]');
   if (!root) return;
 
   const digest = root.querySelector('.day-digest');
-  const initialEmpty = [...(digest?.querySelectorAll('.day-quiet') || [])].find((node) => node.textContent.trim() === 'Nothing recorded yet.');
+  const initialEmpty = digest?.querySelector('.day-empty');
   if (initialEmpty) initialEmpty.dataset.liveEmpty = '';
   const clearLiveEmpty = () => digest?.querySelector('[data-live-empty]')?.remove();
 
@@ -242,10 +215,23 @@
     return `<span class="day-game-insight">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-game-insight-body"><strong>${escapeHtml(title)}</strong><span class="day-game-insight-stats">${stats.map((stat) => `<small>${escapeHtml(stat)}</small>`).join('')}</span></span></span>`;
   }
 
+  const liveSummary = { games: 0, watched: 0, plays: 0 };
+  function updateOverview() {
+    const bits = [];
+    if (liveSummary.games) bits.push(`${liveSummary.games} game${liveSummary.games === 1 ? '' : 's'}`);
+    if (liveSummary.watched) bits.push(`${liveSummary.watched} watched`);
+    if (liveSummary.plays) bits.push(`${liveSummary.plays} listens`);
+    if (bits.length) {
+      const summary = root.closest('[data-day-entry]')?.querySelector('[data-day-overview]');
+      if (summary) summary.textContent = bits.join(' · ');
+    }
+  }
+
   function renderYami(data) {
     const gaming = Array.isArray(data?.gaming) ? data.gaming : [];
     const watching = Array.isArray(data?.watching) ? data.watching : [];
     if (gaming.length || watching.length) clearLiveEmpty();
+    liveSummary.games = gaming.length; liveSummary.watched = watching.length; updateOverview();
 
     const supported = gaming.filter((item) => item.supported === true || Number(item.plays || 0) > 0 || (item.insights && typeof item.insights === 'object'));
     const generic = gaming.filter((item) => !supported.includes(item));
@@ -275,6 +261,7 @@
     .then((data) => {
       const listens = data?.payload?.listens || [];
       if (!listens.length) return;
+      liveSummary.plays = listens.length; updateOverview();
       clearLiveEmpty();
       const tracks = new Set(), artists = new Set();
       const normalized = listens.slice().sort((a,b)=>(a.listened_at||0)-(b.listened_at||0)).map((x) => {

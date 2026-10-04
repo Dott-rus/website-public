@@ -3,20 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Daily activity snapshots.">
+  <meta name="description" content="A day-by-day archive of games, music, notes and the things in between.">
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <title>Days - somedott.space</title>
 </head>
-<body>
-  <div class="container">
-    <div class="left-col ibm-plex-mono-light" data-layout="sidebar"></div>
-    <main class="cent-col ibm-plex-mono-medium">
-      <h1 class="greeting ibm-plex-mono-bold">Days</h1>
+<body class="days-page">
+  <div class="days-shell ibm-plex-mono-regular">
+    <header class="days-site-header"><a class="days-home" href="/">somedott.space<span> / days</span></a><nav aria-label="Site"><a href="/now/">Now</a><a href="/feed/">Feed</a><a href="/about/">About</a></nav></header>
+    <main>
+      <div class="days-masthead"><div><p class="days-eyebrow">THE EVERYDAY ARCHIVE</p><h1>days<span>.</span></h1></div><p>Games, songs, passing thoughts.<br>A few things I leave behind.</p></div>
       {{{days}}}
     </main>
-    <aside class="right-col ibm-plex-mono-light" data-layout="right-feed"></aside>
+    <footer class="days-footer"><span>someDott / a work in progress</span><a href="/">Back home ↗</a></footer>
   </div>
-  <div data-layout="footer"></div>
   <script src="/js/days.js" defer></script>
 </body>
 </html>
