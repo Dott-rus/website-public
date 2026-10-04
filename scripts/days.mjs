@@ -171,11 +171,16 @@ function dayMeta(date) {
 }
 
 function renderDayStrip(days, today) {
-  const available = new Set(days.map((day)=>day.date));
-  available.add(today);
-  const dates = Array.from({length:14},(_,i)=>shiftDate(today,i-10));
-  const current = dayMeta(today);
-  return `<nav class="days-nav" aria-label="Day navigation"><div class="days-month"><span>${escapeHtml(current.monthLong)}</span><label class="days-jump">[jump]<input type="date" data-day-picker value="${today}"></label></div><div class="days-strip" data-days-strip>${dates.map((date)=>{const meta=dayMeta(date);const has=available.has(date);return `<a href="#day-${date}" data-day-link="${date}" class="${date===today?'is-today ':''}${has?'has-data':''}"><span>${meta.weekday}</span> ${meta.day}${date===today?'*':''}</a>`}).join(' ')}</div></nav>`;
+  const available = new Set([...days.map((day) => day.date), today]);
+  const first = today.slice(0, 7) + '-01';
+  const offset = (new Date(first + 'T12:00:00Z').getUTCDay() + 6) % 7;
+  const count = new Date(Date.UTC(Number(today.slice(0,4)), Number(today.slice(5,7)), 0)).getUTCDate();
+  const cells = Array.from({length: offset}, () => '<span></span>');
+  for (let i = 1; i <= count; i++) {
+    const date = first.slice(0,8) + String(i).padStart(2,'0');
+    cells.push(available.has(date) ? `<a href="#day-${date}" data-day-link="${date}" class="${date === today ? 'is-today is-selected' : ''}" aria-label="${date}" ${date === today ? 'aria-current="date"' : ''}>${i}</a>` : `<span class="days-no-data">${i}</span>`);
+  }
+  return `<nav class="days-nav" aria-label="Day navigation"><div class="days-month"><button type="button" data-month-step="-1" aria-label="Previous month">←</button><span data-month-label>${escapeHtml(dayMeta(today).monthLong)}</span><button type="button" data-month-step="1" aria-label="Next month">→</button><button type="button" data-days-today>Today</button><label class="days-jump">Date <input type="date" data-day-picker value="${today}" max="${today}"></label></div><div class="days-weekdays" aria-hidden="true">${['M','T','W','T','F','S','S'].map(x=>`<span>${x}</span>`).join('')}</div><div class="days-strip" data-days-strip>${cells.join('')}</div><p class="days-feedback" data-days-feedback role="status"></p></nav>`;
 }
 
 function renderCompact(day, today) {
@@ -283,7 +288,7 @@ export function renderDays(days, nowDocument, { demo = false } = {}) {
     const isToday = day.date === today;
     const meta = dayMeta(day.date);
     const note = day.note ? `<article class="day-note markdown-body">${day.note}</article>` : day.notePending ? '<div class="day-note-pending">✎ personal note unlocks after 14 days</div>' : '';
-    return `<article class="day-entry ${isToday?'is-selected':''}" id="day-${day.date}" data-day-entry="${day.date}"><button class="day-entry-head" type="button" data-day-open="${day.date}"><span class="day-date">${escapeHtml(meta.day)} ${escapeHtml(meta.month)}</span><span class="day-title"><strong>${isToday?'TODAY':escapeHtml(meta.weekday)}</strong><small>${escapeHtml(renderCompact(day,today))}</small></span><span class="day-chevron" aria-hidden="true">[+]</span></button><div class="day-expanded"><div class="day-body" ${isToday?'data-live-day':''}>${renderDigest(day,isToday&&!day.bakedAt)}${note}</div></div></article>`;
+    return `<article class="day-entry ${isToday?'is-selected':''}" id="day-${day.date}" data-day-entry="${day.date}"><button class="day-entry-head" type="button" data-day-open="${day.date}" aria-expanded="${isToday}" aria-controls="body-${day.date}"><span class="day-date">${escapeHtml(meta.day)} ${escapeHtml(meta.month)}</span><span class="day-title"><strong>${isToday?'TODAY':escapeHtml(meta.weekday)}</strong><small>${escapeHtml(renderCompact(day,today))}</small></span><span class="day-chevron" aria-hidden="true">[+]</span></button><div class="day-expanded" id="body-${day.date}"><div class="day-body" ${isToday?'data-live-day':''}>${renderDigest(day,isToday&&!day.bakedAt)}${note}</div></div></article>`;
   }).join('');
   return `${renderDayStrip(days,today)}<section class="days-list" data-days-list>${list}</section>`;
 }

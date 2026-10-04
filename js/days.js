@@ -73,28 +73,83 @@
   repairStaleToday();
   const entries = [...document.querySelectorAll('[data-day-entry]')];
 
-  function select(date, updateUrl = true) {
-    const target = document.querySelector(`[data-day-entry="${CSS.escape(date)}"]`);
-    if (!target) return false;
-    entries.forEach((entry) => entry.classList.toggle('is-selected', entry === target));
-    document.querySelectorAll('[data-day-link]').forEach((link) => link.classList.toggle('is-selected', link.dataset.dayLink === date));
+  entries.forEach(entry => {
+    const body = entry.querySelector('.day-expanded');
+    if (body) body.id = `body-${entry.dataset.dayEntry}`;
+    const button = entry.querySelector('[data-day-open]');
+    button?.setAttribute('aria-controls', body?.id || '');
+    button?.setAttribute('aria-expanded', String(entry.classList.contains('is-selected')));
+  });
+  const feedback = document.querySelector('[data-days-feedback]');
+  let month = today.slice(0,7);
+  const available = new Set(entries.map(entry => entry.dataset.dayEntry));
+  const oldestMonth = [...available].sort()[0]?.slice(0,7) || month;
+  function showMonth(value) {
+    month = value;
+    const first = month + '-01';
+    const offset = (new Date(first + 'T12:00:00Z').getUTCDay() + 6) % 7;
+    const count = new Date(Date.UTC(Number(month.slice(0,4)), Number(month.slice(5,7)), 0)).getUTCDate();
+    const selected = entries.find(entry => entry.classList.contains('is-selected'))?.dataset.dayEntry;
+    const cells = Array.from({length:offset}, () => '<span></span>');
+    for (let i=1; i<=count; i++) {
+      const date = month + '-' + String(i).padStart(2,'0');
+      cells.push(available.has(date) ? `<a href="#day-${date}" data-day-link="${date}" aria-label="${date}" class="${date===today?'is-today ':''}${date===selected?'is-selected':''}" ${date===selected?'aria-current="date"':''}>${i}</a>` : `<span class="days-no-data">${i}</span>`);
+    }
+    if (strip) strip.innerHTML = cells.join('');
+    const label = document.querySelector('[data-month-label]');
+    if (label) label.textContent = dayMeta(first).monthLong;
+    entries.forEach(entry => { entry.hidden = entry.dataset.dayEntry.slice(0,7) !== month; });
+    document.querySelector('[data-month-step="-1"]')?.toggleAttribute('disabled', month <= oldestMonth);
+    document.querySelector('[data-month-step="1"]')?.toggleAttribute('disabled', month >= today.slice(0,7));
+    if (feedback) feedback.textContent = entries.some(entry => !entry.hidden) ? '' : 'No entries this month.';
+  }
+  function select(date, updateUrl = true, scroll = false) {
+    const target = entries.find(entry => entry.dataset.dayEntry === date);
+    if (!target) {
+      if (feedback) feedback.textContent = 'No entry for this date.';
+      return false;
+    }
+    entries.forEach(entry => {
+      const selected = entry === target;
+      entry.classList.toggle('is-selected', selected);
+      entry.querySelector('[data-day-open]')?.setAttribute('aria-expanded', String(selected));
+    });
     if (picker) picker.value = date;
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    showMonth(date.slice(0,7));
+    if (scroll) target.scrollIntoView({ behavior:'smooth', block:'start' });
     if (updateUrl) history.replaceState(null, '', `#day-${date}`);
     return true;
   }
-
-  document.addEventListener('click', (event) => {
+  document.addEventListener('click', event => {
     const open = event.target.closest('[data-day-open]');
-    if (open) select(open.dataset.dayOpen);
+    if (open) {
+      const entry = open.closest('[data-day-entry]');
+      if (entry.classList.contains('is-selected')) {
+        entry.classList.remove('is-selected');
+        open.setAttribute('aria-expanded','false');
+        history.replaceState(null,'',location.pathname + location.search);
+        showMonth(month);
+      } else select(open.dataset.dayOpen);
+    }
     const link = event.target.closest('[data-day-link]');
     if (link) { event.preventDefault(); select(link.dataset.dayLink); }
+    const step = event.target.closest('[data-month-step]');
+    if (step && !step.disabled) {
+      const date = new Date(month + '-01T12:00:00Z');
+      date.setUTCMonth(date.getUTCMonth() + Number(step.dataset.monthStep));
+      showMonth(date.toISOString().slice(0,7));
+    }
+    if (event.target.closest('[data-days-today]')) select(today);
   });
   picker?.addEventListener('change', () => select(picker.value));
-
-  const hashDate = location.hash.match(/^#day-(\d{4}-\d{2}-\d{2})$/)?.[1];
+  window.addEventListener('hashchange', () => {
+    const date = location.hash.match(/^#day-(\\d{4}-\\d{2}-\\d{2})$/)?.[1];
+    if (date) select(date, false);
+  });
+  const hashDate = location.hash.match(/^#day-(\\d{4}-\\d{2}-\\d{2})$/)?.[1];
+  showMonth(month);
   if (hashDate) select(hashDate, false);
-  else document.querySelector('[data-day-entry].is-selected')?.dataset.dayEntry && select(document.querySelector('[data-day-entry].is-selected').dataset.dayEntry, false);
+  else select(today, false);
 
   const root = document.querySelector('[data-live-day]');
   if (!root) return;
@@ -109,7 +164,7 @@
   }, 60_000);
 
   function upsertLiveRow(kind, text) {
-    let row = digest?.querySelector(`[data-live-yami="${kind}"]`);
+    let row = digest?.querySelector(`[data-live-yami="${kind}"], [data-kind="${kind}"]`);
     if (!text) { row?.remove(); return; }
     if (!row) {
       row = document.createElement('div');
