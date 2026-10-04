@@ -1585,19 +1585,19 @@ fieldset {
 .day-highlight small,.day-highlight span { font-size:.85rem; color:#ccc; }
 .day-highlight small { text-transform:uppercase; }
 .day-highlight p { font-size:.85rem; margin:4px 0 0; line-height:1.5; }
-.days-archive > summary { font-size:.85rem; cursor:pointer; margin-bottom:15px; }
-.days-archive > summary span { display:none; }
+.days-archive > summary { font-size:.85rem; font-weight:600; cursor:pointer; margin:10px 0 15px; list-style:none; }
+.days-archive > summary::-webkit-details-marker { display:none; }\n.days-archive > summary span { display:none; }
 .days-archive-inner { min-width:0; }
 .days-month-label { display:none; }
-.days-archive select { width:100%; font-size:.72rem; }
-.days-index { display:grid; margin:12px 0 18px; max-height:60vh; overflow:auto; scrollbar-width:thin; }
-.days-index-row { display:flex; align-items:baseline; gap:9px; padding:8px 3px; border-bottom:1px solid #f5f5dc22; text-decoration:none; min-width:0; }
-.days-index-row.is-selected { color:#d98b92; background:#d98b9214; }
-.days-index-number { font-size:.86rem; }
+.days-archive select { width:auto; max-width:100%; padding:0 18px 4px 0; border:0; border-bottom:1px dashed #636363; background:transparent; color:#ccc; font-size:.75rem; }
+.days-index { display:grid; margin:12px 0 18px; max-height:60vh; overflow:auto; scrollbar-width:thin; scrollbar-color:#555 transparent; }
+.days-index-row { display:flex; align-items:baseline; gap:9px; padding:4px 0; border:0; text-decoration:underline dashed #636363; text-underline-offset:3px; min-width:0; }
+.days-index-row.is-selected { color:#d98b92; }
+.days-index-number { color:#aaa; font-size:.86rem; }
 .days-index-copy { min-width:0; flex:1; }
-.days-index-copy strong { display:flex; justify-content:space-between; font-size:.65rem; font-weight:400; }
-.days-index-copy small { display:block; color:#999; font-size:.7rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:3px; }
-.days-date-label { display:grid; gap:6px; color:#999; font-size:.68rem; }
+.days-index-copy strong { display:flex; justify-content:space-between; font-size:.7rem; font-weight:400; }
+.days-index-copy small { display:block; color:#999; font-size:.68rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:2px; }
+.days-date-label { display:grid; gap:6px; color:#999; font-size:.68rem; border-top:1px dashed #f5f5dc33; padding-top:10px; }
 .days-date-label input { width:100%; min-width:0; box-sizing:border-box; color-scheme:dark; font-size:.65rem; }
 .days-feedback { color:#d98b92; font-size:.7rem; }
 .days-feedback:empty { display:none; }
