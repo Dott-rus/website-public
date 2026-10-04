@@ -27,7 +27,7 @@
   const monthPicker = document.querySelector('[data-days-month]');
   const archive = document.querySelector('[data-days-archive]');
   const feedback = document.querySelector('[data-days-feedback]');
-  const narrow = window.matchMedia('(max-width: 760px)');
+  const narrow = window.matchMedia('(max-width: 767px)');
   if (!list || !index) return;
 
   // A static build can outlive midnight. Keep the new live day separate from the archive.
@@ -50,7 +50,7 @@
       const entry = document.createElement('article');
       entry.className = 'day-entry'; entry.id = `day-${today}`; entry.dataset.dayEntry = today;
       entry.setAttribute('aria-labelledby', `title-${today}`);
-      entry.innerHTML = `<header class="day-heading"><div class="day-kicker"><span data-day-weekday>Today</span><span class="day-state is-live" data-day-state>● LIVE</span></div><h2 id="title-${today}" tabindex="-1"><time datetime="${today}">${title}</time><span class="day-heading-dot">.</span></h2><p class="day-overview" data-day-overview>live</p></header><div class="day-body" data-live-day><p class="day-live-note">Still collecting today’s little things.</p><section class="day-section"><h3 class="day-section-title">In the day</h3><div class="day-digest"><div class="day-empty" data-live-empty><span aria-hidden="true">· · ·</span><p>Nothing here yet.</p><small>The day is still taking shape.</small></div></div></section></div>`;
+      entry.innerHTML = `<header class="day-heading"><div class="day-kicker"><span data-day-weekday>Today</span><span class="day-state is-live" data-day-state>● LIVE</span></div><h2 id="title-${today}" tabindex="-1"><time datetime="${today}">${title}</time></h2><p class="day-overview" data-day-overview>live</p></header><div class="day-body" data-live-day><p class="day-live-note">[live] collecting today</p><section class="day-section"><h3 class="day-section-title">Activity</h3><div class="day-digest"><div class="day-empty" data-live-empty><span aria-hidden="true">· · ·</span><p>Nothing recorded yet.</p><small></small></div></div></section></div>`;
       list.prepend(entry);
       const link = document.createElement('a');
       link.className = 'days-index-row'; link.href = `#day-${today}`; link.dataset.dayLink = today;
@@ -124,6 +124,25 @@
   syncArchive();
   syncHash();
 
+
+  function enhanceGames(scope = document) {
+    scope.querySelectorAll('span.day-game-insight').forEach(game => {
+      const details = document.createElement('details');
+      details.className = game.className + ' day-game-disclosure';
+      const summary = document.createElement('summary');
+      const image = game.querySelector(':scope > img');
+      if (image) summary.append(image);
+      const title = game.querySelector('.day-game-title-row') || game.querySelector('.day-game-insight-body > strong');
+      if (title) summary.append(title);
+      const label = document.createElement('span');
+      label.className = 'day-game-expand'; label.textContent = '[stats]';
+      summary.append(label);
+      const body = document.createElement('div'); body.className = 'day-game-details';
+      game.querySelectorAll('.day-game-section, .day-game-insight-stats').forEach(stat => body.append(stat));
+      details.append(summary, body); game.replaceWith(details);
+    });
+  }
+  enhanceGames();
   const root = document.querySelector('[data-live-day]');
   if (!root) return;
 
@@ -145,7 +164,10 @@
       digest?.prepend(row);
     }
     row.className = `day-media-row day-media-section ${kind === 'gaming' ? 'day-media-section-games' : 'day-media-section-watch'}`;
+    const expanded = [...row.querySelectorAll('details[open]')].map(el => el.querySelector('strong')?.textContent);
     row.innerHTML = text;
+    enhanceGames(row);
+    row.querySelectorAll('details').forEach(el => { el.open = expanded.includes(el.querySelector('strong')?.textContent); });
   }
 
   function escapeHtml(value) {

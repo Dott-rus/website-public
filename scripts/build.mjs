@@ -30,7 +30,7 @@ import {
   renderFeed,
   renderFeedFilters,
 } from './feed.mjs';
-import { loadDays, renderDays } from './days.mjs';
+import { loadDays, renderDays, renderDaysArchive } from './days.mjs';
 import { generateCspHeaders } from './csp.mjs';
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
@@ -394,6 +394,7 @@ async function buildEntry(
           renderDays(days, nowDocument, { demo: !productionTools }),
           childRelativePath,
         );
+        html = replaceRequiredPlaceholder(html, '{{{days_archive}}}', renderDaysArchive(days, { demo: !productionTools }), childRelativePath);
       }
       if (childRelativePath === path.join('feed', 'index.html')) {
         html = replaceRequiredPlaceholder(

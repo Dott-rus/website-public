@@ -66,7 +66,7 @@ function timeOnly(value) {
 
 function renderNow(events) {
   if (!events.length) return '';
-  return `<section class="day-section day-now"><h3 class="day-section-title">Through the day</h3><div class="day-lines">${events.map((event) => `<div><time>${escapeHtml(timeOnly(event.at))}</time> ${Object.entries(event.changes).map(([key, value]) => `<span>${escapeHtml(key)}: ${escapeHtml(value ?? 'cleared')}</span>`).join(' · ')}</div>`).join('')}</div></section>`;
+  return `<section class="day-section day-now"><h3 class="day-section-title">NOW</h3><div class="day-lines">${events.map((event) => `<div><time>${escapeHtml(timeOnly(event.at))}</time> ${Object.entries(event.changes).map(([key, value]) => `<span>${escapeHtml(key)}: ${escapeHtml(value ?? 'cleared')}</span>`).join(' · ')}</div>`).join('')}</div></section>`;
 }
 
 function mediaCover(item = {}) {
@@ -150,8 +150,8 @@ function renderDigest(day, live = false) {
   const musicQuiet = plays ? `<div class="day-quiet"><span class="day-key">LISTENED</span> ${plays} plays${day.music.tracks ? ` <small>· ${day.music.tracks} tracks</small>` : ''}${day.music.artists ? ` <small>· ${day.music.artists} artists</small>` : ''}</div>` : '';
   const commits = Number(day.code?.commits || 0);
   const code = commits ? `<div class="day-code"><span class="day-key">CODE</span> ${commits} commit${commits === 1 ? '' : 's'} <small>· Mira ${Number(day.code?.sources?.mira || 0)} · GitHub ${Number(day.code?.sources?.github || 0)}</small></div>` : '';
-  const empty = !rows.length && !plays && !commits ? '<div class="day-empty"><span aria-hidden="true">· · ·</span><p>Nothing here yet.</p><small>The day is still taking shape.</small></div>' : '';
-  return `${live ? '<p class="day-live-note">Still collecting today’s little things.</p>' : ''}<section class="day-section"><h3 class="day-section-title">In the day</h3><div class="day-digest">${rows.join('')}${code}${musicQuiet}${empty}</div></section>${renderNow(day.now || [])}`;
+  const empty = !rows.length && !plays && !commits ? '<div class="day-empty"><span aria-hidden="true">· · ·</span><p>Nothing recorded yet.</p><small></small></div>' : '';
+  return `${live ? '<p class="day-live-note">[live] collecting today</p>' : ''}<section class="day-section"><h3 class="day-section-title">Activity</h3><div class="day-digest">${rows.join('')}${code}${musicQuiet}${empty}</div></section>${renderNow(day.now || [])}`;
 }
 
 function shiftDate(date, delta) {
@@ -290,7 +290,28 @@ export function renderDays(days, nowDocument, { demo = false } = {}) {
     const dateTitle = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(date);
     const note = day.note ? `<section class="day-note markdown-body" aria-label="Personal note">${day.note}</section>` : '';
     const pending = day.notePending ? '<p class="day-note-pending">✎ A personal note will appear here after 14 days.</p>' : '';
-    return `<article class="day-entry ${isToday ? 'is-selected' : ''}" id="day-${day.date}" data-day-entry="${day.date}" aria-labelledby="title-${day.date}" ${isToday ? '' : 'hidden'}><header class="day-heading"><div class="day-kicker"><span data-day-weekday>${isToday ? 'Today' : weekday}</span><span class="day-state ${isToday ? 'is-live' : ''}" data-day-state>${isToday ? '● LIVE' : day.date.slice(0, 4)}</span></div><h2 id="title-${day.date}" tabindex="-1"><time datetime="${day.date}">${dateTitle}</time><span class="day-heading-dot">.</span></h2><p class="day-overview" data-day-overview>${escapeHtml(renderCompact(day, today))}</p></header><div class="day-body" ${isToday ? 'data-live-day' : ''}>${note}${renderDigest(day, isToday && !day.bakedAt)}${pending}</div></article>`;
+    return `<article class="day-entry ${isToday ? 'is-selected' : ''}" id="day-${day.date}" data-day-entry="${day.date}" aria-labelledby="title-${day.date}" ${isToday ? '' : 'hidden'}><header class="day-heading"><div class="day-kicker"><span data-day-weekday>${isToday ? 'Today' : weekday}</span><span class="day-state ${isToday ? 'is-live' : ''}" data-day-state>${isToday ? '● LIVE' : day.date.slice(0, 4)}</span></div><h2 id="title-${day.date}" tabindex="-1"><time datetime="${day.date}">${dateTitle}</time></h2><p class="day-overview" data-day-overview>${escapeHtml(renderCompact(day, today))}</p></header><div class="day-body" ${isToday ? 'data-live-day' : ''}>${renderHighlights(day.highlights)}${note}${renderDigest(day, isToday && !day.bakedAt)}${pending}</div></article>`;
   }).join('');
-  return `<div class="days-workspace">${renderArchive(ordered, today)}<div class="days-reader"><nav class="days-reader-nav" aria-label="Adjacent days"><button type="button" data-day-step="1">← Older day</button><button type="button" data-days-today>Today</button><button type="button" data-day-step="-1">Newer day →</button></nav><section class="days-list" data-days-list>${articles}</section><p class="days-reader-foot">A little of what happened. Kept here.</p></div></div>`;
+  return `<div class="days-workspace"><div class="days-reader"><nav class="days-reader-nav" aria-label="Adjacent days"><button type="button" data-day-step="1">← Older day</button><button type="button" data-days-today>Today</button><button type="button" data-day-step="-1">Newer day →</button></nav><section class="days-list" data-days-list>${articles}</section></div></div>`;
+}
+
+export function renderDaysArchive(days, { demo = false } = {}) {
+  const today = localDateString();
+  if (demo) days = demoDays(today);
+  const ordered = [...days];
+  if (!ordered.some(day => day.date === today)) ordered.push({ date: today });
+  return renderArchive(ordered.sort((a,b)=>b.date.localeCompare(a.date)), today);
+}
+
+export function renderHighlights(items) {
+  if (!Array.isArray(items)) return '';
+  const valid = items.filter(item => item && typeof item.title === 'string' && item.title.trim());
+  if (!valid.length) return '';
+  const safeUrl = value => typeof value === 'string' && /^https?:\/\//i.test(value) ? escapeHtml(value) : '';
+  return `<section class="day-highlights" aria-label="Highlights of the day"><h3>Highlights</h3><div class="day-highlights-grid">${valid.map(item => {
+    const href = safeUrl(item.url);
+    const cover = safeUrl(item.cover);
+    const title = href ? `<a href="${href}" rel="noopener noreferrer">${escapeHtml(item.title)}</a>` : escapeHtml(item.title);
+    return `<article class="day-highlight">${cover ? `<img src="${cover}" alt="" loading="lazy">` : ''}<div><small>${escapeHtml(item.type || 'highlight')}</small><strong>${title}</strong>${item.artist ? `<span>${escapeHtml(item.artist)}</span>` : ''}${item.note ? `<p>${escapeHtml(item.note)}</p>` : ''}</div></article>`;
+  }).join('')}</div></section>`;
 }
