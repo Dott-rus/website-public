@@ -1,0 +1,30 @@
+date: 2026-09-30
+bakedAt: 2026-09-30T21:02:53.812Z
+gaming:
+  - title: Minecraft
+    cover: https://images.igdb.com/igdb/image/upload/t_original/coa77e.jpg
+    minutes: 53
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 4
+    plays: 1
+    supported: true
+    insights:
+      pp: "+0.00"
+      global rank: "#435,584 → #435,968 ↓384"
+      best: 27.04pp · 86.97% · The Fall [Insane]
+  - title: "Minecraft: Bedrock Edition"
+    cover: https://images.igdb.com/igdb/image/upload/t_original/coa0ti.jpg
+    minutes: 2
+watching: []
+music:
+  plays: 41
+  tracks: 36
+  artists: 22
+  streaks: []
+code:
+  commits: 1
+  sources:
+    mira: 1
+    github: 0
+now: []
