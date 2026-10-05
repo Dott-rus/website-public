@@ -1,0 +1,63 @@
+date: 2026-10-05
+bakedAt: 2026-10-05T21:02:26.667Z
+gaming:
+  - title: Cytoid
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co4xtd.jpg
+    minutes: 11
+  - title: "Minecraft: Bedrock Edition"
+    cover: https://images.igdb.com/igdb/image/upload/t_original/coa0ti.jpg
+    minutes: 9
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 5
+    plays: 1
+    supported: true
+    insights:
+      pp: "+0.00"
+      global rank: "#437,532 → #437,972 ↓440"
+      best: 18.36pp · 65.58% · down [noob...]
+watching: []
+podcasts:
+  - title: PlayStation Says Buying Isn’t Owning - WAN Show September 4, 2026
+    podcast: The WAN Show
+    cover: https://megaphone.imgix.net/podcasts/220331a4-84a9-11ee-95ca-b72641a23ead/image/10089342-1635526132257-c093b912933b4.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress
+    minutes: 97.4
+    position: 5857
+    total: 13312
+    finished: false
+    events: 10
+  - title: "860: Module Federation Microfrontends with ByteDance’s Zack Jackson"
+    podcast: Syntax - Tasty Web Development Treats
+    cover: https://megaphone.imgix.net/podcasts/620038de-42f7-11f0-aebf-a789798dc36c/image/11dc66ad91796fe9094e35f22d3195d6.png?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress
+    minutes: 9.7
+    position: 615
+    total: 4237
+    finished: false
+    events: 5
+  - title: 443. Скрытый рынок веб-игр
+    podcast: Как делают игры
+    cover: https://kdicast.com/wp-content/uploads/2022/07/itunes.png
+    minutes: 0
+    position: 812
+    total: 4956
+    finished: false
+    events: 2
+  - title: Андрей Гайдулян - Про Сашутаню, Амкал и 2Drots ⧸ Опять не Гальцев Плюшки [9mQN4E6ur-w].opus
+    podcast: podcasts
+    cover: ""
+    minutes: 0
+    position: 1551
+    total: 1551
+    finished: true
+    events: 1
+music:
+  plays: 27
+  tracks: 27
+  artists: 22
+  streaks: []
+code:
+  commits: 10
+  sources:
+    mira: 8
+    github: 2
+now: []
