@@ -207,6 +207,17 @@
     return `<span class="day-media-item day-media-${kind}">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-media-copy"><span>${escapeHtml(item.title || '?')}</span>${subtitle ? `<small>${escapeHtml(subtitle)}</small>` : ''}${meta ? `<small>${escapeHtml(meta)}</small>` : ''}</span></span>`;
   }
 
+  function podcastMeta(item = {}) {
+    const bits = [];
+    const minutes = Number(item.minutes || 0);
+    const position = Number(item.position || 0);
+    const total = Number(item.total || 0);
+    if (minutes > 0) bits.push(`${Math.round(minutes)}m`);
+    if (item.finished) bits.push('finished');
+    else if (total > 0 && position >= 0) bits.push(`${Math.min(100, Math.max(0, Math.round(position / total * 100)))}%`);
+    return bits.join(' · ');
+  }
+
   function gameItem(item = {}) {
     const hasInsights = item.supported === true || Number(item.plays || 0) > 0 || (item.insights && typeof item.insights === 'object');
     if (!hasInsights) {
@@ -237,11 +248,12 @@
     return `<span class="day-game-insight">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-game-insight-body"><strong>${escapeHtml(title)}</strong><span class="day-game-insight-stats">${stats.map((stat) => `<small>${escapeHtml(stat)}</small>`).join('')}</span></span></span>`;
   }
 
-  const liveSummary = { games: 0, watched: 0, plays: 0 };
+  const liveSummary = { games: 0, watched: 0, podcasts: 0, plays: 0 };
   function updateOverview() {
     const bits = [];
     if (liveSummary.games) bits.push(`${liveSummary.games} game${liveSummary.games === 1 ? '' : 's'}`);
     if (liveSummary.watched) bits.push(`${liveSummary.watched} watched`);
+    if (liveSummary.podcasts) bits.push(`${liveSummary.podcasts} podcast${liveSummary.podcasts === 1 ? '' : 's'}`);
     if (liveSummary.plays) bits.push(`${liveSummary.plays} listens`);
     if (bits.length) {
       const summary = root.closest('[data-day-entry]')?.querySelector('[data-day-overview]');
@@ -252,8 +264,9 @@
   function renderYami(data) {
     const gaming = Array.isArray(data?.gaming) ? data.gaming : [];
     const watching = Array.isArray(data?.watching) ? data.watching : [];
-    if (gaming.length || watching.length) clearLiveEmpty();
-    liveSummary.games = gaming.length; liveSummary.watched = watching.length; updateOverview();
+    const podcasts = Array.isArray(data?.podcasts) ? data.podcasts : [];
+    if (gaming.length || watching.length || podcasts.length) clearLiveEmpty();
+    liveSummary.games = gaming.length; liveSummary.watched = watching.length; liveSummary.podcasts = podcasts.length; updateOverview();
 
     const supported = gaming.filter((item) => item.supported === true || Number(item.plays || 0) > 0 || (item.insights && typeof item.insights === 'object'));
     const generic = gaming.filter((item) => !supported.includes(item));
@@ -261,6 +274,8 @@
     upsertLiveRow('gaming', gaming.length ? `<legend>Played</legend><span class="day-media-items day-game-groups">${games}</span>` : '');
 
     upsertLiveRow('watching', watching.length ? `<legend>Watched</legend><span class="day-media-items">${watching.map((x) => mediaItem(x, watchedMeta(x), '', 'poster')).join('')}</span>` : '');
+
+    upsertLiveRow('podcasts', podcasts.length ? `<legend>Podcasts</legend><span class="day-media-items">${podcasts.map((x) => mediaItem(x, podcastMeta(x), x.podcast || '', 'podcast')).join('')}</span>` : '');
   }
 
   async function refreshYami() {

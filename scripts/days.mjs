@@ -27,6 +27,7 @@ function validateDay(day, source) {
   day.code ||= {};
   day.gaming ||= [];
   day.watching ||= [];
+  day.podcasts ||= [];
   day.now ||= [];
   return day;
 }
@@ -103,6 +104,17 @@ function renderMediaItem(item = {}, meta = '', subtitle = '', kind = 'music') {
   return `<span class="day-media-item day-media-${kind}">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-media-copy"><span>${escapeHtml(item.title || '?')}</span>${subtitle ? `<small>${escapeHtml(subtitle)}</small>` : ''}${meta ? `<small>${escapeHtml(meta)}</small>` : ''}</span></span>`;
 }
 
+function podcastMeta(item = {}) {
+  const bits = [];
+  const minutes = Number(item.minutes || 0);
+  const position = Number(item.position || 0);
+  const total = Number(item.total || 0);
+  if (minutes > 0) bits.push(`${Math.round(minutes)}m`);
+  if (item.finished) bits.push('finished');
+  else if (total > 0 && position >= 0) bits.push(`${Math.min(100, Math.max(0, Math.round(position / total * 100)))}%`);
+  return bits.join(' · ');
+}
+
 function renderGameItem(item = {}) {
     const hasInsights = item.supported === true || Number(item.plays || 0) > 0 || (item.insights && typeof item.insights === 'object');
     if (!hasInsights) {
@@ -144,6 +156,7 @@ function renderDigest(day, live = false) {
   }
 
   if (day.watching?.length) rows.push(`<fieldset data-kind="watching" class="day-media-row day-media-section day-media-section-watch"><legend>Watched</legend><span class="day-media-items">${day.watching.map((x) => renderMediaItem(x, watchedMeta(x), '', 'poster')).join('')}</span></fieldset>`);
+  if (day.podcasts?.length) rows.push(`<fieldset data-kind="podcasts" class="day-media-row day-media-section day-media-section-watch"><legend>Podcasts</legend><span class="day-media-items">${day.podcasts.map((x) => renderMediaItem(x, podcastMeta(x), x.podcast || '', 'podcast')).join('')}</span></fieldset>`);
   const streaks = day.music?.streaks || [];
   for (const streak of streaks) rows.push(`<fieldset class="day-media-row day-music"><legend>On repeat</legend><span class="day-media-items">${renderMediaItem(streak, `${Number(streak.count) || 0} times${streak.kind === 'album' ? ' tracks' : ''}`, streak.artist)}</span></fieldset>`);
   const plays = Number(day.music?.plays || 0);
@@ -175,7 +188,7 @@ function renderArchive(days, today) {
   const links = days.map(day => {
     const meta = dayMeta(day.date);
     const isToday = day.date === today;
-    const titles = [...(day.gaming || []), ...(day.watching || [])].map(item => item.title).filter(Boolean);
+    const titles = [...(day.gaming || []), ...(day.watching || []), ...(day.podcasts || [])].map(item => item.title).filter(Boolean);
     const subtitle = titles.slice(0, 2).join(' / ') || renderCompact(day, today);
     return `<a class="days-index-row ${isToday ? 'is-selected' : ''}" href="#day-${day.date}" data-day-link="${day.date}" ${isToday ? 'aria-current="date"' : ''}><span class="days-index-number">${meta.day}</span><span class="days-index-copy"><strong>${isToday ? 'Today' : meta.weekday}<span>${day.note ? '✎' : ''}</span></strong><small>${escapeHtml(subtitle)}</small></span></a>`;
   }).join('');
@@ -186,6 +199,7 @@ function renderCompact(day, today) {
   const bits=[];
   if(day.gaming?.length) bits.push(`${day.gaming.length} game${day.gaming.length===1?'':'s'}`);
   if(day.watching?.length) bits.push(`${day.watching.length} watched`);
+  if(day.podcasts?.length) bits.push(`${day.podcasts.length} podcast${day.podcasts.length===1?'':'s'}`);
   if(Number(day.music?.plays||0)) bits.push(`${Number(day.music.plays)} listens`);
   if(Number(day.code?.commits||0)) bits.push(`${Number(day.code.commits)} commit${Number(day.code.commits) === 1 ? '' : 's'}`);
   return bits.length ? bits.join(' · ') : (day.date===today ? 'live' : 'quiet');
@@ -280,7 +294,7 @@ export function renderDays(days, nowDocument, { demo = false } = {}) {
   const today = localDateString();
   if (demo) days = demoDays(today);
   const existingToday = days.find(day => day.date === today);
-  const todayDay = existingToday || { date: today, gaming: [], watching: [], music: {}, code: {}, now: todayNowEvents(nowDocument, today) };
+  const todayDay = existingToday || { date: today, gaming: [], watching: [], podcasts: [], music: {}, code: {}, now: todayNowEvents(nowDocument, today) };
   if (existingToday && !existingToday.now?.length) existingToday.now = todayNowEvents(nowDocument, today);
   const ordered = [todayDay, ...days.filter(day => day.date !== today)].sort((a, b) => b.date.localeCompare(a.date));
   const articles = ordered.map(day => {

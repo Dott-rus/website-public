@@ -19,12 +19,13 @@ const results=await Promise.allSettled([
 ]);
 const value=(i,fallback)=>results[i].status==='fulfilled'?results[i].value:fallback;
 const warnings=results.flatMap((r,i)=>r.status==='rejected'?[`${['music','yami','code','now'][i]}: ${r.reason?.message||r.reason}`]:[]);
-const yami=value(1,{gaming:[],watching:[]});
+const yami=value(1,{gaming:[],watching:[],podcasts:[]});
 const day={
   date,
   bakedAt:new Date().toISOString(),
   gaming:yami.gaming,
   watching:yami.watching,
+  podcasts:yami.podcasts,
   music:value(0,{plays:0,tracks:0,artists:0,streaks:[]}),
   code:value(2,{commits:0,sources:{mira:0,github:0}}),
   now:value(3,[]),

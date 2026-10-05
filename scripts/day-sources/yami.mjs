@@ -1,6 +1,6 @@
 export async function collectYami(date) {
   const template = process.env.YAMI_DAY_URL;
-  if (!template) return { gaming: [], watching: [] };
+  if (!template) return { gaming: [], watching: [], podcasts: [] };
   const url = template.replaceAll('{date}', encodeURIComponent(date));
   const headers = { Accept: 'application/json' };
   if (process.env.YAMI_TOKEN) headers.Authorization = `Bearer ${process.env.YAMI_TOKEN}`;
@@ -10,5 +10,6 @@ export async function collectYami(date) {
   return {
     gaming: Array.isArray(data.gaming) ? data.gaming : [],
     watching: Array.isArray(data.watching) ? data.watching : [],
+    podcasts: Array.isArray(data.podcasts) ? data.podcasts : [],
   };
 }
