@@ -15,8 +15,19 @@ function dayNumber(value) {
   return Math.floor(Date.UTC(y, m - 1, d) / 86400000);
 }
 
-function noteIsPublic(date, today = localDateString()) {
-  return dayNumber(today) - dayNumber(date) >= 14;
+function parseDayNote(source) {
+  const match = source.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
+  if (!match) return { content: source, publishNow: false };
+
+  const meta = parseYaml(match[1], 'day note frontmatter');
+  return {
+    content: source.slice(match[0].length),
+    publishNow: meta?.publish === 'now',
+  };
+}
+
+function noteIsPublic(date, publishNow = false, today = localDateString()) {
+  return publishNow || dayNumber(today) - dayNumber(date) >= 14;
 }
 
 function validateDay(day, source) {
@@ -41,9 +52,10 @@ export async function loadDays(projectRoot) {
     const day = validateDay(parseYaml(await readFile(path.join(directory, name), 'utf8'), source), source);
     const notePath = path.join(projectRoot, 'content', 'day-notes', `${day.date}.md`);
     try {
-      const note = await readFile(notePath, 'utf8');
-      day.note = noteIsPublic(day.date) ? md.render(note) : null;
-      day.notePending = !noteIsPublic(day.date);
+      const note = parseDayNote(await readFile(notePath, 'utf8'));
+      const isPublic = noteIsPublic(day.date, note.publishNow);
+      day.note = isPublic ? md.render(note.content) : null;
+      day.notePending = !isPublic;
     } catch {
       day.note = null;
       day.notePending = false;

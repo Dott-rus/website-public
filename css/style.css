@@ -1570,8 +1570,7 @@ fieldset {
 .day-lines { display:grid; gap:8px; font-size:.85rem; line-height:1.6; }
 .day-now time { color:#d98b92; margin-right:8px; }
 .day-now span { color:#bbb; }
-.day-note { margin:0 0 18px; padding:12px; border:1px solid #f5f5dc55; font-size:.85rem; line-height:1.6; }
-.day-note::before { content:'NOTE'; display:block; color:#d98b92; font-size:.68rem; margin-bottom:8px; }
+.day-note { margin:0 0 18px; padding:0 0 0 12px; border-left:2px groove #f5f5dc80; color:#ccc; font-size:.82rem; line-height:1.55; }
 .day-note > :first-child { margin-top:0; }
 .day-note > :last-child { margin-bottom:0; }
 .day-note img { max-width:100%; height:auto; }
