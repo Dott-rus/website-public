@@ -7,6 +7,7 @@ const RUNTIME_SOURCES = {
     'https://shikimori.one',
     'https://coverartarchive.org',
     'https://images.igdb.com',
+    'https://megaphone.imgix.net',
   ],
   connect: [
     'https://api.listenbrainz.org',

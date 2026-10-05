@@ -101,7 +101,8 @@ function watchedMeta(item = {}) {
 
 function renderMediaItem(item = {}, meta = '', subtitle = '', kind = 'music') {
   const cover = mediaCover(item);
-  return `<span class="day-media-item day-media-${kind}">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-media-copy"><span>${escapeHtml(item.title || '?')}</span>${subtitle ? `<small>${escapeHtml(subtitle)}</small>` : ''}${meta ? `<small>${escapeHtml(meta)}</small>` : ''}</span></span>`;
+  const progress = kind === 'podcast' && Number(item.total) > 0 ? Math.min(100, Math.max(0, Math.round(Number(item.position || 0) / Number(item.total) * 100))) : null;
+  return `<span class="day-media-item day-media-${kind}">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-media-copy"><span>${escapeHtml(item.title || '?')}</span>${subtitle ? `<small>${escapeHtml(subtitle)}</small>` : ''}${meta ? `<small>${escapeHtml(meta)}</small>` : ''}${progress !== null ? `<span class=\"day-podcast-progress\" aria-hidden=\"true\"><i style=\"width:${progress}%\"></i></span>` : ''}</span></span>`;
 }
 
 function podcastMeta(item = {}) {
@@ -156,7 +157,7 @@ function renderDigest(day, live = false) {
   }
 
   if (day.watching?.length) rows.push(`<fieldset data-kind="watching" class="day-media-row day-media-section day-media-section-watch"><legend>Watched</legend><span class="day-media-items">${day.watching.map((x) => renderMediaItem(x, watchedMeta(x), '', 'poster')).join('')}</span></fieldset>`);
-  if (day.podcasts?.length) rows.push(`<fieldset data-kind="podcasts" class="day-media-row day-media-section day-media-section-watch"><legend>Podcasts</legend><span class="day-media-items">${day.podcasts.map((x) => renderMediaItem(x, podcastMeta(x), x.podcast || '', 'podcast')).join('')}</span></fieldset>`);
+  if (day.podcasts?.length) rows.push(`<fieldset data-kind="podcasts" class="day-media-row day-media-section day-media-section-podcasts"><legend>Podcasts</legend><span class="day-media-items">${day.podcasts.map((x) => renderMediaItem(x, podcastMeta(x), x.podcast || '', 'podcast')).join('')}</span></fieldset>`);
   const streaks = day.music?.streaks || [];
   for (const streak of streaks) rows.push(`<fieldset class="day-media-row day-music"><legend>On repeat</legend><span class="day-media-items">${renderMediaItem(streak, `${Number(streak.count) || 0} times${streak.kind === 'album' ? ' tracks' : ''}`, streak.artist)}</span></fieldset>`);
   const plays = Number(day.music?.plays || 0);

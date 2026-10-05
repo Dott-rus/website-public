@@ -1634,3 +1634,13 @@ fieldset {
 
 .days-page .hamburger-btn { padding:0; border:0; background:transparent; }
 @media (max-width:767px) { .days-archive > summary { padding-left:36px; } }
+
+/* Podcasts: long episode titles need the full digest width. */
+.day-digest > [data-live-yami="podcasts"],
+.day-digest > [data-kind="podcasts"] { grid-column:1/-1; }
+.day-media-section-podcasts .day-media-items { display:flex; flex-direction:column; flex-wrap:nowrap; width:100%; gap:10px; }
+.day-media-section-podcasts .day-media-podcast { width:100%; align-items:center; }
+.day-media-section-podcasts .day-media-podcast > img { width:64px; height:64px; border-radius:2px; }
+.day-media-section-podcasts .day-media-copy { flex:1; }
+.day-podcast-progress { display:block; width:min(260px,100%); height:3px; margin-top:3px; background:#f5f5dc20; }
+.day-podcast-progress > i { display:block; height:100%; background:#d98b92; }

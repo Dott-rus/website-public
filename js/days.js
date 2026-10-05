@@ -163,7 +163,7 @@
       row.dataset.liveYami = kind;
       digest?.prepend(row);
     }
-    row.className = `day-media-row day-media-section ${kind === 'gaming' ? 'day-media-section-games' : 'day-media-section-watch'}`;
+    row.className = `day-media-row day-media-section ${kind === 'gaming' ? 'day-media-section-games' : kind === 'podcasts' ? 'day-media-section-podcasts' : 'day-media-section-watch'}`;
     const expanded = [...row.querySelectorAll('details[open]')].map(el => el.querySelector('strong')?.textContent);
     row.innerHTML = text;
     enhanceGames(row);
@@ -204,7 +204,8 @@
 
   function mediaItem(item, meta = '', subtitle = '', kind = 'music') {
     const cover = coverOf(item);
-    return `<span class="day-media-item day-media-${kind}">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-media-copy"><span>${escapeHtml(item.title || '?')}</span>${subtitle ? `<small>${escapeHtml(subtitle)}</small>` : ''}${meta ? `<small>${escapeHtml(meta)}</small>` : ''}</span></span>`;
+    const progress = kind === 'podcast' && Number(item.total) > 0 ? Math.min(100, Math.max(0, Math.round(Number(item.position || 0) / Number(item.total) * 100))) : null;
+    return `<span class="day-media-item day-media-${kind}">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-media-copy"><span>${escapeHtml(item.title || '?')}</span>${subtitle ? `<small>${escapeHtml(subtitle)}</small>` : ''}${meta ? `<small>${escapeHtml(meta)}</small>` : ''}${progress !== null ? `<span class=\"day-podcast-progress\" aria-hidden=\"true\"><i style=\"width:${progress}%\"></i></span>` : ''}</span></span>`;
   }
 
   function podcastMeta(item = {}) {
