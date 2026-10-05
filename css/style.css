@@ -720,8 +720,9 @@ fieldset {
     
     .hamburger-btn {
         position: fixed;
-        top: 90%;
-        left: 15px;
+        top: auto;
+        bottom: 22px;
+        left: 22px;
         z-index: 1001;
         cursor: pointer;
         padding: 10px;
@@ -1632,7 +1633,6 @@ fieldset {
  .day-highlight { gap:10px; }
 }
 
-.days-page .hamburger-btn { padding:0; border:0; background:transparent; }
 @media (max-width:767px) { .days-archive > summary { padding-left:36px; } }
 
 /* Podcasts: long episode titles need the full digest width. */
