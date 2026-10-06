@@ -1,0 +1,28 @@
+date: 2026-10-06
+bakedAt: 2026-10-06T21:02:20.161Z
+gaming:
+  - title: Minecraft
+    cover: https://images.igdb.com/igdb/image/upload/t_original/coa77e.jpg
+    minutes: 92
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 5
+    plays: 1
+    supported: true
+    insights:
+      pp: "+0.00"
+      global rank: "#437,972 → #438,522 ↓550"
+      best: 27.85pp · 78.53% · down [noob...]
+watching: []
+podcasts: []
+music:
+  plays: 19
+  tracks: 17
+  artists: 15
+  streaks: []
+code:
+  commits: 5
+  sources:
+    mira: 4
+    github: 1
+now: []
