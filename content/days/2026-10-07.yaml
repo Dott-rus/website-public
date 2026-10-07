@@ -1,0 +1,42 @@
+date: 2026-10-07
+bakedAt: 2026-10-07T21:02:22.513Z
+gaming:
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 69
+    plays: 29
+    supported: true
+    insights:
+      pp: "+4.47"
+      global rank: "#438,522 → #437,622 ↑900"
+      best: 88.96pp · 82.74% · Today is Gonna be a Great Day (TV Size) [Turtle Unicorn]
+      PBs: 3
+watching: []
+podcasts:
+  - title: 443. Скрытый рынок веб-игр
+    podcast: Как делают игры
+    cover: https://kdicast.com/wp-content/uploads/2022/07/itunes.png
+    minutes: 0
+    position: 2677
+    total: 4955
+    finished: false
+    events: 4
+  - title: The Xiaomi Fold and New Meta VR Glasses
+    podcast: "Waveform: The MKBHD Podcast"
+    cover: https://megaphone.imgix.net/podcasts/ae6237e6-7e71-11e9-9c4d-3b02b0eab47c/image/c593abe2ba6d4d476bb3c2b6cfb3b9b9.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress
+    minutes: 0
+    position: 421
+    total: 6222
+    finished: false
+    events: 1
+music:
+  plays: 35
+  tracks: 30
+  artists: 19
+  streaks: []
+code:
+  commits: 4
+  sources:
+    mira: 4
+    github: 0
+now: []
