@@ -41,6 +41,7 @@ async function notifyVisitor(context, count) {
         Title: 'somedott.space',
         Priority: 'low',
         Tags: 'eyes',
+        Actions: 'broadcast, -1 visitor, extras.cmd=visitor_decrement, clear=true',
       },
       body: `New visitor · ${count}\n${visitorDetails(context.request)}`,
     });
