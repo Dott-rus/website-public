@@ -65,3 +65,11 @@ export async function removeOwnerFromVisitorCount(request, database) {
   ).run();
   return true;
 }
+
+export async function decrementVisitorCount(database) {
+  await ensureVisitorCounter(database);
+  const row = await database.prepare(
+    'UPDATE visitor_counter SET value = MAX(value - 1, 0) WHERE id = 1 RETURNING value',
+  ).first();
+  return Number.isSafeInteger(row?.value) ? row.value : Number.parseInt(row?.value || '0', 10);
+}
