@@ -1643,5 +1643,3 @@ fieldset {
 .day-media-section-podcasts .day-media-copy { flex:1; }
 .day-podcast-progress { display:block; width:min(260px,100%); height:3px; margin-top:3px; background:#f5f5dc20; }
 .day-podcast-progress > i { display:block; height:100%; background:#d98b92; }
-
-.day-ranked-play-link{display:inline-block;margin-top:.65rem;font-size:.8rem;text-decoration:underline;text-underline-offset:3px}
