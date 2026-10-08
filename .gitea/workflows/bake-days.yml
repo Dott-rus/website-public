@@ -35,8 +35,6 @@ jobs:
           MIRA_TOKEN: ${{ secrets.DAYS_MIRA_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.DAYS_GITHUB_TOKEN }}
           YAMI_DAY_URL: http://yume-day-api:8788/day/{date}
-          OSU_CLIENT_ID: ${{ secrets.OSU_CLIENT_ID }}
-          OSU_CLIENT_SECRET: ${{ secrets.OSU_CLIENT_SECRET }}
           BAKE_DATE: ${{ inputs.date }}
         shell: bash
         run: |
@@ -55,13 +53,13 @@ jobs:
       - name: Commit baked day
         shell: bash
         run: |
-          if [[ -z "$(git status --porcelain -- content/days content/osu-ranked-play.json)" ]]; then
+          if [[ -z "$(git status --porcelain -- content/days)" ]]; then
             echo "Nothing changed."
             exit 0
           fi
           git config user.name "Shybit's Forge"
           git config user.email "shybit-forge@users.noreply.mira.somedott.space"
-          git add content/days content/osu-ranked-play.json
+          git add content/days
           git commit -m "Bake daily activity"
           git pull --rebase origin v2
           git push origin HEAD:v2
