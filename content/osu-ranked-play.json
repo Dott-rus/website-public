@@ -1,0 +1,768 @@
+{
+  "pool": 38,
+  "userId": 18874372,
+  "matches": [
+    {
+      "id": 286163,
+      "date": "2026-04-28T22:27:55+00:00",
+      "roomId": 2700554,
+      "result": "loss",
+      "elo": 1175,
+      "name": "Ranked Play Match",
+      "maps": [
+        {
+          "beatmapId": 840254,
+          "beatmap": {
+            "version": "MKL's Insane",
+            "difficulty_rating": 4.2363,
+            "artist": "Feint",
+            "title": "Stray"
+          },
+          "scores": [
+            {
+              "userId": 20895480,
+              "username": "jesse555",
+              "score": 620770,
+              "accuracy": 0.848603,
+              "combo": 438,
+              "miss": 2
+            },
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 164130,
+              "accuracy": 0.69277,
+              "combo": 82,
+              "miss": 53
+            }
+          ]
+        },
+        {
+          "beatmapId": 2784504,
+          "beatmap": {
+            "version": "Hard",
+            "difficulty_rating": 3.21483,
+            "artist": "Harumaki Gohan feat. Hatsune Miku",
+            "title": "Suisei ni Nareta nara"
+          },
+          "scores": [
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 766833,
+              "accuracy": 0.943851,
+              "combo": 653,
+              "miss": 1
+            },
+            {
+              "userId": 20895480,
+              "username": "jesse555",
+              "score": 604728,
+              "accuracy": 0.932177,
+              "combo": 364,
+              "miss": 4
+            }
+          ]
+        },
+        {
+          "beatmapId": 2366848,
+          "beatmap": {
+            "version": "Hard",
+            "difficulty_rating": 3.51336,
+            "artist": "ARForest",
+            "title": "Aoba"
+          },
+          "scores": [
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 615246,
+              "accuracy": 0.936491,
+              "combo": 370,
+              "miss": 4
+            },
+            {
+              "userId": 20895480,
+              "username": "jesse555",
+              "score": 600923,
+              "accuracy": 0.908058,
+              "combo": 470,
+              "miss": 3
+            }
+          ]
+        },
+        {
+          "beatmapId": 3145727,
+          "beatmap": {
+            "version": "Insane",
+            "difficulty_rating": 5.09703,
+            "artist": "ABSOLUTE CASTAWAY",
+            "title": "Machigami Shoujo"
+          },
+          "scores": [
+            {
+              "userId": 20895480,
+              "username": "jesse555",
+              "score": 421835,
+              "accuracy": 0.871648,
+              "combo": 364,
+              "miss": 18
+            },
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 264633,
+              "accuracy": 0.804835,
+              "combo": 229,
+              "miss": 45
+            }
+          ]
+        },
+        {
+          "beatmapId": 1689539,
+          "beatmap": {
+            "version": "Hard",
+            "difficulty_rating": 3.65782,
+            "artist": "Helblinde",
+            "title": "When Time Sleeps"
+          },
+          "scores": [
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 754210,
+              "accuracy": 0.934177,
+              "combo": 603,
+              "miss": 2
+            },
+            {
+              "userId": 20895480,
+              "username": "jesse555",
+              "score": 602833,
+              "accuracy": 0.903438,
+              "combo": 425,
+              "miss": 2
+            }
+          ]
+        },
+        {
+          "beatmapId": 4806170,
+          "beatmap": {
+            "version": "yours' hard",
+            "difficulty_rating": 3.62856,
+            "artist": "PUP",
+            "title": "Morbid Stuff"
+          },
+          "scores": [
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 708182,
+              "accuracy": 0.955449,
+              "combo": 383,
+              "miss": 3
+            },
+            {
+              "userId": 20895480,
+              "username": "jesse555",
+              "score": 678324,
+              "accuracy": 0.881286,
+              "combo": 594,
+              "miss": 1
+            }
+          ]
+        },
+        {
+          "beatmapId": 942060,
+          "beatmap": {
+            "version": "Extra",
+            "difficulty_rating": 5.18544,
+            "artist": "Station Earth",
+            "title": "Age Of Reason"
+          },
+          "scores": [
+            {
+              "userId": 20895480,
+              "username": "jesse555",
+              "score": 516867,
+              "accuracy": 0.839951,
+              "combo": 427,
+              "miss": 2
+            },
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 429563,
+              "accuracy": 0.868868,
+              "combo": 167,
+              "miss": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 304391,
+      "date": "2026-04-30T14:07:39+00:00",
+      "roomId": 2717645,
+      "result": "win",
+      "elo": 1222,
+      "name": "osu! (RP: Season 0): someDott vs gioelebruno",
+      "maps": [
+        {
+          "beatmapId": 4806170,
+          "beatmap": {
+            "version": "yours' hard",
+            "difficulty_rating": 3.62856,
+            "artist": "PUP",
+            "title": "Morbid Stuff"
+          },
+          "scores": [
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 795833,
+              "accuracy": 0.968121,
+              "combo": 489,
+              "miss": 2
+            },
+            {
+              "userId": 26012573,
+              "username": "gioelebruno",
+              "score": 323470,
+              "accuracy": 0.743898,
+              "combo": 354,
+              "miss": 6
+            }
+          ]
+        },
+        {
+          "beatmapId": 520270,
+          "beatmap": {
+            "version": "Insane",
+            "difficulty_rating": 4.41559,
+            "artist": "Doxx & Feint",
+            "title": "Mind In Motion"
+          },
+          "scores": [
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 666048,
+              "accuracy": 0.954687,
+              "combo": 294,
+              "miss": 7
+            },
+            {
+              "userId": 26012573,
+              "username": "gioelebruno",
+              "score": 435505,
+              "accuracy": 0.804937,
+              "combo": 324,
+              "miss": 2
+            }
+          ]
+        },
+        {
+          "beatmapId": 4512298,
+          "beatmap": {
+            "version": "Chu's Insane",
+            "difficulty_rating": 4.85221,
+            "artist": "DJ Genki",
+            "title": "Opening"
+          },
+          "scores": [
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 419412,
+              "accuracy": 0.871352,
+              "combo": 168,
+              "miss": 10
+            },
+            {
+              "userId": 26012573,
+              "username": "gioelebruno",
+              "score": 351310,
+              "accuracy": 0.814514,
+              "combo": 204,
+              "miss": 12
+            }
+          ]
+        },
+        {
+          "beatmapId": 5481912,
+          "beatmap": {
+            "version": "xidorn's Hard",
+            "difficulty_rating": 3.55336,
+            "artist": "SiLiS",
+            "title": "March to the Constellations"
+          },
+          "scores": [
+            {
+              "userId": 26012573,
+              "username": "gioelebruno",
+              "score": 382328,
+              "accuracy": 0.804302,
+              "combo": 224,
+              "miss": 4
+            },
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 351638,
+              "accuracy": 0.845188,
+              "combo": 155,
+              "miss": 27
+            }
+          ]
+        },
+        {
+          "beatmapId": 5576128,
+          "beatmap": {
+            "version": "Insane",
+            "difficulty_rating": 4.22339,
+            "artist": "Trial & Error",
+            "title": "TAIATARI*Romance feat. Ayuru Ohashi (Short Ver.)"
+          },
+          "scores": [
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 599844,
+              "accuracy": 0.946972,
+              "combo": 119,
+              "miss": 5
+            },
+            {
+              "userId": 26012573,
+              "username": "gioelebruno",
+              "score": 294149,
+              "accuracy": 0.797304,
+              "combo": 100,
+              "miss": 23
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 320163,
+      "date": "2026-05-01T17:25:40+00:00",
+      "roomId": 2732646,
+      "result": "loss",
+      "elo": 1226,
+      "name": "osu! (RP: Season 0): someDott vs vg_abyssus",
+      "maps": [
+        {
+          "beatmapId": 3360015,
+          "beatmap": {
+            "version": "hyper",
+            "difficulty_rating": 3.89103,
+            "artist": "miraie",
+            "title": "peace"
+          },
+          "scores": [
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 665133,
+              "accuracy": 0.925322,
+              "combo": 297,
+              "miss": 1
+            },
+            {
+              "userId": 10688218,
+              "username": "vg_abyssus",
+              "score": 638400,
+              "accuracy": 0.959267,
+              "combo": 207,
+              "miss": 5
+            }
+          ]
+        },
+        {
+          "beatmapId": 2659696,
+          "beatmap": {
+            "version": "Lunatic",
+            "difficulty_rating": 4.61577,
+            "artist": "UNDEAD CORPORATION",
+            "title": "Karakurenai"
+          },
+          "scores": [
+            {
+              "userId": 10688218,
+              "username": "vg_abyssus",
+              "score": 729603,
+              "accuracy": 0.93341,
+              "combo": 807,
+              "miss": 1
+            },
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 497006,
+              "accuracy": 0.877598,
+              "combo": 507,
+              "miss": 6
+            }
+          ]
+        },
+        {
+          "beatmapId": 2168923,
+          "beatmap": {
+            "version": "defiance's Hard",
+            "difficulty_rating": 3.25713,
+            "artist": "Wisp X",
+            "title": "Melon Soda"
+          },
+          "scores": [
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 850564,
+              "accuracy": 0.946614,
+              "combo": 572,
+              "miss": null
+            },
+            {
+              "userId": 10688218,
+              "username": "vg_abyssus",
+              "score": 755783,
+              "accuracy": 0.90566,
+              "combo": 573,
+              "miss": null
+            }
+          ]
+        },
+        {
+          "beatmapId": 966001,
+          "beatmap": {
+            "version": "Insane",
+            "difficulty_rating": 4.44296,
+            "artist": "Rameses B",
+            "title": "We Love"
+          },
+          "scores": [
+            {
+              "userId": 10688218,
+              "username": "vg_abyssus",
+              "score": 574810,
+              "accuracy": 0.913743,
+              "combo": 234,
+              "miss": 3
+            },
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 421661,
+              "accuracy": 0.819192,
+              "combo": 270,
+              "miss": 4
+            }
+          ]
+        },
+        {
+          "beatmapId": 2077401,
+          "beatmap": {
+            "version": "Mahua's Dreamer Insane",
+            "difficulty_rating": 4.53771,
+            "artist": "Fractal Dreamers",
+            "title": "Module_410"
+          },
+          "scores": [
+            {
+              "userId": 10688218,
+              "username": "vg_abyssus",
+              "score": 595097,
+              "accuracy": 0.941461,
+              "combo": 188,
+              "miss": 7
+            },
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 591412,
+              "accuracy": 0.913874,
+              "combo": 342,
+              "miss": 8
+            }
+          ]
+        },
+        {
+          "beatmapId": 207659,
+          "beatmap": {
+            "version": "Cataclysm",
+            "difficulty_rating": 4.95941,
+            "artist": "MuryokuP",
+            "title": "Catastrophe"
+          },
+          "scores": [
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 633299,
+              "accuracy": 0.956028,
+              "combo": 347,
+              "miss": 10
+            },
+            {
+              "userId": 10688218,
+              "username": "vg_abyssus",
+              "score": 568012,
+              "accuracy": 0.921325,
+              "combo": 433,
+              "miss": 5
+            }
+          ]
+        },
+        {
+          "beatmapId": 4914174,
+          "beatmap": {
+            "version": "Insane",
+            "difficulty_rating": 4.5599,
+            "artist": "Cityyy",
+            "title": "Running Man"
+          },
+          "scores": [
+            {
+              "userId": 10688218,
+              "username": "vg_abyssus",
+              "score": 764761,
+              "accuracy": 0.959383,
+              "combo": 492,
+              "miss": 2
+            },
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 619002,
+              "accuracy": 0.930371,
+              "combo": 284,
+              "miss": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 918094,
+      "date": "2026-06-17T22:03:51+00:00",
+      "roomId": 3329945,
+      "result": "win",
+      "elo": 1276,
+      "name": "osu! (RP: Season 0): krisal vs someDott",
+      "maps": [
+        {
+          "beatmapId": 3969164,
+          "beatmap": {
+            "version": "golden hour",
+            "difficulty_rating": 4.2797,
+            "artist": "Vansire",
+            "title": "Central Time (feat. Mick Jenkins)"
+          },
+          "scores": [
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 459207,
+              "accuracy": 0.904707,
+              "combo": 185,
+              "miss": 11
+            },
+            {
+              "userId": 13403297,
+              "username": "krisal",
+              "score": 212069,
+              "accuracy": 0.768448,
+              "combo": 201,
+              "miss": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 1033963,
+      "date": "2026-06-29T21:39:58+00:00",
+      "roomId": 3465513,
+      "result": "loss",
+      "elo": 1226,
+      "name": "osu! (RP: Season 0): someDott vs HiKoNe",
+      "maps": [
+        {
+          "beatmapId": 5629134,
+          "beatmap": {
+            "version": "hard",
+            "difficulty_rating": 3.4451,
+            "artist": "voira",
+            "title": "break/apart"
+          },
+          "scores": [
+            {
+              "userId": 7048874,
+              "username": "HiKoNe",
+              "score": 704234,
+              "accuracy": 0.928859,
+              "combo": 458,
+              "miss": 2
+            },
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 661436,
+              "accuracy": 0.921745,
+              "combo": 407,
+              "miss": 2
+            }
+          ]
+        },
+        {
+          "beatmapId": 1584008,
+          "beatmap": {
+            "version": "Insane",
+            "difficulty_rating": 5.05891,
+            "artist": "Trial & Error",
+            "title": "DREAMING COLOR (Short ver.)"
+          },
+          "scores": [
+            {
+              "userId": 7048874,
+              "username": "HiKoNe",
+              "score": 603717,
+              "accuracy": 0.898566,
+              "combo": 308,
+              "miss": 2
+            },
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 332770,
+              "accuracy": 0.833198,
+              "combo": 147,
+              "miss": 24
+            }
+          ]
+        },
+        {
+          "beatmapId": 5326044,
+          "beatmap": {
+            "version": "Insane",
+            "difficulty_rating": 4.01095,
+            "artist": "Stariah & ColBreakz",
+            "title": "Dreams"
+          },
+          "scores": [
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 465542,
+              "accuracy": 0.832504,
+              "combo": 377,
+              "miss": 3
+            },
+            {
+              "userId": 7048874,
+              "username": "HiKoNe",
+              "score": 278011,
+              "accuracy": 0.787553,
+              "combo": 204,
+              "miss": 21
+            }
+          ]
+        },
+        {
+          "beatmapId": 5587277,
+          "beatmap": {
+            "version": "Collab Expert",
+            "difficulty_rating": 5.77333,
+            "artist": "JOYLESS",
+            "title": "Something Fun"
+          },
+          "scores": [
+            {
+              "userId": 7048874,
+              "username": "HiKoNe",
+              "score": 388884,
+              "accuracy": 0.85918,
+              "combo": 135,
+              "miss": 15
+            },
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 255071,
+              "accuracy": 0.801901,
+              "combo": 64,
+              "miss": 48
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 1553456,
+      "date": "2026-09-03T16:14:26+00:00",
+      "roomId": 4166404,
+      "result": "win",
+      "elo": 1370,
+      "name": "osu! (RP: Season 0): ISAMU vs someDott",
+      "maps": [
+        {
+          "beatmapId": 4931247,
+          "beatmap": {
+            "version": "Insane",
+            "difficulty_rating": 4.51006,
+            "artist": "Umeboshi Chazuke + Chroma",
+            "title": "Omoide Note"
+          },
+          "scores": [
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 610125,
+              "accuracy": 0.942786,
+              "combo": 428,
+              "miss": 7
+            },
+            {
+              "userId": 35331381,
+              "username": "ISAMU",
+              "score": 451310,
+              "accuracy": 0.897506,
+              "combo": 265,
+              "miss": 17
+            }
+          ]
+        },
+        {
+          "beatmapId": 3404781,
+          "beatmap": {
+            "version": "Insane",
+            "difficulty_rating": 4.90897,
+            "artist": "Maduk",
+            "title": "Company (feat. Juul) (Cut Ver.)"
+          },
+          "scores": [
+            {
+              "userId": 18874372,
+              "username": "someDott",
+              "score": 364585,
+              "accuracy": 0.855088,
+              "combo": 170,
+              "miss": 16
+            },
+            {
+              "userId": 35331381,
+              "username": "ISAMU",
+              "score": 221085,
+              "accuracy": 0.826852,
+              "combo": 204,
+              "miss": 12
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

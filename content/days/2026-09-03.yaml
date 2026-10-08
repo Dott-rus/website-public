@@ -10,6 +10,59 @@ gaming:
       pp: "+0.00"
       global rank: "#429,438 → #429,934 ↓496"
       best: 65.62pp · 93.49% · Turbulent [Insane]
+    rankedPlay:
+      results:
+        - W
+      maps:
+        - 2
+      elo: 1370
+      previousElo: 1226
+      eloDelta: 144
+      matches:
+        - roomId: 4166404
+          name: "osu! (RP: Season 0): ISAMU vs someDott"
+          result: win
+          elo: 1370
+          date: 2026-09-03T16:14:26+00:00
+          maps:
+            - beatmapId: 4931247
+              beatmap:
+                version: Insane
+                difficulty_rating: 4.51006
+                artist: Umeboshi Chazuke + Chroma
+                title: Omoide Note
+              scores:
+                - userId: 18874372
+                  username: someDott
+                  score: 610125
+                  accuracy: 0.942786
+                  combo: 428
+                  miss: 7
+                - userId: 35331381
+                  username: ISAMU
+                  score: 451310
+                  accuracy: 0.897506
+                  combo: 265
+                  miss: 17
+            - beatmapId: 3404781
+              beatmap:
+                version: Insane
+                difficulty_rating: 4.90897
+                artist: Maduk
+                title: Company (feat. Juul) (Cut Ver.)
+              scores:
+                - userId: 18874372
+                  username: someDott
+                  score: 364585
+                  accuracy: 0.855088
+                  combo: 170
+                  miss: 16
+                - userId: 35331381
+                  username: ISAMU
+                  score: 221085
+                  accuracy: 0.826852
+                  combo: 204
+                  miss: 12
 watching: []
 music:
   plays: 5

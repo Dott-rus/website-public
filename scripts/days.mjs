@@ -128,6 +128,17 @@ function podcastMeta(item = {}) {
   return bits.join(' · ');
 }
 
+function renderRankedPlay(rp = {}) {
+  const results = (rp.results || []).join(' ');
+  const maps = (rp.maps || []).map(n => n ?? '?').join(' ');
+  const elo = Number(rp.elo);
+  const delta = Number(rp.eloDelta);
+  const rating = rp.previousElo === undefined ? `${elo.toLocaleString('en-US')}` : `${Number(rp.previousElo).toLocaleString('en-US')} → ${elo.toLocaleString('en-US')} ${delta > 0 ? '↑' : delta < 0 ? '↓' : '→'}${Math.abs(delta).toLocaleString('en-US')}`;
+  const stat = (name,value) => `<span class="day-game-stat"><small>${name}</small><b>${escapeHtml(value)}</b></span>`;
+  const matches = (rp.matches || []).map(match => `<details class="day-rp-match"><summary>${escapeHtml(match.result === 'win' ? 'W' : 'L')} · ${escapeHtml(match.name || `Room ${match.roomId}`)} · ${escapeHtml(match.elo)} Elo</summary>${(match.maps || []).map(map => { const b = map.beatmap || {}; return `<span class="day-rp-map"><a href="https://osu.ppy.sh/beatmaps/${encodeURIComponent(map.beatmapId)}" target="_blank" rel="noopener noreferrer">${escapeHtml([b.artist,b.title].filter(Boolean).join(' — ') || `Beatmap ${map.beatmapId}`)}${b.version ? ` [${escapeHtml(b.version)}]` : ''}</a>${(map.scores || []).map(score => `<span class="day-rp-score${score.userId === 18874372 ? ' day-rp-me' : ''}">${escapeHtml(score.username || score.userId)}: ${Number(score.score || 0).toLocaleString('en-US')} · ${(Number(score.accuracy || 0)*100).toFixed(2)}% · ${Number(score.combo || 0)}×</span>`).join('')}</span>`; }).join('')}</details>`).join('');
+  return `<span class="day-game-section"><span class="day-game-section-label">RANKED PLAY</span><span class="day-game-stat-grid">${stat('Result',results)}${stat('Elo',rating)}${stat('Maps',maps)}</span>${matches ? `<details class="day-rp-history"><summary>Match details · map scores</summary>${matches}</details>` : ''}</span>`;
+}
+
 function renderGameItem(item = {}) {
     const hasInsights = item.supported === true || Number(item.plays || 0) > 0 || (item.insights && typeof item.insights === 'object');
     if (!hasInsights) {
@@ -144,7 +155,7 @@ function renderGameItem(item = {}) {
       const standardOrder = ['global rank', 'pp', 'best', 'PBs'];
       const standard = standardOrder.filter((label) => insights[label] !== null && insights[label] !== undefined && insights[label] !== '').map((label) => `<span class="day-game-stat"><small>${escapeHtml(label)}</small><b>${escapeHtml(insights[label])}</b></span>`).join('');
       const ranked = item.rankedPlay && typeof item.rankedPlay === 'object' ? Object.entries(item.rankedPlay).filter(([, value]) => value !== null && value !== undefined && value !== '').map(([label, value]) => `<span class="day-game-stat"><small>${escapeHtml(label)}</small><b>${escapeHtml(value)}</b></span>`).join('') : '';
-      return `<span class="day-game-insight day-game-osu">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-game-insight-body"><span class="day-game-title-row"><strong>${escapeHtml(title)}</strong>${summary ? `<small>${escapeHtml(summary)}</small>` : ''}</span><span class="day-game-section"><span class="day-game-section-label">STANDARD</span><span class="day-game-stat-grid">${standard || '<small class="day-game-muted">collecting telemetry</small>'}</span></span>${ranked ? `<span class="day-game-section"><span class="day-game-section-label">RANKED PLAY</span><span class="day-game-stat-grid">${ranked}</span></span>` : ''}</span></span>`;
+      return `<span class="day-game-insight day-game-osu">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-game-insight-body"><span class="day-game-title-row"><strong>${escapeHtml(title)}</strong>${summary ? `<small>${escapeHtml(summary)}</small>` : ''}</span><span class="day-game-section"><span class="day-game-section-label">STANDARD</span><span class="day-game-stat-grid">${standard || '<small class="day-game-muted">collecting telemetry</small>'}</span></span>${item.rankedPlay?.results ? renderRankedPlay(item.rankedPlay) : ranked ? `<span class=\"day-game-section\"><span class=\"day-game-section-label\">RANKED PLAY</span><span class=\"day-game-stat-grid\">${ranked}</span></span>` : ''}</span></span>`;
     }
 
     const stats = [];
