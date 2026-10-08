@@ -1,0 +1,26 @@
+date: 2026-10-08
+bakedAt: 2026-10-08T21:02:35.871Z
+gaming:
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 47
+    plays: 20
+    supported: true
+    insights:
+      pp: "+4.61"
+      global rank: "#437,622 → #437,029 ↑593"
+      best: 94.32pp · 95.44% · Let The Senses Clear Your Mind [Naitsirk's Insane]
+      PBs: 1
+watching: []
+podcasts: []
+music:
+  plays: 45
+  tracks: 45
+  artists: 22
+  streaks: []
+code:
+  commits: 2
+  sources:
+    mira: 1
+    github: 1
+now: []
