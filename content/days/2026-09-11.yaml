@@ -1,6 +1,25 @@
 date: 2026-09-11
 bakedAt: 2026-09-11T21:02:07.780Z
 gaming:
+  - title: Lichess
+    provider: lichess
+    supported: true
+    plays: 1
+    insights:
+      W / L / D: 0 / 1 / 0
+      time controls: correspondence 1
+    results:
+    - L
+    matches:
+    - id: 82hQtuNn
+      url: https://lichess.org/82hQtuNn
+      result: loss
+      color: white
+      speed: correspondence
+      rated: false
+      rating: 1427
+      ratingDiff: null
+      opponent: null
   - title: Not for Broadcast
     cover: https://images.igdb.com/igdb/image/upload/t_original/co5bcn.jpg
     minutes: 257

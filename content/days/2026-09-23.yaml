@@ -1,6 +1,45 @@
 date: 2026-09-23
 bakedAt: 2026-09-23T21:02:07.474Z
 gaming:
+  - title: Lichess
+    provider: lichess
+    supported: true
+    plays: 3
+    insights:
+      W / L / D: 0 / 3 / 0
+      time controls: correspondence 3
+    results:
+    - L
+    - L
+    - L
+    matches:
+    - id: Mm7Ep6RW
+      url: https://lichess.org/Mm7Ep6RW
+      result: loss
+      color: black
+      speed: correspondence
+      rated: false
+      rating: 1427
+      ratingDiff: null
+      opponent: null
+    - id: pSyHz0Na
+      url: https://lichess.org/pSyHz0Na
+      result: loss
+      color: black
+      speed: correspondence
+      rated: false
+      rating: 1427
+      ratingDiff: null
+      opponent: null
+    - id: uP6AeXou
+      url: https://lichess.org/uP6AeXou
+      result: loss
+      color: white
+      speed: correspondence
+      rated: false
+      rating: 1427
+      ratingDiff: null
+      opponent: null
   - title: osu!
     cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
     minutes: 37

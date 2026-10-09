@@ -238,6 +238,21 @@
       return `<span class="day-game-insight day-game-osu">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-game-insight-body"><span class="day-game-title-row"><strong>${escapeHtml(title)}</strong>${summary ? `<small>${escapeHtml(summary)}</small>` : ''}</span><span class="day-game-section"><span class="day-game-section-label">STANDARD</span><span class="day-game-stat-grid">${standard || '<small class="day-game-muted">collecting telemetry</small>'}</span></span>${ranked ? `<span class="day-game-section"><span class="day-game-section-label">RANKED PLAY</span><span class="day-game-stat-grid">${ranked}</span></span>` : ''}</span></span>`;
     }
 
+    if (item.provider === 'lichess' && Array.isArray(item.matches)) {
+      const insights = item.insights && typeof item.insights === 'object' ? item.insights : {};
+      const stats = Object.entries(insights).map(([label, value]) => `<span class="day-game-stat"><small>${escapeHtml(label)}</small><b>${escapeHtml(value)}</b></span>`).join('');
+      const sequence = (item.results || []).map((result) => escapeHtml(result)).join(' ');
+      const matches = item.matches.map((match, index) => {
+        const id = String(match.id || '');
+        const url = /^\w{8}$/.test(id) ? `https://lichess.org/${id}` : '';
+        const result = ({win:'W', loss:'L', draw:'D'})[match.result] || '?';
+        const delta = Number.isFinite(match.ratingDiff) ? ` · ${match.ratingDiff >= 0 ? '+' : ''}${match.ratingDiff}` : '';
+        const meta = [match.color, match.speed, match.rated ? `rated${delta}` : 'casual', `vs ${match.opponent || 'Guest'}`].filter(Boolean).join(' · ');
+        return `<span class="day-game-stat"><small>${index + 1} · ${escapeHtml(result)} · ${escapeHtml(meta)}</small><b>${url ? `<a href="${url}" target="_blank" rel="noopener noreferrer">${escapeHtml(id)} ↗</a>` : escapeHtml(id)}</b></span>`;
+      }).join('');
+      return `<span class="day-game-insight day-game-lichess"><span class="day-game-insight-body"><span class="day-game-title-row"><strong>Lichess</strong><small>${item.plays || item.matches.length} games</small></span><span class="day-game-section"><span class="day-game-section-label">SUMMARY</span><span class="day-game-stat-grid">${stats}<span class="day-game-stat"><small>results</small><b>${sequence}</b></span></span></span><span class="day-game-section"><span class="day-game-section-label">GAMES</span><span class="day-game-stat-grid">${matches}</span></span></span></span>`;
+    }
+
     const stats = [];
     if (item.minutes) stats.push(`${Math.round(item.minutes)}m played`);
     if (Number(item.plays || 0) > 0) stats.push(`${Number(item.plays)} plays`);
