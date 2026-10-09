@@ -130,7 +130,7 @@
       const details = document.createElement('details');
       details.className = game.className + ' day-game-disclosure';
       const summary = document.createElement('summary');
-      const image = game.querySelector(':scope > img');
+      const image = game.querySelector(':scope > img, :scope > .day-game-chess-cover');
       if (image) summary.append(image);
       const title = game.querySelector('.day-game-title-row') || game.querySelector('.day-game-insight-body > strong');
       if (title) summary.append(title);
@@ -250,7 +250,7 @@
         const meta = [match.color, match.speed, match.rated ? `rated${delta}` : 'casual', `vs ${match.opponent || 'Guest'}`].filter(Boolean).join(' · ');
         return `<span class="day-game-stat"><small>${index + 1} · ${escapeHtml(result)} · ${escapeHtml(meta)}</small><b>${url ? `<a href="${url}" target="_blank" rel="noopener noreferrer">${escapeHtml(id)} ↗</a>` : escapeHtml(id)}</b></span>`;
       }).join('');
-      return `<span class="day-game-insight day-game-lichess"><span class="day-game-insight-body"><span class="day-game-title-row"><strong>Lichess</strong><small>${item.plays || item.matches.length} games</small></span><span class="day-game-section"><span class="day-game-section-label">SUMMARY</span><span class="day-game-stat-grid">${stats}<span class="day-game-stat"><small>results</small><b>${sequence}</b></span></span></span><span class="day-game-section"><span class="day-game-section-label">GAMES</span><span class="day-game-stat-grid">${matches}</span></span></span></span>`;
+      return `<span class="day-game-insight day-game-lichess"><span class="day-game-chess-cover" aria-hidden="true">♞</span><span class="day-game-insight-body"><span class="day-game-title-row"><strong>Lichess</strong><small>${[item.minutes ? `${Math.round(item.minutes)}m` : '', `${item.plays || item.matches.length} games`].filter(Boolean).join(' · ')}</small></span><span class="day-game-section"><span class="day-game-section-label">SUMMARY</span><span class="day-game-stat-grid">${stats}<span class="day-game-stat"><small>results</small><b>${sequence}</b></span></span></span><span class="day-game-section"><span class="day-game-section-label">GAMES</span><span class="day-game-stat-grid">${matches}</span></span></span></span>`;
     }
 
     const stats = [];
