@@ -161,7 +161,6 @@ function renderGameItem(item = {}) {
     if (item.provider === 'lichess' && Array.isArray(item.matches)) {
       const insights = item.insights && typeof item.insights === 'object' ? item.insights : {};
       const stats = Object.entries(insights).map(([label, value]) => `<span class="day-game-stat"><small>${escapeHtml(label)}</small><b>${escapeHtml(value)}</b></span>`).join('');
-      const sequence = (item.results || []).map((result) => escapeHtml(result)).join(' ');
       const matches = item.matches.map((match, index) => {
         const id = String(match.id || '');
         const url = /^\w{8}$/.test(id) ? `https://lichess.org/${id}` : '';
@@ -170,7 +169,7 @@ function renderGameItem(item = {}) {
         const meta = [match.color, match.speed, match.rated ? `rated${delta}` : 'casual', `vs ${match.opponent || 'Guest'}`].filter(Boolean).join(' · ');
         return `<span class="day-game-stat"><small>${index + 1} · ${escapeHtml(result)} · ${escapeHtml(meta)}</small><b>${url ? `<a href="${url}" target="_blank" rel="noopener noreferrer">${escapeHtml(id)} ↗</a>` : escapeHtml(id)}</b></span>`;
       }).join('');
-      return `<span class="day-game-insight day-game-lichess"><span class="day-game-chess-cover" aria-hidden="true">♞</span><span class="day-game-insight-body"><span class="day-game-title-row"><strong>Lichess</strong><small>${[item.minutes ? `${Math.round(item.minutes)}m` : '', `${item.plays || item.matches.length} games`].filter(Boolean).join(' · ')}</small></span><span class="day-game-section"><span class="day-game-section-label">SUMMARY</span><span class="day-game-stat-grid">${stats}<span class="day-game-stat"><small>results</small><b>${sequence}</b></span></span></span><span class="day-game-section"><span class="day-game-section-label">GAMES</span><span class="day-game-stat-grid">${matches}</span></span></span></span>`;
+      return `<span class="day-game-insight day-game-lichess"><span class="day-game-chess-cover" aria-hidden="true">♞</span><span class="day-game-insight-body"><span class="day-game-title-row"><strong>Lichess</strong><small>${[item.minutes ? `${Math.round(item.minutes)}m` : '', `${item.plays || item.matches.length} games`].filter(Boolean).join(' · ')}</small></span><span class="day-game-section"><span class="day-game-section-label">SUMMARY</span><span class="day-game-stat-grid">${stats}</span></span><span class="day-game-section"><span class="day-game-section-label">GAMES</span><span class="day-game-stat-grid">${matches}</span></span></span></span>`;
     }
 
     const stats = [];
