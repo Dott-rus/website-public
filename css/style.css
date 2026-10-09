@@ -1649,5 +1649,3 @@ fieldset {
 .day-rp-match{margin-left:8px;border-top:1px dashed #f5f5dc33}
 .day-rp-map{display:grid;gap:5px;padding:9px 5px 9px 10px;border-left:1px solid #f5f5dc44;font-size:.76rem;overflow-wrap:anywhere}
 .day-rp-score{color:#999}.day-rp-me{color:#eee;font-weight:bold}
-
-.day-game-chess-cover { width:64px; height:85px; flex:none; display:grid; place-items:center; border:1px solid #f5f5dc33; background:#222; color:#f5f5dc; font-size:3rem; }
