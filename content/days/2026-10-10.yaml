@@ -1,0 +1,117 @@
+date: 2026-10-10
+bakedAt: 2026-10-10T21:02:24.547Z
+gaming:
+  - title: Minecraft
+    cover: https://images.igdb.com/igdb/image/upload/t_original/coa77e.jpg
+    minutes: 100
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 45
+    plays: 20
+    supported: true
+    insights:
+      pp: "+0.01"
+      global rank: "#437,313 → #437,767 ↓454"
+      best: 70.75pp · 92.68% · Let The Senses Clear Your Mind [Naitsirk's Insane]
+  - title: Beat Saber
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co20ux.jpg
+    provider: beatleader
+    supported: true
+    minutes: 5.8
+    plays: 2
+    insights:
+      pp: "+6.15"
+      global rank: "#18,725 → #18,723 ↑2"
+      best: 145.67pp · 83.61% · Death From Above [Hard]
+      PBs: 1
+      clears: 2
+      FCs: 0
+    stats:
+      source: beatleader
+      timeBasis: attempts
+      seconds: 347.01296
+      attempts: 2
+      clears: 2
+      pp:
+        start: 4593.839
+        end: 4599.994
+      globalRank:
+        start: 18725
+        end: 18723
+    attempts:
+      - attempt_id: 149033092
+        leaderboard_id: 1e3fc51
+        title: Crazy Shuffle
+        artist: Yooh
+        difficulty: Hard
+        mode: Standard
+        seconds: 125.3236
+        result: clear
+        accuracy: 0.84692436
+        pp: null
+        full_combo: false
+        missed_notes: 8
+        bad_cuts: 2
+        modifiers: ""
+        improved: true
+        date: 2026-10-10T10:55:08+00:00
+      - attempt_id: 149033385
+        leaderboard_id: 1a8d451
+        title: Death From Above
+        artist: Kotori
+        difficulty: Hard
+        mode: Standard
+        seconds: 221.68936
+        result: clear
+        accuracy: 0.8360551
+        pp: 145.66946
+        full_combo: false
+        missed_notes: 14
+        bad_cuts: 7
+        modifiers: ""
+        improved: false
+        date: 2026-10-10T10:59:08+00:00
+  - title: Lichess
+    cover: https://images.igdb.com/igdb/image/upload/t_cover_big/co85a6.webp
+    provider: lichess
+    supported: true
+    plays: 2
+    minutes: 0
+    insights:
+      W / L / D: 1 / 1 / 0
+      time controls: correspondence 2
+    results:
+      - L
+      - W
+    matches:
+      - id: d1ecTM2o
+        url: https://lichess.org/d1ecTM2o
+        result: loss
+        color: white
+        speed: correspondence
+        rated: false
+        rating: 1427
+        ratingDiff: null
+        opponent: null
+      - id: dF9qIHLh
+        url: https://lichess.org/dF9qIHLh
+        result: win
+        color: black
+        speed: correspondence
+        rated: false
+        rating: 1427
+        ratingDiff: null
+        opponent: null
+watching: []
+podcasts: []
+music:
+  plays: 31
+  tracks: 31
+  artists: 16
+  streaks: []
+code:
+  commits: 10
+  sources:
+    mira: 9
+    github: 1
+now: []
