@@ -230,6 +230,13 @@
     const cover = coverOf(item);
     const title = item.title || '?';
     const summary = [item.minutes ? `${Math.round(item.minutes)}m` : '', Number(item.plays || 0) > 0 ? `${Number(item.plays)} plays` : ''].filter(Boolean).join(' · ');
+    if (item.provider === 'beatleader') {
+      const insights = item.insights && typeof item.insights === 'object' ? item.insights : {};
+      const order = ['global rank', 'pp', 'best', 'PBs', 'clears', 'FCs'];
+      const stats = order.filter(label => insights[label] !== null && insights[label] !== undefined && insights[label] !== '').map(label => `<span class="day-game-stat"><small>${escapeHtml(label)}</small><b>${escapeHtml(insights[label])}</b></span>`).join('');
+      return `<span class="day-game-insight day-game-beatsaber">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-game-insight-body"><span class="day-game-title-row"><strong>${escapeHtml(title)}</strong>${summary ? `<small>${escapeHtml(summary)}</small>` : ''}</span><span class="day-game-section"><span class="day-game-section-label">BEATLEADER</span><span class="day-game-stat-grid">${stats || '<small class="day-game-muted">collecting telemetry</small>'}</span></span></span></span>`;
+    }
+
     if (title === 'osu!') {
       const insights = item.insights && typeof item.insights === 'object' ? item.insights : {};
       const standardOrder = ['global rank', 'pp', 'best', 'PBs'];

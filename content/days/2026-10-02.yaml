@@ -4,6 +4,63 @@ gaming:
   - title: Minecraft
     cover: https://images.igdb.com/igdb/image/upload/t_original/coa77e.jpg
     minutes: 245
+  - title: Beat Saber
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co20ux.jpg
+    provider: beatleader
+    supported: true
+    minutes: 4.8
+    plays: 2
+    insights:
+      pp: "+0.00"
+      global rank: "#18,661 → #18,665 ↓4"
+      best: 80.98% · YoiYoi Kokon [Hard]
+      clears: 1
+      FCs: 0
+    stats:
+      source: beatleader
+      timeBasis: attempts
+      seconds: 290.34653000000003
+      attempts: 2
+      clears: 1
+      pp:
+        start: 4593.839
+        end: 4593.839
+      globalRank:
+        start: 18661
+        end: 18665
+    attempts:
+      - attempt_id: 148132887
+        leaderboard_id: 42050x71
+        title: The City
+        artist: Madeon
+        difficulty: Expert
+        mode: Standard
+        seconds: 75.9928
+        result: quit
+        accuracy: 0.61407125
+        pp: null
+        full_combo: false
+        missed_notes: 10
+        bad_cuts: 8
+        modifiers: NF
+        improved: false
+        date: 2026-10-02T17:18:45+00:00
+      - attempt_id: 148133324
+        leaderboard_id: 1b1ba51
+        title: YoiYoi Kokon
+        artist: Reol
+        difficulty: Hard
+        mode: Standard
+        seconds: 214.35373
+        result: clear
+        accuracy: 0.80981886
+        pp: null
+        full_combo: false
+        missed_notes: 32
+        bad_cuts: 11
+        modifiers: NF
+        improved: false
+        date: 2026-10-02T17:24:16+00:00
 watching: []
 music:
   plays: 0
