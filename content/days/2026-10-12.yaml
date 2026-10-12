@@ -1,0 +1,28 @@
+date: 2026-10-12
+bakedAt: 2026-10-12T22:29:36.193Z
+gaming:
+  - title: "Minecraft: Bedrock Edition"
+    cover: https://images.igdb.com/igdb/image/upload/t_original/coa0ti.jpg
+    minutes: 8
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 2
+    plays: 1
+    supported: true
+    insights:
+      pp: "+0.00"
+      global rank: "#438,062 → #438,395 ↓333"
+      best: 68.44pp · 93.57% · Oriental Blossom [EmingK's Insane]
+watching: []
+podcasts: []
+music:
+  plays: 51
+  tracks: 48
+  artists: 40
+  streaks: []
+code:
+  commits: 0
+  sources:
+    mira: 0
+    github: 0
+now: []
