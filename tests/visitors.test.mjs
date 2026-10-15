@@ -1,3 +1,5 @@
+import { webcrypto } from 'node:crypto';
+globalThis.crypto ??= webcrypto;
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
@@ -9,9 +11,12 @@ import {
 
 class FakeDatabase {
   value = 0;
+  fingerprints = new Set();
 
   prepare(sql) {
+    let params = [];
     return {
+      bind: (...values) => { params = values; return this.prepareBound(sql, params); },
       run: async () => {
         if (sql.includes('INSERT OR IGNORE') && !Number.isSafeInteger(this.value)) this.value = 0;
         if (sql.includes('MAX(value - 1')) this.value = Math.max(0, this.value - 1);
@@ -22,24 +27,47 @@ class FakeDatabase {
       },
     };
   }
+
+  prepareBound(sql, params) {
+    return { run: async () => {
+      if (sql.includes('INSERT INTO visitor_fingerprints')) {
+        if (this.fingerprints.has(params[0])) return { meta: { changes: 0 } };
+        this.fingerprints.add(params[0]);
+        return { meta: { changes: 1 } };
+      }
+      return { meta: { changes: 0 } };
+    } };
+  }
 }
 
 test('a browser is counted once and receives a cookie marker', async () => {
   const database = new FakeDatabase();
   const first = await readOrIncrementVisitors(new Request('https://example.com/api/site', {
     method: 'POST',
-    headers: { Origin: 'https://example.com' },
-  }), database);
+    headers: { Origin: 'https://example.com', 'CF-Connecting-IP': '198.51.100.1' },
+  }), database, 'test-secret');
   const repeat = await readOrIncrementVisitors(new Request('https://example.com/api/site', {
     method: 'POST',
     headers: {
       Cookie: 'another=x; dott_visitor=v1',
-      Origin: 'https://example.com',
+      Origin: 'https://example.com', 'CF-Connecting-IP': '198.51.100.1',
     },
-  }), database);
+  }), database, 'test-secret');
 
-  assert.deepEqual(first, { count: 1, setVisitorCookie: true });
-  assert.deepEqual(repeat, { count: 1, setVisitorCookie: false });
+  assert.deepEqual(first, { count: 1, setVisitorCookie: true, newVisitor: true });
+  assert.deepEqual(repeat, { count: 1, setVisitorCookie: false, newVisitor: false });
+});
+
+test('cookie-less repeated requests count only once', async () => {
+  const database = new FakeDatabase();
+  const request = () => new Request('https://example.com/api/site', {
+    method: 'POST', headers: { Origin: 'https://example.com', 'CF-Connecting-IP': '198.51.100.2', 'User-Agent': 'bot' },
+  });
+  const first = await readOrIncrementVisitors(request(), database, 'test-secret');
+  const second = await readOrIncrementVisitors(request(), database, 'test-secret');
+  assert.equal(first.count, 1);
+  assert.equal(second.count, 1);
+  assert.equal(second.newVisitor, false);
 });
 
 test('the owner cookie prevents counting', async () => {
@@ -52,7 +80,7 @@ test('the owner cookie prevents counting', async () => {
     },
   });
   const result = await readOrIncrementVisitors(request, database);
-  assert.deepEqual(result, { count: 0, setVisitorCookie: false });
+  assert.deepEqual(result, { count: 0, setVisitorCookie: false, newVisitor: false });
   assert.equal(hasCookie(request, 'dott_owner=v1'), true);
 });
 
@@ -63,7 +91,7 @@ test('cross-origin and direct requests can read but cannot increment', async () 
     headers: { Origin: 'https://another.example' },
   });
   const result = await readOrIncrementVisitors(request, database);
-  assert.deepEqual(result, { count: 0, setVisitorCookie: false });
+  assert.deepEqual(result, { count: 0, setVisitorCookie: false, newVisitor: false });
   assert.equal(isSameOriginRequest(request), false);
 });
 

@@ -69,11 +69,11 @@ export async function onRequestPost(context) {
 
   if (context.env.SITE_DB) {
     try {
-      const result = await readOrIncrementVisitors(context.request, context.env.SITE_DB);
+      const result = await readOrIncrementVisitors(context.request, context.env.SITE_DB, context.env.VISITOR_HASH_SECRET || new URL(context.request.url).hostname);
       visitors = result.count;
       setVisitorCookie = result.setVisitorCookie;
 
-      if (setVisitorCookie) {
+      if (result.newVisitor) {
         context.waitUntil(notifyVisitor(context, visitors));
       }
     } catch (error) {
