@@ -1,0 +1,43 @@
+date: 2026-10-17
+bakedAt: 2026-10-17T21:03:10.785Z
+gaming:
+  - title: Minecraft
+    cover: https://images.igdb.com/igdb/image/upload/t_original/coa77e.jpg
+    minutes: 66
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 34
+    plays: 13
+    supported: true
+    insights:
+      pp: "+0.01"
+      global rank: "#439,657 → #439,984 ↓327"
+      best: 68.96pp · 92.75% · Unwelcome School [wring's Insane]
+  - title: Apotris
+    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
+    minutes: 30
+  - title: Pokémon™ Ultra Sun
+    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
+    minutes: 6
+  - title: Super Smash Bros.™ for Nintendo 3DS
+    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
+    minutes: 3
+  - title: Super-Haxagon
+    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
+    minutes: 2
+  - title: Mario Kart™ 7
+    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
+    minutes: 1
+watching: []
+podcasts: []
+music:
+  plays: 57
+  tracks: 56
+  artists: 33
+  streaks: []
+code:
+  commits: 1
+  sources:
+    mira: 1
+    github: 0
+now: []
