@@ -1,205 +1,404 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>  
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
-  <script src="/js/components.js"></script>
-  <title>Dott's website</title>
-</head>
-<body>
-  <div class="container">
-    <div id="sidebar-container" class="left-col ibm-plex-mono-light" data-layout="sidebar">
-      <!-- Sidebar will be loaded here -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script src="/js/components.js"></script>
+    <title>Dott's website</title>
+  </head>
+  <body>
+    <div class="container">
+      <div
+        id="sidebar-container"
+        class="left-col ibm-plex-mono-light"
+        data-layout="sidebar"
+      >
+        <!-- Sidebar will be loaded here -->
+      </div>
+
+      <div class="cent-col">
+        <fieldset class="ibm-plex-mono-medium">
+          <legend>Hi!</legend>
+          <div class="intro-grid">
+            <div class="intro-card">
+              <div class="intro-thumb intro-thumb--me"></div>
+              <div class="intro-body">
+                <div class="intro-title">Who I am</div>
+                Hi! I'm Dott. I'm from Russia (yeah, I do feel sorry for some
+                people -- can't be more specific for [CERTAIN_REASONS]).
+              </div>
+            </div>
+            <div class="intro-card">
+              <div class="intro-thumb intro-thumb--tech"></div>
+              <div class="intro-body">
+                <div class="intro-title">Tech mode</div>
+                I poke at code, configs and automation until something useful
+                happens. Mostly web stuff, bots and way too much nvim tweaking.
+              </div>
+            </div>
+            <div class="intro-card">
+              <div class="intro-thumb intro-thumb--projects"></div>
+              <div class="intro-body">
+                <div class="intro-title">Projects</div>
+                I have a few projects -- you can check them out on the Projects
+                page (though you'll have to dig through a bunch of
+                empty/non-project repos).
+              </div>
+            </div>
+            <div class="intro-card">
+              <div class="intro-thumb intro-thumb--hobbies"></div>
+              <div class="intro-body">
+                <div class="intro-title">Fun stuff</div>
+                I draw sometimes (still a beginner)<i>~</i> Also: Demon Slayer,
+                Balatro, Beat Saber and osu! All very good at eating my time.
+              </div>
+            </div>
+            <div class="intro-card">
+              <div class="intro-thumb intro-thumb--music"></div>
+              <div class="intro-body">
+                <div class="intro-title">Music</div>
+                I love music.
+                <span style="text-decoration: line-through"
+                  >I run my own internet radio (private btw)</span
+                >
+                (nevermind, it is closed), experiment with the Spotify API, and
+                even write my own tracks (there's a section for that). Bought a
+                few albums on bandcamp.
+              </div>
+            </div>
+            <div class="intro-card">
+              <div class="intro-thumb intro-thumb--automation"></div>
+              <div class="intro-body">
+                <div class="intro-title">Automation</div>
+                Most of my automation runs on Tasker and Raspberry Pi. Oh, and
+                apparently I do a lot of homelab stuff now :)
+              </div>
+            </div>
+            <div class="intro-card">
+              <div class="intro-thumb intro-thumb--photo"></div>
+              <div class="intro-body">
+                <div class="intro-title">Photo</div>
+                I also shoot photos with my Nikon D90 -- I've even got a section
+                dedicated to that (not yet 😖).
+              </div>
+            </div>
+            <div class="intro-card">
+              <div class="intro-thumb intro-thumb--momentum"></div>
+              <div class="intro-body">
+                <div class="intro-title">Momentum</div>
+                Trying to study, make stuff and actually finish it. Sometimes
+                the spark just disappears for a while :/
+              </div>
+            </div>
+            <div class="intro-card">
+              <div class="intro-thumb intro-thumb--scroll"></div>
+              <div class="intro-body">
+                <div class="intro-title">Summer trap</div>
+                Every summer I get eaten alive by YouTube Shorts again. Very
+                productive of me.
+              </div>
+            </div>
+            <div class="intro-card">
+              <div class="intro-thumb intro-thumb--style"></div>
+              <div class="intro-body">
+                <div class="intro-title">Style</div>
+                I like androgynous and feminine stuff. Clothes included. Turns
+                out thigh-highs are pretty comfy :3
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="ibm-plex-mono-medium">
+          <legend>First things in my life</legend>
+          1. 25 aug 2025 - first dental filling (there is still pending 3-4
+          things add to this section)
+        </fieldset>
+        <fieldset class="ibm-plex-mono-medium">
+          <legend>Spec sheet</legend>
+
+          <h4 class="spec-title">
+            dott-nx54a <span class="spec-title-prev">(prev. dotmb3)</span>
+          </h4>
+          Paired with dott-bmon
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th scope="col">//</th>
+                <th scope="col">conf</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Device</th>
+                <td>Nothing Phone (3)</td>
+              </tr>
+              <tr>
+                <th scope="row">OS</th>
+                <td>Android 16 (Nothing OS 4.0)</td>
+              </tr>
+              <tr>
+                <th scope="row">GPU</th>
+                <td>Adreno 825</td>
+              </tr>
+              <tr>
+                <th scope="row">CPU</th>
+                <td>Qualcomm® Snapdragon 8s Gen 4</td>
+              </tr>
+              <tr>
+                <th scope="row">RAM</th>
+                <td>12 GB</td>
+              </tr>
+              <tr>
+                <th scope="row">Storage</th>
+                <td>256 GB</td>
+              </tr>
+            </tbody>
+          </table>
+          <br />
+
+          <h4 class="spec-title">
+            dott-bmon <span class="spec-title-prev">(prev. dotwth)</span>
+          </h4>
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th scope="col">//</th>
+                <th scope="col">conf</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Device</th>
+                <td>OnePlus Watch 2</td>
+              </tr>
+              <tr>
+                <th scope="row">OS</th>
+                <td>Wear OS 4 + RTOS</td>
+              </tr>
+              <tr>
+                <th scope="row">CPU</th>
+                <td>Qualcomm Snapdragon W5 Gen 1 + BES2700BP</td>
+              </tr>
+              <tr>
+                <th scope="row">RAM</th>
+                <td>2 GB</td>
+              </tr>
+              <tr>
+                <th scope="row">Storage</th>
+                <td>32 GB <i>(+4 GB eMMC for RTOS)</i></td>
+              </tr>
+              <tr>
+                <th scope="row">Display</th>
+                <td>Round</td>
+              </tr>
+            </tbody>
+          </table>
+          <br />
+
+          <br />
+
+          <h4 class="spec-title">
+            dott-nx49p <span class="spec-title-prev">(prev. dotmb2)</span>
+          </h4>
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th scope="col">//</th>
+                <th scope="col">conf</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Device</th>
+                <td>Samsung Galaxy A73 5G</td>
+              </tr>
+              <tr>
+                <th scope="row">OS</th>
+                <td>Android 16 (One UI 8)</td>
+              </tr>
+              <tr>
+                <th scope="row">GPU</th>
+                <td>Adreno 642L</td>
+              </tr>
+              <tr>
+                <th scope="row">CPU</th>
+                <td>Snapdragon 778 5G</td>
+              </tr>
+              <tr>
+                <th scope="row">RAM</th>
+                <td>6 GB</td>
+              </tr>
+              <tr>
+                <th scope="row">Storage</th>
+                <td>128 GB <i>(+256 GB SD)</i></td>
+              </tr>
+            </tbody>
+          </table>
+          <br />
+          <h4 class="spec-title">
+            dott-term <span class="spec-title-prev">(prev. dotlap)</span>
+          </h4>
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th scope="col">//</th>
+                <th scope="col">conf</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Device</th>
+                <td>Lenovo IdeaPad L340-IRH</td>
+              </tr>
+              <tr>
+                <th scope="row">OS</th>
+                <td>Vanilla Arch Linux</td>
+              </tr>
+              <tr>
+                <th scope="row">GPU</th>
+                <td>NVIDIA GeForce GTX 1650 Mobile</td>
+              </tr>
+              <tr>
+                <th scope="row">CPU</th>
+                <td>Intel Core i5-9300H</td>
+              </tr>
+              <tr>
+                <th scope="row">RAM</th>
+                <td>16 GB SODIMM 1 slot <i>(stock was 8GB)</i></td>
+              </tr>
+              <tr>
+                <th scope="row">Storage (SSD)</th>
+                <td>1TB Ardor GAMING <i>(not stock)</i></td>
+              </tr>
+              <tr>
+                <th scope="row">Storage (HDD)</th>
+                <td>1TB WD (idk)</td>
+              </tr>
+            </tbody>
+          </table>
+          <br />
+          <h4 class="spec-title">dotbox</h4>
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th scope="col">//</th>
+                <th scope="col">conf</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Device</th>
+                <td>Raspberry Pi 4B</td>
+              </tr>
+              <tr>
+                <th scope="row">OS</th>
+                <td>Raspbian GNU/Linux 11 (bullseye) ARM</td>
+              </tr>
+              <tr>
+                <th scope="row">CPU</th>
+                <td>Cortex-A72</td>
+              </tr>
+              <tr>
+                <th scope="row">RAM</th>
+                <td>8 GB</td>
+              </tr>
+              <tr>
+                <th scope="row">Storage</th>
+                <td>64 GB</td>
+              </tr>
+            </tbody>
+          </table>
+          <br />
+          <h4 class="spec-title">Player (Yeah, no stylized name)</h4>
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th scope="col">//</th>
+                <th scope="col">conf</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Device</th>
+                <td>Innioasis Y1</td>
+              </tr>
+              <tr>
+                <th scope="row">OS</th>
+                <td>
+                  Android 4.2.2 (with some custom modifications to Wi-FI driver)
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Frontend</th>
+                <td>Rockbox</td>
+              </tr>
+              <tr>
+                <th scope="row">CPU</th>
+                <td>MediaTek MT6572 (dual-core ARM Cortex-A7)</td>
+              </tr>
+              <tr>
+                <th scope="row">RAM</th>
+                <td>512 MB</td>
+              </tr>
+              <tr>
+                <th scope="row">Storage (Internal SD)</th>
+                <td>128 GB</td>
+              </tr>
+              <tr>
+                <th scope="row">System Partition</th>
+                <td>650 MB</td>
+              </tr>
+            </tbody>
+          </table>
+          <br />
+          <h4 class="spec-title">dott-vox</h4>
+          TBH this is a REALLY WIERD DEVICE! Thanks to Indian certificate
+          authority! LOL
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th scope="col">//</th>
+                <th scope="col">conf</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Device</th>
+                <td>Yandex.Station Mini 2 (With clock)</td>
+              </tr>
+              <tr>
+                <th scope="row">OS</th>
+                <td>
+                  Some official Buildroot with root access (Kernel is Linux
+                  4.9.68)
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">CPU</th>
+                <td>Quad-core ARM Cortex-A53 (AArch64)</td>
+              </tr>
+              <tr>
+                <th scope="row">RAM</th>
+                <td>256 MB</td>
+              </tr>
+              <tr>
+                <th scope="row">Storage</th>
+                <td>250 MiB NAND Flash</td>
+              </tr>
+            </tbody>
+          </table>
+          <br />
+        </fieldset>
+      </div>
+
+      <div class="right-col ibm-plex-mono-light" data-layout="right-about">
+        <!-- Right sidebar will be loaded here -->
+      </div>
     </div>
-  
-    <div class="cent-col">
-      <fieldset class="ibm-plex-mono-medium">
-        <legend>Hi!</legend>
-        <div class="intro-grid">
-          <div class="intro-card">
-            <div class="intro-thumb intro-thumb--me"></div>
-            <div class="intro-body">
-              <div class="intro-title">Who I am</div>
-              Hi! I'm Dott. I'm from Russia (yeah, I do feel sorry for some people -- can't be more specific for [CERTAIN_REASONS]).
-            </div>
-          </div>
-          <div class="intro-card">
-            <div class="intro-thumb intro-thumb--tech"></div>
-            <div class="intro-body">
-              <div class="intro-title">Tech mode</div>
-              I poke at code, configs and automation until something useful happens. Mostly web stuff, bots and way too much nvim tweaking.
-            </div>
-          </div>
-          <div class="intro-card">
-            <div class="intro-thumb intro-thumb--projects"></div>
-            <div class="intro-body">
-              <div class="intro-title">Projects</div>
-              I have a few projects -- you can check them out on the Projects page (though you'll have to dig through a bunch of empty/non-project repos).
-            </div>
-          </div>
-          <div class="intro-card">
-            <div class="intro-thumb intro-thumb--hobbies"></div>
-            <div class="intro-body">
-              <div class="intro-title">Fun stuff</div>
-              I draw sometimes (still a beginner)<i>~</i> Also: Demon Slayer, Balatro, Beat Saber and osu! All very good at eating my time.
-            </div>
-          </div>
-          <div class="intro-card">
-            <div class="intro-thumb intro-thumb--music"></div>
-            <div class="intro-body">
-              <div class="intro-title">Music</div>
-              I love music. <span style="text-decoration: line-through;">I run my own internet radio (private btw)</span> (nevermind, it is closed), experiment with the Spotify API, and even write my own tracks (there's a section for that). Bought a few albums on bandcamp.
-            </div>
-          </div>
-          <div class="intro-card">
-            <div class="intro-thumb intro-thumb--automation"></div>
-            <div class="intro-body">
-              <div class="intro-title">Automation</div>
-              Most of my automation runs on Tasker and Raspberry Pi. Oh, and apparently I do a lot of homelab stuff now :)
-            </div>
-          </div>
-          <div class="intro-card">
-            <div class="intro-thumb intro-thumb--photo"></div>
-            <div class="intro-body">
-              <div class="intro-title">Photo</div>
-              I also shoot photos with my Nikon D90 -- I've even got a section dedicated to that (not yet 😖).
-            </div>
-          </div>
-          <div class="intro-card">
-            <div class="intro-thumb intro-thumb--momentum"></div>
-            <div class="intro-body">
-              <div class="intro-title">Momentum</div>
-              Trying to study, make stuff and actually finish it. Sometimes the spark just disappears for a while :/
-            </div>
-          </div>
-          <div class="intro-card">
-            <div class="intro-thumb intro-thumb--scroll"></div>
-            <div class="intro-body">
-              <div class="intro-title">Summer trap</div>
-              Every summer I get eaten alive by YouTube Shorts again. Very productive of me.
-            </div>
-          </div>
-          <div class="intro-card">
-            <div class="intro-thumb intro-thumb--style"></div>
-            <div class="intro-body">
-              <div class="intro-title">Style</div>
-              I like androgynous and feminine stuff. Clothes included. Turns out thigh-highs are pretty comfy :3
-            </div>
-          </div>
-        </div>
-      </fieldset>
-
-      <fieldset class="ibm-plex-mono-medium">
-        <legend>First things in my life</legend>
-        1. 25 aug 2025 - first dental filling
-        (there is still pending 3-4 things add to this section)
-      </fieldset>
-      <fieldset class="ibm-plex-mono-medium">
-        <legend>Spec sheet</legend>
-
-        <h4 class="spec-title">dotmb3</h4>
-        <table class="spec-table">
-          <thead>
-            <tr>
-              <th scope="col">//</th>
-              <th scope="col">conf</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">Device</th> <td>Nothing Phone (3)</td></tr>
-            <tr><th scope="row">OS</th> <td>Android 16 (Nothing OS 4.0)</td></tr>
-            <tr><th scope="row">GPU</th> <td>Adreno 825</td></tr>
-            <tr><th scope="row">CPU</th> <td>Qualcomm® Snapdragon 8s Gen 4</td></tr>
-            <tr><th scope="row">RAM</th> <td>12 GB</td></tr>
-            <tr><th scope="row">Storage</th> <td>256 GB</td></tr>
-          </tbody>
-        </table>
-<br>
-
-        <h4 class="spec-title">dotmb2</h4>
-        <table class="spec-table">
-          <thead>
-            <tr>
-              <th scope="col">//</th>
-              <th scope="col">conf</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">Device</th> <td>Samsung Galaxy A73 5G</td></tr>
-            <tr><th scope="row">OS</th> <td>Android 16 (One UI 8)</td></tr>
-            <tr><th scope="row">GPU</th> <td>Adreno 642L</td></tr>
-            <tr><th scope="row">CPU</th> <td>Snapdragon 778 5G</td></tr>
-            <tr><th scope="row">RAM</th> <td>6 GB</td></tr>
-            <tr><th scope="row">Storage</th> <td>128 GB <i>(+256 GB SD)</i></td></tr>
-          </tbody>
-        </table>
-        <br>
-        <h4 class="spec-title">dotlap</h4>
-        <table class="spec-table">
-          <thead>
-            <tr>
-              <th scope="col">//</th>
-              <th scope="col">conf</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">Device</th> <td>Lenovo IdeaPad L340-IRH</td></tr>
-            <tr><th scope="row">OS</th> <td>Cachy OS | Windows</td></tr>
-            <tr><th scope="row">GPU</th> <td>NVIDIA GeForce GTX 1650 Mobile</td></tr>
-            <tr><th scope="row">CPU</th> <td>Intel Core i5-9300H</td></tr>
-            <tr><th scope="row">RAM</th> <td>16 GB SODIMM 1 slot <i>(stock was 8GB)</i></td></tr>
-            <tr><th scope="row">Storage (SSD)</th> <td>1TB Ardor GAMING <i>(not stock)</i></td></tr>
-            <tr><th scope="row">Storage (HDD)</th> <td>1TB WD (idk)</td></tr>
-          </tbody>
-        </table>
-        <br>
-        <h4 class="spec-title">dotbox</h4>
-        <table class="spec-table">
-          <thead>
-            <tr>
-              <th scope="col">//</th>
-              <th scope="col">conf</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">Device</th> <td>Raspberry Pi 4B</td></tr>
-            <tr><th scope="row">OS</th> <td>Raspbian GNU/Linux 11 (bullseye) ARM</td></tr>
-            <tr><th scope="row">CPU</th> <td>Cortex-A72</td></tr>
-            <tr><th scope="row">RAM</th> <td>8 GB</td></tr>
-            <tr><th scope="row">Storage</th> <td>64 GB</td></tr>
-          </tbody>
-        </table>
-
-        <h4 class="spec-title">Player (Yeah, no stylized name)</h4>
-        <table class="spec-table">
-          <thead>
-            <tr>
-              <th scope="col">//</th>
-              <th scope="col">conf</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">Device</th> <td>Innioasis Y1</td></tr>
-            <tr><th scope="row">OS</th> <td>Android 4.2.2 (with some custom modifications to Wi-FI driver)</td></tr>
-            <tr><th scope="row">Frontend</th> <td>Rockbox</td></tr>
-            <tr><th scope="row">CPU</th> <td>MediaTek MT6572 (dual-core ARM Cortex-A7)</td></tr>
-            <tr><th scope="row">RAM</th> <td>512 MB</td></tr>
-            <tr><th scope="row">Storage (Internal SD)</th> <td>128 GB</td></tr>
-            <tr><th scope="row">System Partition</th> <td>650 MB</td></tr>
-          </tbody>
-        </table>
-
-      </fieldset>
+    <div id="footer-container" data-layout="footer">
+      <!-- Footer will be loaded here -->
     </div>
-  
-<div class="right-col ibm-plex-mono-light" data-layout="right-about">
-  <!-- Right sidebar will be loaded here -->
-</div>
-  
-</div>
-<div id="footer-container" data-layout="footer">
-  <!-- Footer will be loaded here -->
-</div>
-</body>
+  </body>
 </html>

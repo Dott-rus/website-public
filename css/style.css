@@ -513,6 +513,13 @@ fieldset {
     font-weight: 600;
 }
 
+.spec-title-prev {
+    margin: 10px 0 6px;
+    font-size: 0.5rem;
+    font-weight: 600;
+    opacity: 0.6;
+}
+
 .intro-grid {
     display: flex;
     flex-direction: column;
