@@ -1,0 +1,24 @@
+date: 2026-10-22
+bakedAt: 2026-10-22T21:02:33.440Z
+gaming:
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 1
+    plays: 2
+    supported: true
+    insights:
+      pp: "+0.00"
+      global rank: "#441,238 → #441,513 ↓275"
+watching: []
+podcasts: []
+music:
+  plays: 63
+  tracks: 59
+  artists: 36
+  streaks: []
+code:
+  commits: 2
+  sources:
+    mira: 2
+    github: 0
+now: []
