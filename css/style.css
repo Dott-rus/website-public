@@ -1668,3 +1668,7 @@ fieldset {
 .day-rp-match{margin-left:8px;border-top:1px dashed #f5f5dc33}
 .day-rp-map{display:grid;gap:5px;padding:9px 5px 9px 10px;border-left:1px solid #f5f5dc44;font-size:.76rem;overflow-wrap:anywhere}
 .day-rp-score{color:#999}.day-rp-me{color:#eee;font-weight:bold}
+
+.day-hypixel-comparison { display:grid; gap:7px; padding:10px 0 7px 16px; border-top:1px dashed #f5f5dc24; }
+.day-hypixel-comparison > small { font-size:.72rem; color:#d98b92; }
+.day-hypixel-comparison .day-game-stat-grid { display:grid; gap:8px; }

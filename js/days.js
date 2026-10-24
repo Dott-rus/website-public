@@ -228,11 +228,22 @@
       const stats = Object.entries(details)
         .filter(([,value]) => value !== null && value !== undefined && value !== '')
         .map(([label,value]) => `<span class="day-game-stat"><small>${escapeHtml(label)}</small><b>${escapeHtml(value)}</b></span>`).join('');
-      const notes = [
+      const comparison = mode?.comparison && typeof mode.comparison === 'object' ? mode.comparison : null;
+    const previousMetrics = comparison?.metrics && typeof comparison.metrics === 'object' ? comparison.metrics : {};
+    const compareStats = Object.entries(previousMetrics).map(([label, data]) => {
+      if (!data || !Number.isFinite(Number(data.previous)) || !Number.isFinite(Number(data.current))) return '';
+      const percent = label === 'Winrate';
+      const format = value => percent ? `${Number(value).toFixed(1)}%` : Number(value).toFixed(2);
+      const delta = Number(data.delta);
+      const deltaLabel = `${delta > 0 ? '+' : ''}${percent ? delta.toFixed(1) + ' pp' : delta.toFixed(2)}`;
+      return `<span class="day-game-stat"><small>${escapeHtml(label)} vs prev</small><b>${escapeHtml(format(data.previous))} → ${escapeHtml(format(data.current))} (${escapeHtml(deltaLabel)})</b></span>`;
+    }).join('');
+    const compareSection = compareStats ? `<span class="day-hypixel-comparison"><small>VS PREVIOUS PLAY DAY · ${escapeHtml(comparison.date || '')}</small><span class="day-game-stat-grid">${compareStats}</span></span>` : '';
+    const notes = [
         Number(mode?.plays) > 0 ? `${Number(mode.plays)} plays` : '',
         Number(mode?.minutes) > 0 ? `~${Math.round(Number(mode.minutes))}m observed` : '',
       ].filter(Boolean).join(' · ');
-      return `<details class="day-hypixel-mode"><summary><strong>${escapeHtml(mode?.title || 'Unknown mode')}</strong>${notes ? `<small>${escapeHtml(notes)}</small>` : ''}</summary><span class="day-game-stat-grid">${stats || '<small class="day-game-muted">Activity detected</small>'}</span></details>`;
+      return `<details class="day-hypixel-mode"><summary><strong>${escapeHtml(mode?.title || 'Unknown mode')}</strong>${notes ? `<small>${escapeHtml(notes)}</small>` : ''}</summary><span class="day-game-stat-grid">${stats || '<small class="day-game-muted">Activity detected</small>'}</span>${compareSection}</details>`;
     }).join('');
     return `<span class="day-game-section day-game-hypixel"><span class="day-game-section-label">HYPIXEL</span><span class="day-hypixel-modes">${items}</span></span>`;
   }

@@ -45,3 +45,22 @@ test('Hypixel values and mode names are HTML escaped', () => {
   assert.match(html, /&lt;script&gt;bad\(\)&lt;\/script&gt;/);
   assert.doesNotMatch(html, /<script>bad/);
 });
+
+test('Hypixel compares daily winrate and FKDR to previous play day', () => {
+  const html = renderDays([{
+    date: localDateString(),
+    gaming: [{title: 'Minecraft', supported: true, hypixel: {modes: [{
+      title: 'Bed Wars', plays: 3, insights: {'W / L': '2 / 1'},
+      comparison: {
+        date: '2026-10-22',
+        metrics: {
+          Winrate: {previous: 25, current: 66.7, delta: 41.7},
+          FKDR: {previous: 0.5, current: 1.25, delta: 0.75},
+        },
+      },
+    }]}}],
+  }], {history:[]});
+  assert.match(html, /VS PREVIOUS PLAY DAY · 2026-10-22/);
+  assert.match(html, /25.0% → 66.7% \(\+41.7 pp\)/);
+  assert.match(html, /0.50 → 1.25 \(\+0.75\)/);
+});
