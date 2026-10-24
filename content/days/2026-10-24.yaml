@@ -1,0 +1,33 @@
+date: 2026-10-24
+bakedAt: 2026-10-24T21:02:09.950Z
+gaming:
+  - title: Minecraft
+    cover: https://images.igdb.com/igdb/image/upload/t_original/coa77e.jpg
+    minutes: 11
+    supported: true
+    hypixel:
+      modes:
+        - title: Bed Wars
+          plays: 1
+          minutes: 28
+          insights:
+            W / L: 0 / 1
+            K / D: 1 / 2
+            Final K / D: 1 / 1
+            Beds broken / lost: 0 / 1
+            4v4v4v4: 1 game
+            Last sampled mode: BEDWARS FOUR FOUR
+          mode: bedwars
+watching: []
+podcasts: []
+music:
+  plays: 10
+  tracks: 10
+  artists: 10
+  streaks: []
+code:
+  commits: 2
+  sources:
+    mira: 2
+    github: 0
+now: []
