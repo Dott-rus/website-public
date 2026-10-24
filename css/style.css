@@ -1569,6 +1569,18 @@ fieldset {
 .day-game-stat { display:flex; flex-direction:column; gap:3px; min-width:0; }
 .day-game-stat b { font-weight:400; font-size:.85rem; overflow-wrap:anywhere; }
 .day-game-insight-stats { display:flex; flex-wrap:wrap; gap:8px; }
+
+/* Hypixel is a group of game modes within the one Minecraft entry. */
+.day-hypixel-modes { display:grid; min-width:0; gap:8px; }
+.day-hypixel-mode { border-top:1px dashed #f5f5dc24; padding:7px 0 0; min-width:0; }
+.day-hypixel-mode > summary { display:flex; gap:12px; align-items:baseline; cursor:pointer; list-style:none; min-width:0; }
+.day-hypixel-mode > summary::-webkit-details-marker { display:none; }
+.day-hypixel-mode > summary > strong { font-size:.86rem; font-weight:500; overflow-wrap:anywhere; }
+.day-hypixel-mode > summary > small { margin-left:auto; text-align:right; font-size:.72rem; color:#aaa; }
+.day-hypixel-mode > summary::before { content:'+'; color:#d98b92; }
+.day-hypixel-mode[open] > summary::before { content:'−'; }
+.day-hypixel-mode > .day-game-stat-grid { display:grid; padding:10px 0 6px 16px; }
+
 .day-live-note,.day-note-pending { font-size:.7rem; color:#999; line-height:1.5; }
 .day-live-note { margin:0 0 12px; }
 .day-empty { grid-column:1/-1; font-size:.8rem; color:#999; }

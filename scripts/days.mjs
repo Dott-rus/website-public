@@ -139,6 +139,24 @@ function renderRankedPlay(rp = {}) {
   return `<span class="day-game-section"><span class="day-game-section-label">RANKED PLAY</span><span class="day-game-stat-grid">${stat('Result',results)}${stat('Elo',rating)}${stat('Maps',maps)}</span>${matches ? `<details class="day-rp-history"><summary>Match details · map scores</summary>${matches}</details>` : ''}</span>`;
 }
 
+
+function renderHypixelSection(hypixel = {}) {
+  const modes = Array.isArray(hypixel?.modes) ? hypixel.modes : [];
+  if (!modes.length) return '';
+  const items = modes.map(mode => {
+    const details = mode?.insights && typeof mode.insights === 'object' ? mode.insights : {};
+    const stats = Object.entries(details)
+      .filter(([,value]) => value !== null && value !== undefined && value !== '')
+      .map(([label,value]) => `<span class="day-game-stat"><small>${escapeHtml(label)}</small><b>${escapeHtml(value)}</b></span>`).join('');
+    const notes = [
+      Number(mode?.plays) > 0 ? `${Number(mode.plays)} plays` : '',
+      Number(mode?.minutes) > 0 ? `~${Math.round(Number(mode.minutes))}m observed` : '',
+    ].filter(Boolean).join(' · ');
+    return `<details class="day-hypixel-mode"><summary><strong>${escapeHtml(mode?.title || 'Unknown mode')}</strong>${notes ? `<small>${escapeHtml(notes)}</small>` : ''}</summary><span class="day-game-stat-grid">${stats || '<small class="day-game-muted">Activity detected</small>'}</span></details>`;
+  }).join('');
+  return `<span class="day-game-section day-game-hypixel"><span class="day-game-section-label">HYPIXEL</span><span class="day-hypixel-modes">${items}</span></span>`;
+}
+
 function renderGameItem(item = {}) {
     const hasInsights = item.supported === true || Number(item.plays || 0) > 0 || (item.insights && typeof item.insights === 'object');
     if (!hasInsights) {
@@ -150,6 +168,13 @@ function renderGameItem(item = {}) {
   const cover = mediaCover(item);
     const title = item.title || '?';
     const summary = [item.minutes ? `${Math.round(item.minutes)}m` : '', Number(item.plays || 0) > 0 ? `${Number(item.plays)} plays` : ''].filter(Boolean).join(' · ');
+    if (title === 'Minecraft' && Array.isArray(item.hypixel?.modes) && item.hypixel.modes.length) {
+      const allStats = Object.entries(item.insights || {}).filter(([, v]) => v !== null && v !== undefined && v !== '')
+        .map(([label, value]) => `<span class="day-game-stat"><small>${escapeHtml(label)}</small><b>${escapeHtml(value)}</b></span>`).join('');
+      const existing = allStats ? `<span class="day-game-section"><span class="day-game-section-label">STATS</span><span class="day-game-stat-grid">${allStats}</span></span>` : '';
+      return `<span class="day-game-insight day-game-minecraft">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-game-insight-body"><span class="day-game-title-row"><strong>Minecraft</strong><small>${summary ? escapeHtml(summary) + ' · ' : ''}Hypixel</small></span>${existing}${renderHypixelSection(item.hypixel)}</span></span>`;
+    }
+
     if (item.provider === 'beatleader') {
       const insights = item.insights && typeof item.insights === 'object' ? item.insights : {};
       const order = ['global rank', 'pp', 'best', 'PBs', 'clears', 'FCs'];
