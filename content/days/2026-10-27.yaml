@@ -1,0 +1,35 @@
+date: 2026-10-27
+bakedAt: 2026-10-27T21:02:47.139Z
+gaming:
+  - title: Celeste
+    cover: https://images.igdb.com/igdb/image/upload/t_original/cob9dh.jpg
+    minutes: 44
+    achievements: 1
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 13
+    plays: 6
+    supported: true
+    insights:
+      pp: "+0.00"
+      global rank: "#442,753 → #443,198 ↓445"
+      best: 32.25pp · 88.37% · MORNINGLOOM [wring's HYPER]
+  - title: Super Smash Bros.™ for Nintendo 3DS
+    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
+    minutes: 7
+  - title: Super Mario Maker™ for Nintendo 3DS
+    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
+    minutes: 5
+watching: []
+podcasts: []
+music:
+  plays: 29
+  tracks: 26
+  artists: 23
+  streaks: []
+code:
+  commits: 6
+  sources:
+    mira: 6
+    github: 0
+now: []
