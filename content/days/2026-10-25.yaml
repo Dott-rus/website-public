@@ -1,0 +1,84 @@
+date: 2026-10-25
+bakedAt: 2026-10-25T21:02:37.175Z
+gaming:
+  - title: Minecraft
+    cover: https://images.igdb.com/igdb/image/upload/t_original/coa77e.jpg
+    minutes: 174
+    supported: true
+    hypixel:
+      modes:
+        - title: Arcade
+          minutes: 14
+          insights:
+            Lawn moower mowed total score party: "+277"
+            Animal slaughter kills party: "+34"
+            Round wins simon says: "+14"
+            Rounds simon says: "+8"
+            Round wins party: "+1"
+            Last sampled mode: SIMON SAYS
+          mode: arcade
+        - title: Bed Wars
+          plays: 8
+          minutes: 62
+          insights:
+            W / L: 1 / 7
+            K / D: 15 / 16
+            Final K / D: 1 / 7
+            Beds broken / lost: 0 / 7
+            4v4v4v4: 8 games
+            Last sampled mode: BEDWARS FOUR FOUR
+          mode: bedwars
+          comparison:
+            date: 2026-10-24
+            metrics:
+              KDR:
+                previous: 0.5
+                current: 0.94
+                delta: 0.44
+              FKDR:
+                previous: 1
+                current: 0.14
+                delta: -0.86
+              Winrate:
+                previous: 0
+                current: 12.5
+                delta: 12.5
+        - title: The Pit
+          minutes: 2
+          insights:
+            Last sampled mode: PIT
+          mode: pit
+        - title: SkyBlock · Peach
+          minutes: 14
+          insights:
+            Skill XP: +5,228
+            Foraging: +4,058 XP
+            Taming: +430 XP
+            Combat: +385 XP
+            SkyBlock XP: "+42"
+            Last sampled mode: foraging 1
+          mode: skyblock
+        - title: Wool Wars
+          minutes: 2
+          insights:
+            Last sampled mode: capture the wool two twenty
+          mode: woolgames
+  - title: Celeste
+    cover: https://images.igdb.com/igdb/image/upload/t_original/cob9dh.jpg
+    minutes: 24
+  - title: Unfair Flips
+    cover: https://images.igdb.com/igdb/image/upload/t_original/coan1q.jpg
+    minutes: 23
+watching: []
+podcasts: []
+music:
+  plays: 16
+  tracks: 16
+  artists: 16
+  streaks: []
+code:
+  commits: 4
+  sources:
+    mira: 4
+    github: 0
+now: []
