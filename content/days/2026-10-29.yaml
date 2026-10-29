@@ -1,0 +1,33 @@
+date: 2026-10-29
+bakedAt: 2026-10-29T21:02:53.562Z
+gaming:
+  - title: "Animal Crossing: New Leaf"
+    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
+    minutes: 20
+  - title: Pokémon™ Ultra Sun
+    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
+    minutes: 16
+  - title: Super Smash Bros.™ for Nintendo 3DS
+    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
+    minutes: 14
+  - title: Super Mario Maker™ for Nintendo 3DS
+    cover: https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg
+    minutes: 1
+watching: []
+podcasts: []
+music:
+  plays: 36
+  tracks: 36
+  artists: 30
+  streaks: []
+code:
+  commits: 2
+  sources:
+    mira: 2
+    github: 0
+now:
+  - at: 2026-10-29T07:24:23.534Z
+    changes:
+      doing: Learning
+      consuming: null
+      note: Hii! uh.. i forgot about that section... and i hope that this thing keeps working
