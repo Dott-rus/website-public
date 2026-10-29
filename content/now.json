@@ -1,11 +1,19 @@
 {
   "current": {
-    "doing": "Standing",
-    "consuming": "FUCKING CHOCOLATE BAR",
-    "note": "I've been through so much shit today. I fucking want a chocolate bar, I fucking earned it.",
-    "updatedAt": "2026-09-10T14:41:54.760Z"
+    "doing": "Learning",
+    "consuming": null,
+    "note": "Hii! uh.. i forgot about that section... and i hope that this thing keeps working",
+    "updatedAt": "2026-10-29T07:24:23.534Z"
   },
   "history": [
+    {
+      "at": "2026-10-29T07:24:23.534Z",
+      "changes": {
+        "doing": "Learning",
+        "consuming": null,
+        "note": "Hii! uh.. i forgot about that section... and i hope that this thing keeps working"
+      }
+    },
     {
       "at": "2026-09-10T14:41:54.760Z",
       "changes": {
