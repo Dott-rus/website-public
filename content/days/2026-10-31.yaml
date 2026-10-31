@@ -1,0 +1,205 @@
+date: 2026-10-31
+bakedAt: 2026-10-31T21:02:38.915Z
+gaming:
+  - title: Open Brush
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co3qmq.jpg
+    minutes: 42
+  - title: Beat Saber
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co20ux.jpg
+    provider: beatleader
+    supported: true
+    minutes: 12
+    plays: 10
+    insights:
+      pp: "+1.52"
+      global rank: "#18,410 → #18,418 ↓8"
+      best: 204.97pp · 84.17% · Death From Above [Hard]
+      PBs: 1
+      clears: 3
+      FCs: 0
+    stats:
+      source: beatleader
+      timeBasis: attempts
+      seconds: 719.828205
+      attempts: 10
+      clears: 3
+      pp:
+        start: 5794.9873
+        end: 5796.507
+      globalRank:
+        start: 18410
+        end: 18418
+    attempts:
+      - attempt_id: 151351838
+        leaderboard_id: 1a8d451
+        title: Death From Above
+        artist: Kotori
+        difficulty: Hard
+        mode: Standard
+        seconds: 221.68846
+        result: clear
+        accuracy: 0.84169626
+        pp: 204.96948
+        full_combo: false
+        missed_notes: 14
+        bad_cuts: 9
+        modifiers: ""
+        improved: true
+        date: 2026-10-30T22:11:39+00:00
+      - attempt_id: 151352126
+        leaderboard_id: WhatTheCat51
+        title: WHAT THE CAT!? [OST Camellia]
+        artist: Camellia
+        difficulty: Hard
+        mode: Standard
+        seconds: 13.4182
+        result: quit
+        accuracy: 0.9370085
+        pp: null
+        full_combo: false
+        missed_notes: 0
+        bad_cuts: 0
+        modifiers: ""
+        improved: false
+        date: 2026-10-30T22:14:25+00:00
+      - attempt_id: 151352181
+        leaderboard_id: WhatTheCat71
+        title: WHAT THE CAT!? [OST Camellia]
+        artist: Camellia
+        difficulty: Expert
+        mode: Standard
+        seconds: 25.957245
+        result: quit
+        accuracy: 0.7190347
+        pp: null
+        full_combo: false
+        missed_notes: 9
+        bad_cuts: 3
+        modifiers: NF
+        improved: false
+        date: 2026-10-30T22:14:55+00:00
+      - attempt_id: 151352584
+        leaderboard_id: 4db4291
+        title: iPod Touch
+        artist: Ninajirachi
+        difficulty: ExpertPlus
+        mode: Standard
+        seconds: 116.08853
+        result: clear
+        accuracy: 0.84622705
+        pp: null
+        full_combo: false
+        missed_notes: 11
+        bad_cuts: 12
+        modifiers: NF
+        improved: false
+        date: 2026-10-30T22:18:52+00:00
+      - attempt_id: 151352907
+        leaderboard_id: 3f68631
+        title: ゴー・トゥ・大都会/Go to the big city
+        artist: ニャン・トンロン (娘 東龍)
+        difficulty: Normal
+        mode: Standard
+        seconds: 171.78485
+        result: clear
+        accuracy: 0.9207408
+        pp: null
+        full_combo: false
+        missed_notes: 1
+        bad_cuts: 2
+        modifiers: ""
+        improved: false
+        date: 2026-10-30T22:21:52+00:00
+      - attempt_id: 151353027
+        leaderboard_id: 41d70xxxxxxxx51
+        title: Gingerbread home
+        artist: mzlff
+        difficulty: Hard
+        mode: Standard
+        seconds: 15.4722
+        result: quit
+        accuracy: 0.9389967
+        pp: null
+        full_combo: false
+        missed_notes: 0
+        bad_cuts: 0
+        modifiers: ""
+        improved: false
+        date: 2026-10-30T22:22:59+00:00
+      - attempt_id: 151353088
+        leaderboard_id: 41d70xxxxxxxx71
+        title: Gingerbread home
+        artist: mzlff
+        difficulty: Expert
+        mode: Standard
+        seconds: 31.8672
+        result: quit
+        accuracy: 0.6611486
+        pp: null
+        full_combo: false
+        missed_notes: 8
+        bad_cuts: 3
+        modifiers: ""
+        improved: false
+        date: 2026-10-30T22:23:35+00:00
+      - attempt_id: 151353236
+        leaderboard_id: 22a2251
+        title: S.N.U.F.F.Y
+        artist: metaroom
+        difficulty: Hard
+        mode: Standard
+        seconds: 21.2421
+        result: quit
+        accuracy: 0.90515435
+        pp: null
+        full_combo: false
+        missed_notes: 1
+        bad_cuts: 0
+        modifiers: ""
+        improved: false
+        date: 2026-10-30T22:24:51+00:00
+      - attempt_id: 151353435
+        leaderboard_id: 356b71
+        title: Rude Buster
+        artist: RaynArch
+        difficulty: Expert
+        mode: Standard
+        seconds: 24.58722
+        result: quit
+        accuracy: 0.4166853
+        pp: null
+        full_combo: false
+        missed_notes: 8
+        bad_cuts: 3
+        modifiers: NF
+        improved: false
+        date: 2026-10-30T22:26:42+00:00
+      - attempt_id: 151353585
+        leaderboard_id: "4410271"
+        title: Big Shot
+        artist: Toby Fox
+        difficulty: Expert
+        mode: Standard
+        seconds: 77.7222
+        result: quit
+        accuracy: 0.85472035
+        pp: null
+        full_combo: false
+        missed_notes: 4
+        bad_cuts: 2
+        modifiers: ""
+        improved: false
+        date: 2026-10-30T22:28:12+00:00
+watching: []
+podcasts: []
+music:
+  plays: 21
+  tracks: 21
+  artists: 10
+  streaks: []
+code:
+  commits: 1
+  sources:
+    mira: 1
+    github: 0
+now: []
