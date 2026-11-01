@@ -26,6 +26,7 @@ const day={
   gaming:yami.gaming,
   watching:yami.watching,
   podcasts:yami.podcasts,
+  anki:yami.anki || null,
   music:value(0,{plays:0,tracks:0,artists:0,streaks:[]}),
   code:value(2,{commits:0,sources:{mira:0,github:0}}),
   now:value(3,[]),

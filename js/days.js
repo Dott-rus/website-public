@@ -306,13 +306,21 @@
     return `<span class="day-game-insight">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-game-insight-body"><strong>${escapeHtml(title)}</strong><span class="day-game-insight-stats">${stats.map((stat) => `<small>${escapeHtml(stat)}</small>`).join('')}</span></span></span>`;
   }
 
-  const liveSummary = { games: 0, watched: 0, podcasts: 0, plays: 0 };
+function ankiSummary(item = {}) {
+  const count = value => Number.isFinite(Number(value)) ? Math.max(0, Math.floor(Number(value))) : 0;
+  const seconds = count(item.studySeconds);
+  const time = seconds >= 60 ? `${Math.floor(seconds / 60)}m ${seconds % 60}s` : `${seconds}s`;
+  return `${count(item.reviews)} reviews · ${count(item.cards)} cards · ${count(item.newCards)} new · ${time}`;
+}
+
+  const liveSummary = { games: 0, watched: 0, podcasts: 0, plays: 0, anki: 0 };
   function updateOverview() {
     const bits = [];
     if (liveSummary.games) bits.push(`${liveSummary.games} game${liveSummary.games === 1 ? '' : 's'}`);
     if (liveSummary.watched) bits.push(`${liveSummary.watched} watched`);
     if (liveSummary.podcasts) bits.push(`${liveSummary.podcasts} podcast${liveSummary.podcasts === 1 ? '' : 's'}`);
     if (liveSummary.plays) bits.push(`${liveSummary.plays} listens`);
+    if (liveSummary.anki) bits.push(`${liveSummary.anki} reviews`);
     if (bits.length) {
       const summary = root.closest('[data-day-entry]')?.querySelector('[data-day-overview]');
       if (summary) summary.textContent = bits.join(' · ');
@@ -323,9 +331,12 @@
     const gaming = Array.isArray(data?.gaming) ? data.gaming : [];
     const watching = Array.isArray(data?.watching) ? data.watching : [];
     const podcasts = Array.isArray(data?.podcasts) ? data.podcasts : [];
-    if (gaming.length || watching.length || podcasts.length) clearLiveEmpty();
+    const anki = data?.anki && Number(data.anki.reviews) > 0 ? data.anki : null;
+    if (gaming.length || watching.length || podcasts.length || anki) clearLiveEmpty();
+    liveSummary.anki = anki ? Math.floor(Number(anki.reviews)) : 0;
     liveSummary.games = gaming.length; liveSummary.watched = watching.length; liveSummary.podcasts = podcasts.length; updateOverview();
 
+    upsertLiveRow('anki', anki ? `<legend>Studied</legend><span>Anki · ${ankiSummary(anki)}</span>` : '');
     const supported = gaming.filter((item) => item.supported === true || Number(item.plays || 0) > 0 || (item.insights && typeof item.insights === 'object'));
     const generic = gaming.filter((item) => !supported.includes(item));
     const games = `${supported.length ? `<span class="day-game-supported-grid">${supported.map(gameItem).join('')}</span>` : ''}${generic.length ? `<span class="day-game-generic-grid">${generic.map(gameItem).join('')}</span>` : ''}`;
