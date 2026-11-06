@@ -1,0 +1,23 @@
+date: 2026-11-06
+bakedAt: 2026-11-06T21:02:09.922Z
+gaming:
+  - title: Hitman
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co2fgr.jpg
+    minutes: 190
+  - title: Windowkill
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co9qo1.jpg
+    minutes: 7
+watching: []
+podcasts: []
+anki: null
+music:
+  plays: 52
+  tracks: 51
+  artists: 41
+  streaks: []
+code:
+  commits: 3
+  sources:
+    mira: 3
+    github: 0
+now: []
