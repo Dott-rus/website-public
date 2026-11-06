@@ -1,0 +1,27 @@
+date: 2026-11-02
+bakedAt: 2026-11-02T21:02:16.344Z
+gaming:
+  - title: DATA WING
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co1t72.jpg
+    minutes: 1
+watching: []
+podcasts: []
+anki:
+  reviews: 19
+  cards: 12
+  newCards: 10
+  studySeconds: 434.568
+  again: 10
+  source: anki
+  lastSyncedAt: 2026-11-02T20:57:38.192783+00:00
+music:
+  plays: 49
+  tracks: 49
+  artists: 39
+  streaks: []
+code:
+  commits: 2
+  sources:
+    mira: 1
+    github: 1
+now: []

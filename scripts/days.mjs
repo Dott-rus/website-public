@@ -226,8 +226,16 @@ function renderGameItem(item = {}) {
     return `<span class="day-game-insight">${cover ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">` : ''}<span class="day-game-insight-body"><strong>${escapeHtml(title)}</strong><span class="day-game-insight-stats">${stats.map((stat) => `<small>${escapeHtml(stat)}</small>`).join('')}</span></span></span>`;
   }
 
+function ankiSummary(item = {}) {
+  const count = value => Number.isFinite(Number(value)) ? Math.max(0, Math.floor(Number(value))) : 0;
+  const seconds = count(item.studySeconds);
+  const time = seconds >= 60 ? `${Math.floor(seconds / 60)}m ${seconds % 60}s` : `${seconds}s`;
+  return `${count(item.reviews)} reviews · ${count(item.cards)} cards · ${count(item.newCards)} new · ${time}`;
+}
+
 function renderDigest(day, live = false) {
   const rows = [];
+  if (Number(day.anki?.reviews) > 0) rows.push(`<fieldset data-kind="anki" class="day-code"><legend>Studied</legend>Anki · ${ankiSummary(day.anki)}</fieldset>`);
 
   if (day.gaming?.length) {
     const supported = day.gaming.filter((item) => item.supported === true || Number(item.plays || 0) > 0 || (item.insights && typeof item.insights === 'object'));
@@ -281,6 +289,7 @@ function renderCompact(day, today) {
   if(day.gaming?.length) bits.push(`${day.gaming.length} game${day.gaming.length===1?'':'s'}`);
   if(day.watching?.length) bits.push(`${day.watching.length} watched`);
   if(day.podcasts?.length) bits.push(`${day.podcasts.length} podcast${day.podcasts.length===1?'':'s'}`);
+  if(Number(day.anki?.reviews) > 0) bits.push(`${Math.floor(Number(day.anki.reviews))} reviews`);
   if(Number(day.music?.plays||0)) bits.push(`${Number(day.music.plays)} listens`);
   if(Number(day.code?.commits||0)) bits.push(`${Number(day.code.commits)} commit${Number(day.code.commits) === 1 ? '' : 's'}`);
   return bits.length ? bits.join(' · ') : (day.date===today ? 'live' : 'quiet');

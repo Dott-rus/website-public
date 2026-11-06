@@ -1,0 +1,30 @@
+date: 2026-11-05
+bakedAt: 2026-11-05T21:02:34.168Z
+gaming:
+  - title: Hitman
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co2fgr.jpg
+    minutes: 234
+  - title: TETR.IO
+    cover: https://txt.osk.sh/branding/tetrio-boxart.png
+    provider: tetrio
+    supported: true
+    minutes: 2.6
+    plays: 1
+    insights:
+      online wins: 1 / 1
+      40 LINES PB: 101.79s
+      BLITZ PB: 49,694
+watching: []
+podcasts: []
+anki: null
+music:
+  plays: 12
+  tracks: 12
+  artists: 6
+  streaks: []
+code:
+  commits: 1
+  sources:
+    mira: 1
+    github: 0
+now: []

@@ -1,0 +1,28 @@
+date: 2026-10-30
+bakedAt: 2026-10-30T21:03:44.503Z
+gaming:
+  - title: BONELAB
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co4q6t.jpg
+    minutes: 29
+  - title: VRChat
+    cover: https://images.igdb.com/igdb/image/upload/t_original/cobuhu.jpg
+    minutes: 25
+  - title: Paradiddle
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co5ud4.jpg
+    minutes: 9
+  - title: Open Brush
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co3qmq.jpg
+    minutes: 1
+watching: []
+podcasts: []
+music:
+  plays: 44
+  tracks: 42
+  artists: 38
+  streaks: []
+code:
+  commits: 6
+  sources:
+    mira: 3
+    github: 3
+now: []
