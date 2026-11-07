@@ -1,0 +1,23 @@
+date: 2026-11-07
+bakedAt: 2026-11-07T21:02:33.561Z
+gaming:
+  - title: Hitman
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co2fgr.jpg
+    minutes: 231
+  - title: Do Not Feed the Monkeys
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co28xk.jpg
+    minutes: 22
+watching: []
+podcasts: []
+anki: null
+music:
+  plays: 0
+  tracks: 0
+  artists: 0
+  streaks: []
+code:
+  commits: 2
+  sources:
+    mira: 1
+    github: 1
+now: []
