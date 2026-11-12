@@ -1,0 +1,29 @@
+date: 2026-11-12
+bakedAt: 2026-11-12T21:05:17.611Z
+gaming:
+  - title: PianoGlow
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co9mm8.jpg
+    minutes: 129
+    achievements: 5
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 2
+    plays: 1
+    supported: true
+    insights:
+      pp: "+0.00"
+      global rank: "#443,892 → #444,168 ↓276"
+watching: []
+podcasts: []
+anki: null
+music:
+  plays: 46
+  tracks: 46
+  artists: 41
+  streaks: []
+code:
+  commits: 3
+  sources:
+    mira: 2
+    github: 1
+now: []
