@@ -1,0 +1,74 @@
+name: Propose public contributions privately
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: import-public-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  propose:
+    if: github.event.pull_request.base.ref == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out public base (trusted)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          path: public
+
+      - name: Check out private target
+        uses: actions/checkout@v4
+        with:
+          repository: Dott-rus/website
+          ref: v2
+          token: ${{ secrets.WEBSITE_SYNC_TOKEN }}
+          path: private
+          persist-credentials: false
+
+      - name: Prepare private PR
+        env:
+          GH_TOKEN: ${{ secrets.WEBSITE_SYNC_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_AUTHOR_ID: ${{ github.event.pull_request.user.id }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd public
+          git fetch https://github.com/Dott-rus/website-public.git "refs/pull/${PR_NUMBER}/head:refs/remotes/public-pr/head"
+          test "$(git rev-parse refs/remotes/public-pr/head)" = "$PR_HEAD_SHA"
+          git cat-file -e "${PR_BASE_SHA}^{commit}"
+          git diff --name-only -z "$PR_BASE_SHA" "$PR_HEAD_SHA" > ../changed-paths
+          python3 - <<'PY'
+          import os
+          paths = [p.decode('utf-8', 'surrogateescape') for p in open('../changed-paths', 'rb').read().split(b'\0') if p]
+          forbidden = [p for p in paths if p == 'content/day-notes' or p.startswith(('content/day-notes/', '.github/', '.gitea/')) or p.startswith(('.env', '.dev.vars')) or p == '.gitmodules']
+          if forbidden:
+              raise SystemExit('PR changes protected paths: ' + ', '.join(forbidden))
+          if not paths:
+              raise SystemExit('PR has no file changes')
+          PY
+          git diff --binary --full-index "$PR_BASE_SHA" "$PR_HEAD_SHA" > ../contribution.patch
+          cd ../private
+          git config user.name 'Remi'
+          git config user.email 'remi@somedott.space'
+          git switch -c "public-pr/${PR_NUMBER}"
+          git apply --check ../contribution.patch
+          git apply --index ../contribution.patch
+          git -c user.name="$PR_AUTHOR" -c user.email="${PR_AUTHOR_ID}+${PR_AUTHOR}@users.noreply.github.com" commit -m "Public PR Dott-rus/website-public#${PR_NUMBER}" -m "Original contribution: ${PR_URL}"
+          git -c http.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)" push https://github.com/Dott-rus/website.git "HEAD:refs/heads/public-pr/${PR_NUMBER}" --force
+          existing="$(gh pr list --repo Dott-rus/website --head "public-pr/${PR_NUMBER}" --state open --json number --jq '.[0].number // empty')"
+          if [ -z "$existing" ]; then
+            gh pr create --repo Dott-rus/website --base v2 --head "public-pr/${PR_NUMBER}" --title "Public contribution #${PR_NUMBER}: ${PR_TITLE}" --body "Source: ${PR_URL}\n\nReview and merge here. The public mirror will publish the result."
+          fi
