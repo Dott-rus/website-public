@@ -1,0 +1,36 @@
+date: 2026-11-19
+bakedAt: 2026-11-19T21:02:32.211Z
+gaming:
+  - title: osu!
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co8a4m.jpg
+    minutes: 37
+    plays: 17
+    supported: true
+    insights:
+      pp: "+0.02"
+      global rank: "#445,784 → #446,174 ↓390"
+      best: 71.36pp · 94.38% · Marlboro Nights [Mirai's Insane]
+      PBs: 1
+  - title: TETR.IO
+    cover: https://txt.osk.sh/branding/tetrio-boxart.png
+    provider: tetrio
+    supported: true
+    minutes: 6.2
+    plays: 0
+    insights:
+      40 LINES PB: 101.79s
+      BLITZ PB: 49,694
+watching: []
+podcasts: []
+anki: null
+music:
+  plays: 0
+  tracks: 0
+  artists: 0
+  streaks: []
+code:
+  commits: 2
+  sources:
+    mira: 1
+    github: 1
+now: []
