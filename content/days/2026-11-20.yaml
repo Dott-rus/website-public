@@ -1,0 +1,205 @@
+date: 2026-11-20
+bakedAt: 2026-11-20T21:02:35.185Z
+gaming:
+  - title: Watch Dogs 2
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co2p3j.jpg
+    minutes: 74
+  - title: Beat Saber
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co20ux.jpg
+    provider: beatleader
+    supported: true
+    minutes: 6.6
+    plays: 10
+    insights:
+      pp: "+0.00"
+      global rank: "#17,823 → #17,829 ↓6"
+      best: 87.34% · ゴー・トゥ・大都会/Go to the big city [Normal]
+      clears: 1
+      FCs: 0
+    stats:
+      source: beatleader
+      timeBasis: attempts
+      seconds: 394.1306258
+      attempts: 10
+      clears: 1
+      pp:
+        start: 6026.1807
+        end: 6026.1807
+      globalRank:
+        start: 17823
+        end: 17829
+    attempts:
+      - attempt_id: 153558070
+        leaderboard_id: 55598x51
+        title: Flower In A Hurricane
+        artist: Justice
+        difficulty: Hard
+        mode: Standard
+        seconds: 59.430237
+        result: quit
+        accuracy: 0.6744504
+        pp: null
+        full_combo: false
+        missed_notes: 3
+        bad_cuts: 11
+        modifiers: NF
+        improved: false
+        date: 2026-11-20T20:36:23+00:00
+      - attempt_id: 153558167
+        leaderboard_id: 2ee3971
+        title: PROPER RHYTHM
+        artist: peak divide
+        difficulty: Expert
+        mode: Standard
+        seconds: 8.2542715
+        result: fail
+        accuracy: 0.22277007
+        pp: null
+        full_combo: false
+        missed_notes: 0
+        bad_cuts: 7
+        modifiers: ""
+        improved: false
+        date: 2026-11-20T20:37:12+00:00
+      - attempt_id: 153558212
+        leaderboard_id: 2ee3971
+        title: PROPER RHYTHM
+        artist: peak divide
+        difficulty: Expert
+        mode: Standard
+        seconds: 23.037659
+        result: fail
+        accuracy: 0.3820661
+        pp: null
+        full_combo: false
+        missed_notes: 6
+        bad_cuts: 4
+        modifiers: ""
+        improved: false
+        date: 2026-11-20T20:37:39+00:00
+      - attempt_id: 153558259
+        leaderboard_id: 2ee3971
+        title: PROPER RHYTHM
+        artist: peak divide
+        difficulty: Expert
+        mode: Standard
+        seconds: 23.030945
+        result: fail
+        accuracy: 0.3529521
+        pp: null
+        full_combo: false
+        missed_notes: 5
+        bad_cuts: 5
+        modifiers: ""
+        improved: false
+        date: 2026-11-20T20:38:04+00:00
+      - attempt_id: 153558470
+        leaderboard_id: 55598x51
+        title: Flower In A Hurricane
+        artist: Justice
+        difficulty: Hard
+        mode: Standard
+        seconds: 59.27011
+        result: fail
+        accuracy: 0.8044788
+        pp: null
+        full_combo: false
+        missed_notes: 2
+        bad_cuts: 6
+        modifiers: DNC
+        improved: false
+        date: 2026-11-20T20:39:56+00:00
+      - attempt_id: 153558908
+        leaderboard_id: 3f68631
+        title: ゴー・トゥ・大都会/Go to the big city
+        artist: ニャン・トンロン (娘 東龍)
+        difficulty: Normal
+        mode: Standard
+        seconds: 171.78116
+        result: clear
+        accuracy: 0.87343925
+        pp: null
+        full_combo: false
+        missed_notes: 6
+        bad_cuts: 2
+        modifiers: DNC
+        improved: false
+        date: 2026-11-20T20:43:47+00:00
+      - attempt_id: 153559171
+        leaderboard_id: 4ba32xx91
+        title: Copycats
+        artist: Danny Brown, underscores
+        difficulty: ExpertPlus
+        mode: Standard
+        seconds: 14.123473
+        result: quit
+        accuracy: 0.50521
+        pp: null
+        full_combo: false
+        missed_notes: 4
+        bad_cuts: 6
+        modifiers: NF
+        improved: false
+        date: 2026-11-20T20:46:04+00:00
+      - attempt_id: 153559204
+        leaderboard_id: 3e0f3x71
+        title: KATAMARI
+        artist: femtanyl
+        difficulty: Expert
+        mode: Standard
+        seconds: 5.181213
+        result: quit
+        accuracy: 0.253443
+        pp: null
+        full_combo: false
+        missed_notes: 3
+        bad_cuts: 5
+        modifiers: NF
+        improved: false
+        date: 2026-11-20T20:46:14+00:00
+      - attempt_id: 153559807
+        leaderboard_id: 3e6cdxxxxx51
+        title: lustre
+        artist: Camellia
+        difficulty: Hard
+        mode: Standard
+        seconds: 3.7392573
+        result: quit
+        accuracy: 0.5881583
+        pp: null
+        full_combo: false
+        missed_notes: 13
+        bad_cuts: 2
+        modifiers: NF
+        improved: false
+        date: 2026-11-20T20:50:56+00:00
+      - attempt_id: 153559866
+        leaderboard_id: 3e6cdxxxxx31
+        title: lustre
+        artist: Camellia
+        difficulty: Normal
+        mode: Standard
+        seconds: 26.2823
+        result: quit
+        accuracy: 0.72197163
+        pp: null
+        full_combo: false
+        missed_notes: 4
+        bad_cuts: 0
+        modifiers: ""
+        improved: false
+        date: 2026-11-20T20:51:27+00:00
+watching: []
+podcasts: []
+anki: null
+music:
+  plays: 0
+  tracks: 0
+  artists: 0
+  streaks: []
+code:
+  commits: 2
+  sources:
+    mira: 1
+    github: 1
+now: []
