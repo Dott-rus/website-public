@@ -1,0 +1,25 @@
+date: 2026-11-21
+bakedAt: 2026-11-21T21:02:20.894Z
+gaming:
+  - title: PROJECT MIX Demo
+    cover: https://yume.somedott.space/api/days/cover/project-mix-demo.webp
+    minutes: 23
+  - title: Paradiddle
+    cover: https://images.igdb.com/igdb/image/upload/t_original/co5ud4.jpg
+    minutes: 8
+watching: []
+podcasts: []
+anki: null
+music:
+  plays: 0
+  tracks: 0
+  artists: 0
+  streaks: []
+code:
+  commits: 13
+  sources:
+    mira: 1
+    github: 12
+now: []
+warnings:
+  - "music: fetch failed"
