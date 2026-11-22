@@ -6,6 +6,18 @@ import { escapeHtml } from './content-utils.mjs';
 import { localDateString } from './day-sources/time.mjs';
 
 const md = new MarkdownIt({ html: false, linkify: true, typographer: false });
+const renderImage = md.renderer.rules.image;
+md.renderer.rules.image = (tokens, index, options, env, renderer) => {
+  const token = tokens[index];
+  const url = token.attrGet('src') || '';
+  const size = url.match(/^(https:\/\/.+\/days\/obsidian\/[a-f0-9]{64}\.[a-z]+)#width=([1-9]\d{0,3})(?:&height=([1-9]\d{0,3}))?$/);
+  if (size) {
+    token.attrSet('src', size[1]);
+    token.attrSet('width', size[2]);
+    if (size[3]) token.attrSet('height', size[3]);
+  }
+  return renderImage(tokens, index, options, env, renderer);
+};
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const MOSCOW = 'Europe/Moscow';
 
@@ -43,26 +55,49 @@ function validateDay(day, source) {
   return day;
 }
 
-export async function loadDays(projectRoot) {
+export async function loadDays(projectRoot, { today = localDateString() } = {}) {
   const directory = path.join(projectRoot, 'content', 'days');
   const names = (await readdir(directory)).filter((name) => name.endsWith('.yaml')).sort().reverse();
-  const days = [];
+  const days = new Map();
   for (const name of names) {
     const source = path.join('content', 'days', name);
     const day = validateDay(parseYaml(await readFile(path.join(directory, name), 'utf8'), source), source);
-    const notePath = path.join(projectRoot, 'content', 'day-notes', `${day.date}.md`);
-    try {
-      const note = parseDayNote(await readFile(notePath, 'utf8'));
-      const isPublic = noteIsPublic(day.date, note.publishNow);
-      day.note = isPublic ? md.render(note.content) : null;
-      day.notePending = !isPublic;
-    } catch {
-      day.note = null;
-      day.notePending = false;
-    }
-    days.push(day);
+    days.set(day.date, { ...day, note: null, notePending: false });
   }
-  return days;
+
+  const noteDirectory = path.join(projectRoot, 'content', 'day-notes');
+  let notes;
+  try {
+    notes = await readdir(noteDirectory, { withFileTypes: true });
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+    notes = [];
+  }
+
+  for (const entry of notes) {
+    const date = path.basename(entry.name, '.md');
+    if (!entry.isFile() || !entry.name.endsWith('.md') || !DATE_RE.test(date)) continue;
+    const timestamp = new Date(date + 'T00:00:00Z');
+    if (Number.isNaN(+timestamp) || timestamp.toISOString().slice(0, 10) !== date) continue;
+    const notePath = path.join(noteDirectory, entry.name);
+    let note;
+    try {
+      note = parseDayNote(await readFile(notePath, 'utf8'));
+    } catch (error) {
+      console.warn(`Skipping day note ${entry.name}: ${error.code || 'invalid Markdown frontmatter'}`);
+      continue;
+    }
+
+    const isPublic = noteIsPublic(date, note.publishNow, today);
+    const existing = days.get(date);
+    if (!existing && !isPublic) continue;
+    const day = existing || validateDay({ date }, notePath);
+    day.note = isPublic ? md.render(note.content) : null;
+    day.notePending = !isPublic;
+    days.set(date, day);
+  }
+
+  return [...days.values()].sort((a, b) => b.date.localeCompare(a.date));
 }
 
 function todayNowEvents(nowDocument, today) {
