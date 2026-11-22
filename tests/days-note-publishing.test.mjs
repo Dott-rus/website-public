@@ -50,3 +50,9 @@ test('immediate standalone notes render external images with Obsidian dimensions
   assert.match(note.note, /width="400" height="200"/);
   assert.doesNotMatch(note.note, /#width=|publish: now/);
 });
+
+
+test('published day notes render trusted inline HTML', async () => {
+  const [day] = await loadDays(await fixture('---\npublish: now\n---\n\n<span style="background-color:red">red background</span>'));
+  assert.match(day.note, /<span style="background-color:red">red background<\/span>/);
+});

@@ -5,7 +5,7 @@ import { parseYaml } from './content-yaml.mjs';
 import { escapeHtml } from './content-utils.mjs';
 import { localDateString } from './day-sources/time.mjs';
 
-const md = new MarkdownIt({ html: false, linkify: true, typographer: false });
+const md = new MarkdownIt({ html: true, linkify: true, typographer: false });
 const renderImage = md.renderer.rules.image;
 md.renderer.rules.image = (tokens, index, options, env, renderer) => {
   const token = tokens[index];
