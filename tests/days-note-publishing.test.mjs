@@ -26,3 +26,27 @@ test('publish: now frontmatter publishes a fresh day note immediately', async ()
   assert.match(day.note, /hello <code>world<\/code>/);
   assert.ok(!day.note.includes('publish: now'));
 });
+
+test('standalone notes enter the archive on day 14 without creating activity', async () => {
+  const root = await fixture('pending activity note');
+  await writeFile(path.join(root, 'content/day-notes/2026-11-01.md'), 'standalone **note**');
+  assert.equal((await loadDays(root, { today: '2026-11-14' })).length, 1);
+  const [activity, standalone] = await loadDays(root, { today: '2026-11-15' });
+  assert.equal(activity.date, '2099-01-01');
+  assert.equal(activity.notePending, true);
+  assert.equal(standalone.date, '2026-11-01');
+  assert.equal(standalone.notePending, false);
+  assert.deepEqual(standalone.gaming, []);
+  assert.match(standalone.note, /standalone <strong>note<\/strong>/);
+});
+
+test('immediate standalone notes render external images with Obsidian dimensions', async () => {
+  const root = await fixture('pending activity note');
+  const image = 'https://assets.example/days/obsidian/' + 'a'.repeat(64) + '.webp';
+  await writeFile(path.join(root, 'content/day-notes/2026-11-15.md'),
+    `---\npublish: now\n---\n![Image](${image}#width=400&height=200)`);
+  const [, note] = await loadDays(root, { today: '2026-11-15' });
+  assert.ok(note.note.includes(`src="${image}"`));
+  assert.match(note.note, /width="400" height="200"/);
+  assert.doesNotMatch(note.note, /#width=|publish: now/);
+});
