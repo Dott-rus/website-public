@@ -6,6 +6,17 @@ import { escapeHtml } from './content-utils.mjs';
 import { localDateString } from './day-sources/time.mjs';
 
 const md = new MarkdownIt({ html: true, linkify: true, typographer: false });
+const redactionMarker = /^:days-redacted\[([4-9]|[1-3][0-9]|4[0-8])\]:/;
+md.inline.ruler.before('text', 'days_redaction', (state, silent) => {
+  const match = redactionMarker.exec(state.src.slice(state.pos, state.posMax));
+  if (!match) return false;
+  if (!silent) state.push('days_redaction', 'span', 0).meta = Number(match[1]);
+  state.pos += match[0].length;
+  return true;
+});
+md.renderer.rules.days_redaction = (tokens, index) =>
+  `<span class="day-redaction" role="img" aria-label="Redacted" style="width:${tokens[index].meta}ch"></span>`;
+
 const renderImage = md.renderer.rules.image;
 md.renderer.rules.image = (tokens, index, options, env, renderer) => {
   const token = tokens[index];
