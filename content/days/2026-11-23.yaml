@@ -1,0 +1,19 @@
+date: 2026-11-23
+bakedAt: 2026-11-23T21:02:10.349Z
+gaming: []
+watching: []
+podcasts: []
+anki: null
+music:
+  plays: 0
+  tracks: 0
+  artists: 0
+  streaks: []
+code:
+  commits: 20
+  sources:
+    mira: 13
+    github: 7
+now: []
+warnings:
+  - "music: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
