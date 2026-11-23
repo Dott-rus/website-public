@@ -56,3 +56,9 @@ test('published day notes render trusted inline HTML', async () => {
   const [day] = await loadDays(await fixture('---\npublish: now\n---\n\n<span style="background-color:red">red background</span>'));
   assert.match(day.note, /<span style="background-color:red">red background<\/span>/);
 });
+
+test('renders rounded redaction placeholders inside published prose', async () => {
+  const root = await fixture('---\npublish: now\n---\nBefore :days-redacted[12]: after :days-redacted[900]:');
+  const [day] = await loadDays(root);
+  assert.match(day.note, /Before <span class="day-redaction"[^>]+style="width:12ch"><\/span> after :days-redacted\[900\]:/);
+});
