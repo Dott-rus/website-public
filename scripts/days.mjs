@@ -15,7 +15,7 @@ md.inline.ruler.before('text', 'days_redaction', (state, silent) => {
   return true;
 });
 md.renderer.rules.days_redaction = (tokens, index) =>
-  `<span class="day-redaction" role="img" aria-label="Redacted" style="width:${tokens[index].meta}ch"></span>`;
+  `<span class="day-redaction" role="img" aria-label="Redacted">${'█'.repeat(tokens[index].meta)}</span>`;
 
 const renderImage = md.renderer.rules.image;
 md.renderer.rules.image = (tokens, index, options, env, renderer) => {

@@ -1673,11 +1673,4 @@ fieldset {
 .day-hypixel-comparison > small { font-size:.72rem; color:#d98b92; }
 .day-hypixel-comparison .day-game-stat-grid { display:grid; gap:8px; }
 
-.day-note .day-redaction {
-  display: inline-block;
-  max-width: 100%;
-  height: 0.9em;
-  vertical-align: -0.07em;
-  background: repeating-linear-gradient(130deg, #777 0 0.39em, #444 0.39em 0.78em);
-  border-radius: 0.25em;
-}
+.day-note .day-redaction { overflow-wrap: anywhere; }
