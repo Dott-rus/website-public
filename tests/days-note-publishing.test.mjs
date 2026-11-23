@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtemp, mkdir, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { loadDays } from '../scripts/days.mjs';
+import { loadDays, renderDays } from '../scripts/days.mjs';
 
 async function fixture(note) {
   const root = await mkdtemp(path.join(tmpdir(), 'days-note-'));
@@ -61,4 +61,17 @@ test('renders solid redaction blocks inside published prose', async () => {
   const root = await fixture('---\npublish: now\n---\nBefore :days-redacted[12]: after :days-redacted[900]:');
   const [day] = await loadDays(root);
   assert.match(day.note, /Before <span class="day-redaction"[^>]*>█{12}<\/span> after :days-redacted\[900\]:/);
+});
+
+
+test('static pending note countdown is recalculated at build time', () => {
+  const pending = [{ date: '2026-11-20', notePending: true, gaming: [], watching: [], music: {}, code: {} }];
+  const now = { history: [] };
+  const output = renderDays(pending, now);
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Moscow', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date()).reduce((acc, part) => (acc[part.type] = part.value, acc), {});
+  const date = `${today.year}-${today.month}-${today.day}`;
+  const dayNumber = value => { const [y, m, d] = value.split('-').map(Number); return Math.floor(Date.UTC(y, m - 1, d) / 86400000); };
+  const days = Math.max(0, 14 - (dayNumber(date) - dayNumber('2026-11-20')));
+  assert.match(output, /data-note-pending="2026-11-20"/);
+  assert.ok(output.includes(days > 0 ? `in ${days} day${days === 1 ? '' : 's'}` : 'awaiting publication'));
 });
