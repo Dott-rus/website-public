@@ -20,6 +20,34 @@
     };
   };
 
+  // Progressive enhancement: the static HTML keeps its 14-day message without JS.
+  const pendingNotes = [...document.querySelectorAll('[data-note-pending]')];
+  const updatePendingNotes = () => {
+    const now = Date.now();
+    pendingNotes.forEach(note => {
+      const [year, month, day] = note.dataset.notePending.split('-').map(Number);
+      // Moscow midnight on day + 14, plus 2 minutes for the site build.
+      const deadline = Date.UTC(year, month - 1, day + 14, -3, 2);
+      const remaining = deadline - now;
+      if (remaining <= 0) {
+        note.textContent = '✎ A personal note is awaiting publication.';
+        return;
+      }
+      const minutes = Math.ceil(remaining / 60000);
+      const days = Math.floor(minutes / 1440);
+      const hours = Math.floor((minutes % 1440) / 60);
+      const mins = minutes % 60;
+      note.textContent = `✎ A personal note will appear here in ${days}d ${hours}h ${mins}m.`;
+    });
+  };
+  if (pendingNotes.length) {
+    updatePendingNotes();
+    setInterval(updatePendingNotes, 60000);
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) updatePendingNotes();
+    });
+  }
+
   const today = localDate();
   const picker = document.querySelector('[data-day-picker]');
   const list = document.querySelector('[data-days-list]');
