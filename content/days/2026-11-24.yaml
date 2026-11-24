@@ -1,0 +1,24 @@
+date: 2026-11-24
+bakedAt: 2026-11-24T21:02:12.846Z
+gaming: []
+watching: []
+podcasts: []
+anki:
+  reviews: 63
+  cards: 49
+  newCards: 25
+  studySeconds: 289.344
+  again: 22
+  source: anki
+  lastSyncedAt: 2026-11-24T20:57:41.380354+00:00
+music:
+  plays: 22
+  tracks: 22
+  artists: 15
+  streaks: []
+code:
+  commits: 13
+  sources:
+    mira: 7
+    github: 6
+now: []
