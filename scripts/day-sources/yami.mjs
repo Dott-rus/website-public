@@ -12,5 +12,6 @@ export async function collectYami(date) {
     watching: Array.isArray(data.watching) ? data.watching : [],
     podcasts: Array.isArray(data.podcasts) ? data.podcasts : [],
     anki: data.anki && typeof data.anki === 'object' && !Array.isArray(data.anki) ? data.anki : null,
+    japanese: data.japanese && typeof data.japanese === 'object' && !Array.isArray(data.japanese) ? data.japanese : null,
   };
 }

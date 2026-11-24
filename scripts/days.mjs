@@ -281,6 +281,11 @@ function ankiSummary(item = {}) {
 
 function renderDigest(day, live = false) {
   const rows = [];
+  if (Number(day.japanese?.studied) > 0) {
+    const studied = Math.floor(Number(day.japanese.studied));
+    const level = Number.isFinite(Number(day.japanese.level)) ? ` · Level ${Math.floor(Number(day.japanese.level))}` : '';
+    rows.push(`<fieldset data-kind="japanese" class="day-code"><legend>Studied</legend>renshuu · ${studied} studied${level}</fieldset>`);
+  }
   if (Number(day.anki?.reviews) > 0) rows.push(`<fieldset data-kind="anki" class="day-code"><legend>Studied</legend>Anki · ${ankiSummary(day.anki)}</fieldset>`);
 
   if (day.gaming?.length) {
@@ -336,6 +341,7 @@ function renderCompact(day, today) {
   if(day.watching?.length) bits.push(`${day.watching.length} watched`);
   if(day.podcasts?.length) bits.push(`${day.podcasts.length} podcast${day.podcasts.length===1?'':'s'}`);
   if(Number(day.anki?.reviews) > 0) bits.push(`${Math.floor(Number(day.anki.reviews))} reviews`);
+  if(Number(day.japanese?.studied) > 0) bits.push(`${Math.floor(Number(day.japanese.studied))} Japanese studied`);
   if(Number(day.music?.plays||0)) bits.push(`${Number(day.music.plays)} listens`);
   if(Number(day.code?.commits||0)) bits.push(`${Number(day.code.commits)} commit${Number(day.code.commits) === 1 ? '' : 's'}`);
   return bits.length ? bits.join(' · ') : (day.date===today ? 'live' : 'quiet');

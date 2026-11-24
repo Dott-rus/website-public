@@ -341,7 +341,7 @@ function ankiSummary(item = {}) {
   return `${count(item.reviews)} reviews · ${count(item.cards)} cards · ${count(item.newCards)} new · ${time}`;
 }
 
-  const liveSummary = { games: 0, watched: 0, podcasts: 0, plays: 0, anki: 0 };
+  const liveSummary = { games: 0, watched: 0, podcasts: 0, plays: 0, anki: 0, japanese: 0 };
   function updateOverview() {
     const bits = [];
     if (liveSummary.games) bits.push(`${liveSummary.games} game${liveSummary.games === 1 ? '' : 's'}`);
@@ -349,6 +349,7 @@ function ankiSummary(item = {}) {
     if (liveSummary.podcasts) bits.push(`${liveSummary.podcasts} podcast${liveSummary.podcasts === 1 ? '' : 's'}`);
     if (liveSummary.plays) bits.push(`${liveSummary.plays} listens`);
     if (liveSummary.anki) bits.push(`${liveSummary.anki} reviews`);
+    if (liveSummary.japanese) bits.push(`${liveSummary.japanese} Japanese studied`);
     if (bits.length) {
       const summary = root.closest('[data-day-entry]')?.querySelector('[data-day-overview]');
       if (summary) summary.textContent = bits.join(' · ');
@@ -360,11 +361,14 @@ function ankiSummary(item = {}) {
     const watching = Array.isArray(data?.watching) ? data.watching : [];
     const podcasts = Array.isArray(data?.podcasts) ? data.podcasts : [];
     const anki = data?.anki && Number(data.anki.reviews) > 0 ? data.anki : null;
-    if (gaming.length || watching.length || podcasts.length || anki) clearLiveEmpty();
+    const japanese = data?.japanese && Number(data.japanese.studied) > 0 ? data.japanese : null;
+    if (gaming.length || watching.length || podcasts.length || anki || japanese) clearLiveEmpty();
     liveSummary.anki = anki ? Math.floor(Number(anki.reviews)) : 0;
+    liveSummary.japanese = japanese ? Math.floor(Number(japanese.studied)) : 0;
     liveSummary.games = gaming.length; liveSummary.watched = watching.length; liveSummary.podcasts = podcasts.length; updateOverview();
 
     upsertLiveRow('anki', anki ? `<legend>Studied</legend><span>Anki · ${ankiSummary(anki)}</span>` : '');
+    upsertLiveRow('japanese', japanese ? `<legend>Studied</legend><span>renshuu · ${Math.floor(Number(japanese.studied))} studied${Number.isFinite(Number(japanese.level)) ? ` · Level ${Math.floor(Number(japanese.level))}` : ''}</span>` : '');
     const supported = gaming.filter((item) => item.supported === true || Number(item.plays || 0) > 0 || (item.insights && typeof item.insights === 'object'));
     const generic = gaming.filter((item) => !supported.includes(item));
     const games = `${supported.length ? `<span class="day-game-supported-grid">${supported.map(gameItem).join('')}</span>` : ''}${generic.length ? `<span class="day-game-generic-grid">${generic.map(gameItem).join('')}</span>` : ''}`;
